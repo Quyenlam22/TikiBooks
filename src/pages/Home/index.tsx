@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getAllBooks } from "../../services/bookService";
-
+import TopSellingSection from "../../components/top-seller";
 function Home() {
   const [dataBook, setDataBook] = useState([]);
+
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -15,7 +16,8 @@ function Home() {
 
   return (
     <>
-      Home
+      <div>home</div>
+      <TopSellingSection />
     </>
   )
 }
