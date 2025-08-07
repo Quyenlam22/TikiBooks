@@ -1,14 +1,27 @@
-import { FacebookFilled, YoutubeFilled } from "@ant-design/icons";
-import { QRCode, Layout } from "antd";
+import { YoutubeFilled } from "@ant-design/icons";
+import { QRCode, Tooltip } from "antd";
+import cert_1 from "../../assets/cert/cert_1.png";
+import cert_2 from "../../assets/cert/cert_2.png";
+import cert_3 from "../../assets/cert/cert_3.png";
+import { FaFacebookF } from "react-icons/fa";
+import zaloIcon from "../../assets/socials/zalo.png";
 
-const { Footer } = Layout;
+const modules = import.meta.glob('../../assets/payments/*.png', { eager: true }) as Record<string, { default: string }>;
 
+const images = Object.entries(modules)
+  .sort(([a], [b]) => {
+    const getNum = (s: string) => parseInt(s.match(/p(\d+)/)?.[1] || '0', 10);
+    return getNum(a) - getNum(b);
+  })
+  .map(([_, mod]) => mod.default);
+  
 function FooterComponent() {
+  console.log(images);
   return (
     <footer className="bg-white text-sm text-gray-600">
-      <div className="max-w-[1280px] mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="p-8 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-6">
         <div>
-          <h4 className="font-semibold text-gray-900 mb-2">Hỗ trợ khách hàng</h4>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Hỗ trợ khách hàng</h3>
           <p className="font-bold">1900-6035</p>
           <p>(1000 đ/phút, 8-21h kể cả T7, CN)</p>
           <ul className="mt-2 space-y-1">
@@ -26,7 +39,7 @@ function FooterComponent() {
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-900 mb-2">Về Tiki</h4>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Về Tiki</h3>
           <ul className="space-y-1">
             <li>Giới thiệu Tiki</li>
             <li>Tiki Blog</li>
@@ -43,42 +56,59 @@ function FooterComponent() {
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-900 mb-2">Hợp tác và liên kết</h4>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Hợp tác và liên kết</h3>
           <ul className="mb-4 space-y-1">
             <li>Quy chế hoạt động Sàn GDTMĐT</li>
             <li>Bán hàng cùng Tiki</li>
           </ul>
 
-          <h4 className="font-semibold text-gray-900 mb-2">Chứng nhận bởi</h4>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Chứng nhận bởi</h3>
           <div className="flex space-x-2 mb-4">
-            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/footer/certification1.png" alt="cert 1" className="h-8" />
-            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/footer/certification2.png" alt="cert 2" className="h-8" />
+            <img src={cert_1} alt="cert_1" className="h-8" />
+            <img src={cert_2} alt="cert_2" className="h-8" />
+            <img src={cert_3} alt="cert_3" className="h-8" />
           </div>
+        </div>
 
-          <h4 className="font-semibold text-gray-900 mb-2">Phương thức thanh toán</h4>
-          <div className="grid grid-cols-4 gap-2">
-            {["visa", "mastercard", "jcb", "atm", "momo", "vnpay", "zalopay", "installment"].map((method) => (
-              <img
-                key={method}
-                src={`https://frontend.tikicdn.com/_desktop-next/static/img/footer/visa.svg`}
-                alt={method}
-                className="h-6"
-              />
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Phương thức thanh toán</h3>
+          <div className="grid grid-cols-5 gap-2">
+            {images.map((src, index) => (
+              <img key={index} src={src} alt={`payments-${index}`} className="h-6" />
             ))}
           </div>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-900 mb-2">Kết nối với chúng tôi</h4>
-          <div className="flex space-x-4 text-xl mb-4">
-            <FacebookFilled className="text-blue-600" />
-            <YoutubeFilled className="text-red-600" />
-            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/footer/social_zalo.png" alt="zalo" className="h-6" />
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Kết nối với chúng tôi</h3>
+          <div className="flex space-x-2 text-xl mb-4">
+            <Tooltip title="Facebook">
+              <div className="w-10 h-10 bg-[#3b5998] rounded-full flex items-center justify-center text-white text-xl cursor-pointer">
+                <FaFacebookF />
+              </div>
+            </Tooltip>
+
+            <Tooltip title="YouTube">
+              <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white text-xl cursor-pointer">
+                <YoutubeFilled />
+              </div>
+            </Tooltip>
+
+            <Tooltip title="Zalo">
+              <div className="w-12 h-10 rounded-full flex items-center justify-start cursor-pointer bg-white">
+                <img
+                  src={zaloIcon}
+                  alt="Zalo"
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+            </Tooltip>
           </div>
 
-          <h4 className="font-semibold text-gray-900 mb-2">Tải ứng dụng</h4>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Tải ứng dụng trên điện thoại</h3>
           <div className="flex gap-2">
             <QRCode
+              bordered={false}
               value="https://tiki.vn"
               size={64}
             />
@@ -90,16 +120,21 @@ function FooterComponent() {
         </div>
       </div>
 
-      <div className="bg-gray-100 py-4 text-center text-xs text-gray-500 border-t">
+      <div className="text-gray-500 border-t border-gray-300 px-8 py-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Công ty TNHH TI KI</h3>
         <p className="mb-1">
-          Công ty TNHH TIKI - Tòa nhà số 52, đường Út Tịch, Phường 4, Quận Tân Bình, TP.HCM | GCNĐKDN số 0309532909 do Sở KHĐT TP.HCM cấp lần đầu ngày 06/01/2010
+          Tòa nhà số 52 đường Út Tịch, Phường 4, Quận Tân Bình, Thành phố Hồ Chí Minh
+        </p>
+        <p>
+          Giấy chứng nhận đăng ký doanh nghiệp số 0309532909 do Sở Kế Hoạch và Đầu Tư Thành phố Hồ Chí Minh cấp lần đầu ngày 06/01/2010.
         </p>
         <p>Hotline: <span className="text-blue-600 font-medium">1900 6035</span></p>
       </div>
 
-      <div className="bg-gray-50 py-4 text-center text-xs text-gray-500 border-t">
+      <div className="text-gray-500 border-t border-gray-300 px-8 py-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Thương Hiệu Nổi Bật</h3>    
         <p>
-          Thương hiệu nổi bật: vasacara / dior / estee lauder / barbie / owen / ensure / durex / bioderma / elly / milo / skechers / aldo / ... và nhiều hơn nữa.
+          vascara / dior / esteelauder / th truemilk / barbie / owen / ensure / durex / bioderma / elly / milo / skechers / aldo / triumph / nutifood / kindle / nerman / wacom / anessa / yoosee / olay / similac / comfort / bitas / shiseido / langfarm / hulken / vichy / fila / tsubaki
         </p>
       </div>
     </footer>
