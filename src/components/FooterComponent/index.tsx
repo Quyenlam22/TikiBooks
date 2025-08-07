@@ -16,7 +16,6 @@ const images = Object.entries(modules)
   .map(([_, mod]) => mod.default);
   
 function FooterComponent() {
-  console.log(images);
   return (
     <footer className="bg-white text-sm text-gray-600">
       <div className="p-8 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-6">
