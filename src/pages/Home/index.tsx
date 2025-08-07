@@ -21,8 +21,11 @@ const sampleBook = {
   description: "Một cuốn sách lịch sử nhân loại dễ hiểu và sâu sắc.",
 };
 
+import TopSellingSection from "../../components/top-seller";
+
 function Home() {
   const [dataBook, setDataBook] = useState([]);
+
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -35,10 +38,13 @@ function Home() {
 
   return (
     <>
-      Home
+      <div>home</div>
+
       <div className="p-4 max-w-sm">
-        <BookCard book={sampleBook} isTopDeal isOfficial isAd />
+        <BookCard book={sampleBook} isAd />
       </div>
+      
+      <TopSellingSection />
     </>
   )
 }
