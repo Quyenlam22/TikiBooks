@@ -1,13 +1,11 @@
 import { Rate } from 'antd';
-import type { Book } from '../models/book.interface';
+import type { Book } from '../../../type/Book';
 import "./Book.css";
 import { BiSolidLike } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
 
 type BookCardProps = {
   book: Book;
-  isTopDeal?: boolean;
-  isOfficial?: boolean;
   isAd?: boolean;
   deliveryDate?: string;
 };
@@ -23,12 +21,12 @@ const BookCard: React.FC<BookCardProps> = ({
     current_seller,
     rating_average,
     quantity_sold,
-    // images,
+    images,
     list_price,
   } = book;
 
-  // const imageUrl = images?.[0]?.thumbnail_url || '';
-  const authorName = authors?.[0]?.name || '';
+  const imageUrl = images?.[0]?.thumbnail_url || '';
+  const authorName = authors?.[0]?.name;
   const price = current_seller?.price || 0;
   const discount = list_price ? Math.round(((list_price - price) / list_price) * 100) : 0;
   const soldText = quantity_sold?.text || null;
@@ -42,27 +40,26 @@ const BookCard: React.FC<BookCardProps> = ({
         </div>
       )}
 
-      <div className="w-full h-80 relative bg-white flex items-center justify-center">
-        {/* <img src={imageUrl} alt={name} className="object-contain max-h-full" /> */}
-        <img src="https://salt.tikicdn.com/ts/product/57/44/86/19de0644beef19b9b885d0942f7d6f25.jpg" alt={name} className="object-contain max-h-full" />
+      <div className="w-full h-85 relative bg-white flex -mt-8 justify-center">
+        <img src={imageUrl} alt={name} className="object-cover w-full h-auto" />
 
-        <div className="absolute bottom-2 left-2 flex items-center gap-2 bg-white rounded-sm p-2">
+        <div className="absolute bottom-0 left-0 flex items-center gap-2 bg-white rounded-sm px-2 py-1">
           <div className="h-10 flex items-center bg-red-100 text-xs px-2 py-1 rounded shadow">
             <BiSolidLike className='text-sm mr-0.5 text-red-700'/>
-            <div className='font-bold text-red-700'>
+            <div className='font-bold text-[10px] text-red-700'>
               <p>TOP</p>
               <p>DEAL</p>
             </div>
           </div>
           <div className="h-10 text-center bg-[#F2F7FF] px-2 py-1 rounded shadow">
-            <p className="font-bold italic text-xs text-blue-600">FREESHIP</p> 
-            <p className="font-bold italic text-sm text-green-600">XTRA</p>
+            <p className="font-bold italic text-[10px] text-blue-600">FREESHIP</p> 
+            <p className="font-bold italic text-xs text-green-600">XTRA</p>
           </div>
           <div className="h-10 rou flex items-center bg-[#F2F7FF] px-2 py-1 rounded shadow">
-            <div className="w-5 h-5 mr-1 rounded-full bg-blue-700 flex items-center justify-center">
-              <FaCheck className="text-white text-sm" />
+            <div className="w-4 h-4 mr-1 rounded-full bg-blue-700 flex items-center justify-center">
+              <FaCheck className="text-white text-[10px]" />
             </div>
-            <div className='font-bold text-xs text-blue-700'>
+            <div className='font-bold text-[10px] text-blue-700'>
               <p>CHÍNH</p>
               <p>HÃNG</p>
             </div>
@@ -72,7 +69,7 @@ const BookCard: React.FC<BookCardProps> = ({
 
       <div className="p-2 text-sm flex-1 flex flex-col justify-between">
         <div>
-          <div className="text-lg font-semibold text-red-600 leading-none my-1">
+          <div className="text-lg mb-4 font-semibold text-red-600 leading-none my-1">
             {price.toLocaleString()}₫
             {discount > 0 && (
               <span className="text-xs text-stone-900 bg-gray-100 rounded-sm px-1 py-0.5 ml-2">
@@ -81,7 +78,7 @@ const BookCard: React.FC<BookCardProps> = ({
             )}
           </div>
 
-          <div className="text-gray-500 text-lg mt-4 min-h-[1rem]">{authorName.toUpperCase()}</div>
+          {authorName && <div className="text-gray-500 text-lg mt-2 min-h-[1rem]">{authorName.toUpperCase()}</div>}
 
           <div className="text-lg text-gray-800 line-clamp-2">{name}</div>
 
@@ -105,7 +102,7 @@ const BookCard: React.FC<BookCardProps> = ({
           </div>
         </div>
 
-\        <div className="text-gray-400 text-xs pt-1 border-t border-gray-200 mt-2">
+        <div className="text-gray-400 text-xs pt-1 border-t border-gray-200 mt-2">
           Giao thứ {deliveryDate}
         </div>
       </div>
