@@ -1,19 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import type { Book } from '../../../type/Book';
-import { getAllBooks } from "../../services/bookService";
 import BookCard from "./BookCard";
+import { AppContext } from "../../context/AppProvider";
 
 function BookList() {
-  const [dataBook, setDataBook] = useState<Book[]>([]);
-  
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await getAllBooks();
-      setDataBook(response);
-    }
-
-    fetchApi();
-  }, []);
+  const {dataBook} = useContext(AppContext);
 
   return (
     <>
