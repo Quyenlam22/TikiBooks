@@ -4,6 +4,7 @@ import logo from "../../assets/react.svg";
 import { useState } from "react";
 import FooterComponent from "../../components/FooterComponent";
 
+
 function LayoutClient() {
   const [open, setOpen] = useState(false);
 
@@ -12,7 +13,7 @@ function LayoutClient() {
       <div className="container mx-auto px-4 py-2">
         <header className="border border-gray-300 rounded-3xl p-4 bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
           <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            <img className="h-auto max-w-full" src={logo} alt="image description"/>
+            <img className="h-auto max-w-full" src={logo} alt="image description" />
 
             <nav aria-label="Global" className="hidden md:block">
               <ul className="flex items-center gap-6 text-xl">
@@ -44,9 +45,8 @@ function LayoutClient() {
           </div>
 
           <div
-            className={`overflow-hidden transform transition-all duration-300 ease-out md:hidden ${
-              open ? "max-h-[350px] opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-95"
-            }`}
+            className={`overflow-hidden transform transition-all duration-300 ease-out md:hidden ${open ? "max-h-[350px] opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-95"
+              }`}
           >
             <nav className="mt-4 px-2">
               <ul className="flex flex-col gap-2 text-xl text-center">
@@ -72,7 +72,9 @@ function LayoutClient() {
           <Outlet />
         </main>
 
-        <FooterComponent/>
+
+
+        <FooterComponent />
       </div>
     </>
   )
