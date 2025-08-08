@@ -1,13 +1,14 @@
 import { FaBoxOpen, FaUndoAlt, FaMoneyCheckAlt } from "react-icons/fa";
+import { RightOutlined } from "@ant-design/icons";
 
 function SecureShopping() {
     return (
         <div
-            className="border border-blue-300 rounded p-4 w-[390px] sm:w-[584px] h-[194px]"
+            className="bg-white rounded p-4 w-[390px] sm:w-[584px] h-[194px]"
         >
             <h3 className="mb-3 flex items-center justify-between">
                 An tâm mua sắm
-                <span className="ml-2 text-xl">{'>'}</span>
+                <span className="ml-2 text-xl"><RightOutlined style={{ fontSize: '14px', color: 'gray' }} /></span>
             </h3>
 
             <ul className="space-y-3 text-gray-700 text-sm" style={{ lineHeight: 1.4 }}>

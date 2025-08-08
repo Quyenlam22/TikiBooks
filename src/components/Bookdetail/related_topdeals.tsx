@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { Book } from "../../../type/Book";
 import { getRelatedBooks } from "../../services/bookService";
 import SecureShopping from "./SecureShopping";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 type BookrelatedProps = {
     book: Book;
@@ -115,18 +116,18 @@ function Bookrelated({ book }: BookrelatedProps) {
                         {currentPage > 0 && (
                             <button
                                 onClick={prevPage}
-                                className="absolute top-1/2 -translate-y-1/2 left-0 bg-amber-50 text-3xl hover:bg-blue-700 text-blue-500 rounded-full w-10 h-10 flex items-center justify-center ml-2 shadow-lg z-10"
+                                className="absolute cursor-pointer top-1/2 -translate-y-1/2 left-0 bg-amber-50 text-xl text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300 ease-in-out rounded-full w-8 h-8 flex items-center justify-center ml-2 shadow-lg z-8"
                                 aria-label="Previous page"
                             >
-                                &lt;
+                                <LeftOutlined />
                             </button>
                         )}
                         <button
                             onClick={nextPage}
-                            className="absolute top-1/2 -translate-y-1/2 right-0 bg-amber-50 text-3xl hover:bg-blue-700 text-blue-500 rounded-full w-10 h-10 flex items-center justify-center mr-2 shadow-lg z-10"
+                            className="absolute cursor-pointer top-1/2 -translate-y-1/2 right-0 bg-amber-50 text-xl text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300 ease-in-out rounded-full w-8 h-8 flex items-center justify-center mr-2 shadow-lg z-8"
                             aria-label="Next page"
                         >
-                            &gt;
+                            <RightOutlined />
                         </button>
 
 
@@ -167,19 +168,19 @@ function Bookrelated({ book }: BookrelatedProps) {
                         {topDealsPage > 0 && (
                             <button
                                 onClick={prevTopDealsPage}
-                                className="absolute top-1/2 -translate-y-1/2 left-0 bg-amber-50 text-3xl hover:bg-blue-700 text-blue-500 rounded-full w-10 h-10 flex items-center justify-center ml-2 shadow-lg z-10"
+                                className="absolute cursor-pointer top-1/2 -translate-y-1/2 left-0 bg-amber-50 text-xl text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300 ease-in-out rounded-full w-8 h-8 flex items-center justify-center ml-2 shadow-lg z-8"
                                 aria-label="Previous page"
                             >
-                                &lt;
+                                <LeftOutlined/>
                             </button>
                         )}
 
                         <button
                             onClick={nextTopDealsPage}
-                            className="absolute top-1/2 -translate-y-1/2 right-0 bg-amber-50 text-3xl hover:bg-blue-700 text-blue-500 rounded-full w-10 h-10 flex items-center justify-center mr-2 shadow-lg z-10"
+                            className="absolute cursor-pointer top-1/2 -translate-y-1/2 right-0 bg-amber-50 text-xl text-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300 ease-in-out rounded-full w-8 h-8 flex items-center justify-center mr-2 shadow-lg z-8"
                             aria-label="Next page"
                         >
-                            &gt;
+                            <RightOutlined/>
                         </button>
                         <div className="flex justify-center gap-2 mt-4 absolute bottom-2 left-1/2 -translate-x-1/2">
                             {Array.from({ length: topDealsTotalPages }).map((_, index) => (
