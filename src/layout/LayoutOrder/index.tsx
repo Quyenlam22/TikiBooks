@@ -5,7 +5,7 @@ const LayoutOrderSuccess = () => {
     return (
         <div className="bg-[#f5f5fa] w-full flex flex-col items-center">
             {/* Wrapper - Responsive max width */}
-            <div className="w-full max-w-[1440px] min-h-[1042px] flex flex-col px-4 md:px-8 lg:px-10">
+            <div className="w-full max-w-[1440px] min-h-[1042px] flex flex-col px-4 md:px-8 lg:px-0">
 
                 {/* Freeship XTRA banner */}
                 <div className="h-[42px] bg-[#f5f5fa] flex items-center justify-center border-b border-gray-200 text-center text-sm">
@@ -34,7 +34,7 @@ const LayoutOrderSuccess = () => {
                 </main>
 
                 {/* Footer */}
-                <footer className="bg-[#EBEBF0] px-4 sm:px-10 py-6 text-xs text-gray-600 leading-relaxed">
+                <footer className="bg-[#EBEBF0]  px-4 sm:px-10 py-6 text-xs text-gray-600 leading-relaxed">
                     <p className="mb-2">
                         Bằng việc tiến hành Đặt Mua, bạn đồng ý với các điều khoản sử dụng của chúng tôi:
                     </p>
