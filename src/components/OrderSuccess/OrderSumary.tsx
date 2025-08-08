@@ -3,7 +3,7 @@ import tikiLogo from "../../assets/icons/logoder.webp";
 
 const OrderSummary = () => {
     return (
-        <div className="w-[320px] sm:w-[490px] md:w-[490px] lg:w-[742px] h-[521px] bg-white rounded shadow-md border border-gray-200 mx-auto">
+        <div className="w-[320px] sm:w-[490px] md:w-[490px] lg:w-[742px] h-[521px] bg-white rounded shadow-md border border-gray-200 ">
             {/* Banner header */}
             <div className="relative">
                 {/* Gradient background */}
@@ -17,7 +17,7 @@ const OrderSummary = () => {
                 </div>
 
                 {/* Icon giữa xanh và trắng */}
-                <div className="absolute left-4 sm:left-12 md:left-[60px] -bottom-20 p-2">
+                <div className="absolute left-4 sm:left-82 md:left-[60px] -bottom-12 p-2">
                     <img src={tikiLogo} alt="success" className="w-20 h-20 rounded-full" />
                 </div>
             </div>

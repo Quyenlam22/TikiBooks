@@ -28,7 +28,7 @@ const LayoutOrderSuccess = () => {
 
                 {/* Main Content */}
                 <main className="flex-grow flex justify-center py-6 sm:py-10">
-                    <div className="w-full max-w-[1000px]">
+                    <div className="w-full max-w-[1080px]">
                         <Outlet />
                     </div>
                 </main>
