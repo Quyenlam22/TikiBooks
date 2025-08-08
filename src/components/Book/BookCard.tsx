@@ -95,9 +95,9 @@ const BookCard: React.FC<BookCardProps> = ({
                   }}
                   className="tight-rate"
                 />
+                <p className="text-gray-200">|</p>
               </>
             )}
-            <p className="text-gray-200">|</p>
             {soldText && <span className="ml-1">{soldText}</span>}
           </div>
         </div>

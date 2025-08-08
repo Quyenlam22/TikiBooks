@@ -1,10 +1,12 @@
-import { useContext } from "react";
 import type { Book } from '../../../type/Book';
 import BookCard from "./BookCard";
-import { AppContext } from "../../context/AppProvider";
 
-function BookList() {
-  const {dataBook} = useContext(AppContext);
+type BookListProps = {
+  dataBook: Book[];
+}
+
+function BookList(props: BookListProps) {
+  const {dataBook} = props;
 
   return (
     <>

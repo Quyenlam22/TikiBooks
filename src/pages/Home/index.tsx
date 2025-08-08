@@ -4,6 +4,7 @@ import { getAllBooks } from "../../services/bookService";
 import TopSellingSection from "../../components/top-seller";
 import type { Book } from "../../../type/Book";
 import BookList from "../../components/Book/BookList";
+import FilterBook from "../../components/Book/FilterBook";
 
 function Home() {
   const [dataBook, setDataBook] = useState<Book[]>([]);
@@ -23,7 +24,7 @@ function Home() {
       <div>home</div>
 
       <div className="pl-4 mb-12 flex gap-8">
-        <BookList />
+        <FilterBook />
       </div>
       
       <TopSellingSection />
