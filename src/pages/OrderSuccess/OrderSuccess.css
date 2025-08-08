@@ -1,0 +1,21 @@
+.order-success-container {
+  display: flex;
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* @media (max-width: 580px) {
+  .order-success-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 16px;
+  }
+}
+
+/* Desktop trở lên (> 581px): xếp ngang */
+/* @media (min-width: 581px) {
+  .order-success-container {
+    flex-direction: row;
+  }
+} */ 
