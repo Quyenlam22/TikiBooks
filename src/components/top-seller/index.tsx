@@ -1,7 +1,7 @@
 
 import { useContext } from "react";
 import type { Book } from '../../../type/Book';
-import { AppContext } from "../../context/AppProvider";
+import { AppContext } from "../../context/AppContext";
 
 function TopSellingSection() {
     const { dataBookTopSelling } = useContext(AppContext);

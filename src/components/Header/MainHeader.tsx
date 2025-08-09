@@ -1,12 +1,26 @@
+import { useContext, useState } from "react";
 import tikiLogo from "../../assets/icons/tiki-logo.png";
 import searchIcon from "../../assets/icons/icon-search.png"
 import homeLogo from "../../assets/icons/header_menu_item_home.png";
 import accountLogo from "../../assets/icons/header_header_account_img.png";
 import cartLogo from "../../assets/icons/header_header_img_Cart.png";
+import { AppContext } from "../../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 import CategoryMenu from "./CategoryMenu";
 
 const MainHeader = () => {
+  const { setSearchTerm } = useContext(AppContext);
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const trimmed = keyword.trim();
+    setSearchTerm(trimmed);
+    navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+  };
+
   return (
     <div className="bg-white px-5 py-2">
         <div className="flex items-center justify-between">
@@ -16,16 +30,18 @@ const MainHeader = () => {
           </div>
         
           <div className="flex-1 mx-10">
-              <div className="flex border border-gray-500 rounded-[8px] overflow-hidden">
-              <img src={searchIcon} alt="" className="w-5 h-5 m-auto ml-3 "/>
-              <input
-                  type="text"
-                  placeholder="100% hàng thật"
-                  className="flex-1 px-3 py-2 outline-none"
-              />
-              <div className="w-[1px] h-[20px] bg-gray-200 ml-3 m-auto"></div>
-              <button className="text-blue-500 px-4 hover:text-blue-900 cursor-pointer">Tìm kiếm</button>
-              </div>
+              <form className="flex border border-gray-500 rounded-[8px] overflow-hidden" onSubmit={handleSubmit}>
+                <img src={searchIcon} alt="" className="w-5 h-5 m-auto ml-3 "/>
+                <input
+                    type="text"
+                    placeholder="100% hàng thật"
+                    className="flex-1 px-3 py-2 outline-none"
+                    value={keyword}
+                    onChange={e => setKeyword(e.target.value)}
+                />
+                <div className="w-[1px] h-[20px] bg-gray-200 ml-3 m-auto"></div>
+                <button type="submit" className="text-blue-500 px-4 hover:text-blue-900 cursor-pointer">Tìm kiếm</button>
+              </form>
           
             <CategoryMenu/>
           </div>

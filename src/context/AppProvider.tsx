@@ -1,21 +1,9 @@
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { Book } from "../../type/Book";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
+import { AppContext } from "./AppContext";
 
-type AppContextType = {
-  dataBook: Book[];
-  setDataBook: React.Dispatch<React.SetStateAction<Book[]>>;
-  dataBookTopSelling: Book[];
-  setDataBookTopSelling: React.Dispatch<React.SetStateAction<Book[]>>;
-};
-
-export const AppContext = createContext<AppContextType>({
-  dataBook: [],
-  setDataBook: () => {},
-  dataBookTopSelling: [],
-  setDataBookTopSelling: () => [],
-});
 
 type AppProviderProps = {
   children: ReactNode;
@@ -24,6 +12,7 @@ type AppProviderProps = {
 function AppProvider ({children}: AppProviderProps) {
   const [dataBook, setDataBook] = useState<Book[]>([]);
   const [dataBookTopSelling, setDataBookTopSelling] = useState<Book[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -42,7 +31,7 @@ function AppProvider ({children}: AppProviderProps) {
 
           setDataBookTopSelling(topBook);
         }
-      } catch (error) {
+      } catch {
         messageApi.open({
           type: 'error',
           content: 'An error occurred while fetching book data!',
@@ -51,10 +40,7 @@ function AppProvider ({children}: AppProviderProps) {
       
     }
     fetchApi();
-  }, []);
-
-  console.log((dataBookTopSelling));
-  
+  }, [messageApi]);
 
   return (
     <>
@@ -64,7 +50,9 @@ function AppProvider ({children}: AppProviderProps) {
           dataBook, 
           setDataBook, 
           dataBookTopSelling,
-          setDataBookTopSelling
+          setDataBookTopSelling,
+          searchTerm,
+          setSearchTerm,
         }}
       >
         {children}
