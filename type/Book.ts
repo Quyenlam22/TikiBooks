@@ -50,4 +50,5 @@ export interface Book {
             value: string;
         }[];
     }[];
+    id: string;
 }
