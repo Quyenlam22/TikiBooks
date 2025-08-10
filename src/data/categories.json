@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "name": "English Books",
+    "subcategories": [
+      "Art & Photography",
+      "Biographies & Memoirs",
+      "Business & Economics",
+      "How-to - Self Help",
+      "Children's Books",
+      "Dictionary",
+      "Education - Teaching",
+      "Fiction - Literature",
+      "Magazines",
+      "Medical Books",
+      "Parenting & Relationships",
+      "Reference",
+      "Science - Technology",
+      "History, Politics & Social Sciences",
+      "Travel & Holiday",
+      "Cookbooks, Food & Wine"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Sách tiếng Việt",
+    "subcategories": []
+  },
+  {
+    "id": 3,
+    "name": "Văn phòng phẩm",
+    "subcategories": []
+  },
+  {
+    "id": 4,
+    "name": "Quà lưu niệm",
+    "subcategories": []
+  }
+]
