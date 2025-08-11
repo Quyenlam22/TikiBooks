@@ -6,10 +6,12 @@ import accountLogo from "../../assets/icons/header_header_account_img.png";
 import cartLogo from "../../assets/icons/header_header_img_Cart.png";
 import { useNavigate } from "react-router-dom";
 
+import LoginModal from "../Login/LoginModal";
 import CategoryMenu from "./CategoryMenu";
 
 const MainHeader = () => {
   const [searchValue, setSearchValue] = useState("");
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSearch = (e?: React.FormEvent) => {
@@ -51,10 +53,21 @@ const MainHeader = () => {
               <img src={homeLogo} alt="" />
               <span>Trang chủ</span>
               </a>
-              <a href="/account" className="flex items-center space-x-1">
-              <img src={accountLogo} alt="" />
-              <span>Tài khoản</span>
+
+              <a 
+                href="/account" 
+                className="flex items-center space-x-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsLoginOpen(true);
+                }}
+              >
+                <img src={accountLogo} alt="" />
+                <span>Tài khoản</span>
               </a>
+               {/* Login Modal */}
+              {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+
               <a href="/cart" className="relative">
               <img src={cartLogo} alt="" />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
