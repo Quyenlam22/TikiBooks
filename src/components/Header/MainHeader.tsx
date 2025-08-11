@@ -3,10 +3,23 @@ import searchIcon from "../../assets/icons/icon-search.png"
 import homeLogo from "../../assets/icons/header_menu_item_home.png";
 import accountLogo from "../../assets/icons/header_header_account_img.png";
 import cartLogo from "../../assets/icons/header_header_img_Cart.png";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CategoryMenu from "./CategoryMenu";
 
 const MainHeader = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const q = searchValue.trim();
+    if (q) {
+      navigate(`/search?q=${encodeURIComponent(q)}`);
+    }
+  };
+
   return (
     <div className="bg-white px-5 py-2">
         <div className="flex items-center justify-between">
@@ -16,17 +29,21 @@ const MainHeader = () => {
           </div>
         
           <div className="flex-1 mx-10">
+            <form onSubmit={handleSearch}>
               <div className="flex border border-gray-500 rounded-[8px] overflow-hidden">
               <img src={searchIcon} alt="" className="w-5 h-5 m-auto ml-3 "/>
               <input
                   type="text"
                   placeholder="100% hàng thật"
                   className="flex-1 px-3 py-2 outline-none"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
               />
               <div className="w-[1px] h-[20px] bg-gray-200 ml-3 m-auto"></div>
-              <button className="text-blue-500 px-4 hover:text-blue-900 cursor-pointer">Tìm kiếm</button>
+              <button type="submit" className="text-blue-500 px-4 hover:text-blue-900 cursor-pointer">Tìm kiếm</button>
               </div>
-          
+            </form>
+            
             <CategoryMenu/>
           </div>
           <div className="flex self-start pt-3 space-x-6">
