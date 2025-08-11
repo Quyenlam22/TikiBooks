@@ -14,7 +14,7 @@ type BookCardProps = {
 
 const BookCard: React.FC<BookCardProps> = ({
   book,
-  isAd = false,
+  isAd = true,
   deliveryDate = '3, 01/04',
 }) => {
   const {

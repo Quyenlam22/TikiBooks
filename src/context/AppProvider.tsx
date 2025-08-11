@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Book } from "../../type/Book";
+import type { Category } from "../../type/Category";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
 
@@ -8,6 +9,8 @@ type AppContextType = {
   setDataBook: React.Dispatch<React.SetStateAction<Book[]>>;
   dataBookTopSelling: Book[];
   setDataBookTopSelling: React.Dispatch<React.SetStateAction<Book[]>>;
+  dataCategory: Category[];
+  setDataCategory: React.Dispatch<React.SetStateAction<Category[]>>;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -15,6 +18,8 @@ export const AppContext = createContext<AppContextType>({
   setDataBook: () => {},
   dataBookTopSelling: [],
   setDataBookTopSelling: () => [],
+  dataCategory: [],
+  setDataCategory: () => {},
 });
 
 type AppProviderProps = {
@@ -24,7 +29,8 @@ type AppProviderProps = {
 function AppProvider ({children}: AppProviderProps) {
   const [dataBook, setDataBook] = useState<Book[]>([]);
   const [dataBookTopSelling, setDataBookTopSelling] = useState<Book[]>([]);
-  
+  const [dataCategory, setDataCategory] = useState<Category[]>([]);
+
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
@@ -41,6 +47,25 @@ function AppProvider ({children}: AppProviderProps) {
           ).slice(0, 10);
 
           setDataBookTopSelling(topBook);
+
+          let category: Category[] = [];
+          response.forEach((book: Book) => {
+            if (book.categories) {
+              const existingCategory = category.find(c => c.id === book.categories.id);
+              if (existingCategory) {
+                existingCategory.books.push(book);
+              } else {
+                category.push({
+                  id: book.categories.id,
+                  name: book.categories.name,
+                  is_leaf: book.categories.is_leaf,
+                  books: [book],
+                });
+              }
+            }
+          });
+
+          setDataCategory(category);          
         }
       } catch (error) {
         messageApi.open({
@@ -52,10 +77,7 @@ function AppProvider ({children}: AppProviderProps) {
     }
     fetchApi();
   }, []);
-
-  console.log((dataBookTopSelling));
   
-
   return (
     <>
       {contextHolder}
@@ -64,7 +86,9 @@ function AppProvider ({children}: AppProviderProps) {
           dataBook, 
           setDataBook, 
           dataBookTopSelling,
-          setDataBookTopSelling
+          setDataBookTopSelling,
+          dataCategory, 
+          setDataCategory
         }}
       >
         {children}
