@@ -1,13 +1,17 @@
 import TopSellingSection from "../../components/top-seller";
-import BookList from "../../components/Book/BookList";
+import FilterBook from "../../components/Book/FilterBook";
 import Carousel from "../../components/Carousel/Carousel";
+import CategoryAccordion from "../../components/Category/CategoryAccordion";
 
 function Home() {
   return (
     <>
-      <Carousel />
-      <div className="pl-4 mb-12 flex gap-8">
-        <BookList />
+      <div className="pl-4 mb-12 flex gap-6">
+        <CategoryAccordion/>
+        <div>
+          <Carousel />
+          <FilterBook />
+        </div>
       </div>
       
       <TopSellingSection />

@@ -4,7 +4,7 @@ import searchIcon from "../../assets/icons/icon-search.png"
 import homeLogo from "../../assets/icons/header_menu_item_home.png";
 import accountLogo from "../../assets/icons/header_header_account_img.png";
 import cartLogo from "../../assets/icons/header_header_img_Cart.png";
-import { AppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppProvider";
 import { useNavigate } from "react-router-dom";
 
 import CategoryMenu from "./CategoryMenu";

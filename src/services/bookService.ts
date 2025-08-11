@@ -1,17 +1,24 @@
-import axios from "axios";
 import type { Book } from "../../type/Book";
-import { mockBooks } from "../pages/mockBooks";
+import instance from "./api.service"
 
-const BASE_URL = import.meta.env.VITE_API_URL || "";
-
-export const getAllBooks = async (): Promise<Book[]> => {
-  try {
-    if (!BASE_URL) {
-      return mockBooks;
-    }
-    const response = await axios.get(`${BASE_URL}/books`);
-    return response.data as Book[];
-  } catch {
-    return mockBooks;
+export const getAllBooks = async () => {
+  
+    const response = await instance.get("books");
+    return response.data;
   }
+
+
+export const getBookById = async (id: string): Promise<Book> => {
+  const response = await instance.get(`books/${id}`);
+  return response.data;
+
+};
+
+export const getRelatedBooks = async (book: Book): Promise<Book[]> => {
+  const allBooks: Book[] = await getAllBooks();
+  return allBooks.filter((item) =>
+    item.name !== book.name &&
+    (item.authors?.[0]?.name === book.authors?.[0]?.name ||
+      item.categories?.name === book.categories?.name)
+  ).slice(0, 16);
 };

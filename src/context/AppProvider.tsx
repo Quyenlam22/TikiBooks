@@ -1,9 +1,26 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Book } from "../../type/Book";
+import type { Category } from "../../type/Category";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
-import { AppContext } from "./AppContext";
 
+type AppContextType = {
+  dataBook: Book[];
+  setDataBook: React.Dispatch<React.SetStateAction<Book[]>>;
+  dataBookTopSelling: Book[];
+  setDataBookTopSelling: React.Dispatch<React.SetStateAction<Book[]>>;
+  dataCategory: Category[];
+  setDataCategory: React.Dispatch<React.SetStateAction<Category[]>>;
+};
+
+export const AppContext = createContext<AppContextType>({
+  dataBook: [],
+  setDataBook: () => {},
+  dataBookTopSelling: [],
+  setDataBookTopSelling: () => [],
+  dataCategory: [],
+  setDataCategory: () => {},
+});
 
 type AppProviderProps = {
   children: ReactNode;
@@ -12,8 +29,8 @@ type AppProviderProps = {
 function AppProvider ({children}: AppProviderProps) {
   const [dataBook, setDataBook] = useState<Book[]>([]);
   const [dataBookTopSelling, setDataBookTopSelling] = useState<Book[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  
+  const [dataCategory, setDataCategory] = useState<Category[]>([]);
+
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
@@ -30,8 +47,27 @@ function AppProvider ({children}: AppProviderProps) {
           ).slice(0, 10);
 
           setDataBookTopSelling(topBook);
+
+          let category: Category[] = [];
+          response.forEach((book: Book) => {
+            if (book.categories) {
+              const existingCategory = category.find(c => c.id === book.categories.id);
+              if (existingCategory) {
+                existingCategory.books.push(book);
+              } else {
+                category.push({
+                  id: book.categories.id,
+                  name: book.categories.name,
+                  is_leaf: book.categories.is_leaf,
+                  books: [book],
+                });
+              }
+            }
+          });
+
+          setDataCategory(category);          
         }
-      } catch {
+      } catch (error) {
         messageApi.open({
           type: 'error',
           content: 'An error occurred while fetching book data!',
@@ -40,8 +76,8 @@ function AppProvider ({children}: AppProviderProps) {
       
     }
     fetchApi();
-  }, [messageApi]);
-
+  }, []);
+  
   return (
     <>
       {contextHolder}
@@ -51,8 +87,8 @@ function AppProvider ({children}: AppProviderProps) {
           setDataBook, 
           dataBookTopSelling,
           setDataBookTopSelling,
-          searchTerm,
-          setSearchTerm,
+          dataCategory, 
+          setDataCategory
         }}
       >
         {children}

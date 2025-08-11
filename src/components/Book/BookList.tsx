@@ -1,35 +1,22 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import type { Book } from '../../../type/Book';
 import BookCard from "./BookCard";
-import { AppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppProvider";
 
 function BookList() {
-  const { dataBook, searchTerm } = useContext(AppContext);
-
-  const filteredBooks = useMemo(() => {
-    const term = searchTerm.trim().toLowerCase();
-    if (!term) return dataBook;
-    return dataBook.filter((book: Book) => {
-      const name = book.name?.toLowerCase() || "";
-      const shortDesc = book.short_description?.toLowerCase() || "";
-      const longDesc = book.description?.toLowerCase() || "";
-      return (
-        name.includes(term) ||
-        shortDesc.includes(term) ||
-        longDesc.includes(term)
-      );
-    });
-  }, [dataBook, searchTerm]);
+  const {dataBook} = useContext(AppContext);
 
   return (
     <>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredBooks.length > 0 && (
-            filteredBooks.map((book: Book) => (
+        {dataBook.length > 0 && (
+            dataBook.map((book: Book) => (
               <BookCard key={book.current_seller?.product_id} book={book} />
             ))
         )}
       </div>
+
+
     </>
   )
 }
