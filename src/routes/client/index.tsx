@@ -5,6 +5,7 @@ import withSuspense from "../../utils/withSuspense";
 const Home = lazy(() => import("../../pages/Home"));
 const Error404 = lazy(() => import("../../pages/Error404"));
 const DetailBook = lazy(() => import("../../pages/DetailBook"));
+const Search = lazy(() => import("../../pages/Search"));
 
 export const routesClient = [
   {
@@ -18,6 +19,10 @@ export const routesClient = [
       {
         path: "book/:id",
         element: withSuspense(DetailBook)
+      },
+      {
+        path: "search",
+        element: withSuspense(Search)
       },
       {
         path: "*",

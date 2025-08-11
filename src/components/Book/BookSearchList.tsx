@@ -2,7 +2,12 @@ import { useMemo } from "react";
 import BookCard from "./BookCard";
 import type { Book } from '../../../type/Book';
 
-const BookSearchList = ({ dataBook, searchTerm }: { dataBook: Book[], searchTerm: string }) => {
+type Props = {
+  dataBook: Book[];
+  searchTerm: string;
+};
+
+const BookSearchList = ({ dataBook, searchTerm }: Props) => {
   const filteredBooks = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
     if (!q) return dataBook;
@@ -10,7 +15,11 @@ const BookSearchList = ({ dataBook, searchTerm }: { dataBook: Book[], searchTerm
       const name = book.name?.toLowerCase() || "";
       const shortDesc = book.short_description?.toLowerCase() || "";
       const longDesc = book.description?.toLowerCase() || "";
-      return name.includes(q) || shortDesc.includes(q) || longDesc.includes(q);
+      return (
+        name.includes(q) ||
+        shortDesc.includes(q) ||
+        longDesc.includes(q)
+      );
     });
   }, [dataBook, searchTerm]);
 
