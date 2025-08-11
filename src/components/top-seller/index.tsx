@@ -1,20 +1,10 @@
 
-import { useEffect, useState } from "react";
-import { getTopSellingBooks } from "../../services/bookService";
+import { useContext } from "react";
 import type { Book } from '../../../type/Book';
+import { AppContext } from "../../context/AppProvider";
 
 function TopSellingSection() {
-    const [databook, setdatabook] = useState<Book[]>([]);
-
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const response = await getTopSellingBooks();
-            setdatabook(response);
-            // console.log(response);
-        }
-        fetchApi();
-    }, []);
+    const { dataBookTopSelling } = useContext(AppContext);
 
     return (
         <div className=" ">
@@ -33,7 +23,7 @@ function TopSellingSection() {
                         Top bán chạy sản phẩm nhà sách Tiki
                     </div>
                     <ul className="text-sm text-gray-800 flex flex-col justify-between h-[calc(383px-1rem-32px)] ">
-                        {databook.map((book: Book) => (
+                        {dataBookTopSelling.map((book: Book) => (
                             <li key={book.current_seller.product_id} className="flex-1">
                                 <a
                                     href="#"

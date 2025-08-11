@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../types/Product";
-import booksData from "../data/books.json";
+import { Product } from "../types/product";
+import booksData from "../data/book.json";
 
 const BookDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
