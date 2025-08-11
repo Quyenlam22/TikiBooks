@@ -13,11 +13,6 @@ export const getBookById = async (id: string): Promise<Book> => {
   return response.data;
 }
 
-export const getBookById = async (id: string): Promise<Book> => {
-  const response = await instance.get(`books/${id}`);
-  return response.data;
-
-};
 
 export const getRelatedBooks = async (book: Book): Promise<Book[]> => {
   const allBooks: Book[] = await getAllBooks();
