@@ -11,6 +11,11 @@ export const getAllBooks = async () => {
 export const getBookById = async (id: string): Promise<Book> => {
   const response = await instance.get(`books/${id}`);
   return response.data;
+}
+
+export const getBookById = async (id: string): Promise<Book> => {
+  const response = await instance.get(`books/${id}`);
+  return response.data;
 
 };
 
