@@ -10,7 +10,7 @@ const CategoryList = () => {
     <div className="grid grid-cols-2 sm:grid-cols-6 gap-4 mt-6">
       {categories.map((cat) => (
         <div key={cat.label} className="flex flex-col items-center">
-          <img src={cat.image} alt={cat.label} className="w-20 h-20 object-cover rounded-full" />
+          <img src={cat.image} alt={cat.label} className="cursor-pointer w-20 h-20 object-cover rounded-full" />
           <span className="mt-2 text-sm font-medium">{cat.label}</span>
         </div>
       ))}
