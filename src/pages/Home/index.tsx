@@ -1,17 +1,30 @@
+import { useEffect, useState } from "react";
+import { getAllBooks } from "../../services/bookService";
+
 import TopSellingSection from "../../components/top-seller";
-import FilterBook from "../../components/Book/FilterBook";
+import type { Book } from "../../../type/Book";
+import BookList from "../../components/Book/BookList";
 import Carousel from "../../components/Carousel/Carousel";
-import CategoryAccordion from "../../components/Category/CategoryAccordion";
 
 function Home() {
+  const [dataBook, setDataBook] = useState<Book[]>([]);
+
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await getAllBooks();
+      setDataBook(response);
+    }
+
+    fetchApi();
+  }, []);
+
   return (
     <>
-      <div className="pl-4 mb-12 flex gap-6">
-        <CategoryAccordion/>
-        <div>
-          <Carousel />
-          <FilterBook />
-        </div>
+      <div>home</div>
+      <Carousel />
+      <div className="pl-4 mb-12 flex gap-8">
+        <BookList />
       </div>
       
       <TopSellingSection />

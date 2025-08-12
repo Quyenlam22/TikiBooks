@@ -1,17 +1,9 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 import "./Error404.css";
 
 function Error404() {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleBack = () => {
-    if (location.pathname.startsWith("/admin")) {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/");
-    }
-  };
 
   return (
     <div className="max-w-full h-[60%] text-center">
@@ -25,7 +17,7 @@ function Error404() {
         <h2 className="text-xl lg:text-2xl font-normal uppercase text-black mt-0 mb-6">
           We are sorry, but the page you requested was not found
         </h2>
-        <button className="bg-[linear-gradient(270deg,_#667eea,_#764ba2,_#667eea)] text-white border-none font-medium px-6 py-4 rounded-md cursor-pointer transition-transform duration-300 ease-in-out hover:bg-[linear-gradient(-135deg,_#667eea,_#764ba2)] hover:scale-105 hover:text-white" onClick={handleBack}>
+        <button className="bg-[linear-gradient(270deg,_#667eea,_#764ba2,_#667eea)] text-white border-none font-medium px-6 py-4 rounded-md cursor-pointer transition-transform duration-300 ease-in-out hover:bg-[linear-gradient(-135deg,_#667eea,_#764ba2)] hover:scale-105 hover:text-white" onClick={() => navigate('/')}>
           Back to Home
         </button>
       </div>
