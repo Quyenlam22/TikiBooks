@@ -23,14 +23,16 @@ const CategoryAccordion: React.FC = () => {
   });
 
   return (
-    <div className="bg-white rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold m-4">Khám phá theo danh mục</h2>
-      <Menu
-        mode="inline"
-        defaultOpenKeys={['cat-1']}
-        style={{ width: 280 }}
-        items={items}
-      />
+    <div>
+      <div className="bg-white rounded-lg">
+        <h2 className="text-lg rounded-lg font-semibold p-4">Khám phá theo danh mục</h2>
+        <Menu
+          mode="inline"
+          defaultOpenKeys={['cat-1']}
+          style={{ width: 280 }}
+          items={items}
+        />
+      </div>
     </div>
   );
 };
