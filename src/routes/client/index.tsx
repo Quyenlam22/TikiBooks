@@ -6,12 +6,13 @@ const Home = lazy(() => import("../../pages/Home"));
 const Error404 = lazy(() => import("../../pages/Error404"));
 const DetailBook = lazy(() => import("../../pages/DetailBook"));
 const Search = lazy(() => import("../../pages/Search"));
+const Myprofit = lazy(() => import("../../pages/Myprofit"));
 
 export const routesClient = [
   {
     path: "/",
-    element: <LayoutDefault/>,
-    children: [ 
+    element: <LayoutDefault />,
+    children: [
       {
         index: true,
         element: withSuspense(Home)
@@ -28,6 +29,10 @@ export const routesClient = [
         path: "*",
         element: withSuspense(Error404)
       },
+      {
+        path: "myprofit",
+        element: withSuspense(Myprofit)
+      }
     ]
   }
 ]
