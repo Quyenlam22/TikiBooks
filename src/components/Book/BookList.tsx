@@ -30,4 +30,10 @@ function BookList(props: BookListProps) {
         dataBook={dataBook}
         pageSize={pageSize}
         currentPage={currentPage}
-        setCurrentPa
+        setCurrentPage={setCurrentPage}
+      />
+    </>
+  )
+}
+
+export default BookList;
