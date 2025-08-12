@@ -12,7 +12,7 @@ const CategoryAccordion: React.FC = () => {
 
   const items: MenuItem[] = dataCategory.map((category: Category, index) => {
     return {
-      key: String(index + 1),
+      key: `cat-${index + 1}`,
       label: category.name,
       children: category.books.map((book) => ({
         key: book.id,
@@ -21,15 +21,12 @@ const CategoryAccordion: React.FC = () => {
     } as MenuItem;
   })
 
-  console.log(dataCategory);
-  
-
   return (
     <div className="bg-white rounded-lg shadow-md">
       <h2 className="text-lg font-semibold m-4">Khám phá theo danh mục</h2>
       <Menu
       mode="inline"
-      defaultOpenKeys={['1']}
+      defaultOpenKeys={['cat-1']}
       style={{ width: 280 }}
       items={items}
     />

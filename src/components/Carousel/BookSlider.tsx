@@ -9,7 +9,7 @@ interface BookSliderProps {
 
 const BookSlider = ({ title, sponsor, rating, books }: BookSliderProps) => {
   return (
-    <div className="bg-white rounded shadow-md flex p-4 gap-4">
+    <div className="bg-white rounded-lg shadow-md flex p-4 gap-4">
       {/* Left: Logo */}
       <div className="flex-shrink-0 aspect-square w-40 flex items-center justify-center bg-green-100 rounded-md relative">
         <div className="absolute inset-0 bg-green-600 backdrop-blur-sm opacity-10 rounded-md" />

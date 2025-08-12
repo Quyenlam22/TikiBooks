@@ -2,15 +2,17 @@ import type { Book } from "../../type/Book";
 import instance from "./api.service"
 
 export const getAllBooks = async () => {
-  const response = await instance.get("books");
-  return response.data;
-}
+  
+    const response = await instance.get("books");
+    return response.data;
+  }
+
 
 export const getBookById = async (id: string): Promise<Book> => {
   const response = await instance.get(`books/${id}`);
   return response.data;
+}
 
-};
 
 export const getRelatedBooks = async (book: Book): Promise<Book[]> => {
   const allBooks: Book[] = await getAllBooks();

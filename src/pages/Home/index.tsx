@@ -6,10 +6,12 @@ import CategoryAccordion from "../../components/Category/CategoryAccordion";
 function Home() {
   return (
     <>
-      <Carousel />
       <div className="pl-4 mb-12 flex gap-6">
         <CategoryAccordion/>
-        <FilterBook />
+        <div>
+          <Carousel />
+          <FilterBook />
+        </div>
       </div>
       
       <TopSellingSection />
