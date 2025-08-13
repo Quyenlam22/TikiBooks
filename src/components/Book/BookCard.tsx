@@ -74,7 +74,7 @@ const BookCard: React.FC<BookCardProps> = ({
         <div className="p-2 text-sm flex-1 flex flex-col justify-between">
           <div>
             <div className="text-lg mb-4 font-semibold text-red-600 leading-none my-1">
-              {price.toLocaleString()}₫
+              {price.toLocaleString()}<sup>₫</sup>
               {discount > 0 && (
                 <span className="text-xs text-stone-900 bg-gray-100 rounded-sm px-1 py-0.5 ml-2">
                   -{discount}%

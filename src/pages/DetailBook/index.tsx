@@ -5,6 +5,7 @@ import type { Book } from "../../../type/Book";
 import { getBookById } from "../../services/bookService";
 import BookImageSlider from "../../components/Book/BookImageSlider";
 import BookPurchase from "../../components/Book/BookPurchase";
+import BookInfo from "../../components/Bookdetail/BookInfo";
 
 function DetailBook() {
   const { id } = useParams<{ id: string }>();
@@ -27,10 +28,6 @@ function DetailBook() {
 
   return (
     <>
-      <div className="text-xl font-semibold mb-4 text-center">
-        Chi tiết sách - ID: {id}
-      </div>
-
       <div className="flex justify-center w-full gap-6 mt-6 items-start">
         <div className="rounded-xl pl-4 flex flex-col gap-4">
           <BookImageSlider
@@ -43,7 +40,10 @@ function DetailBook() {
           
         </div>
 
-        {book && <Bookrelated book={book} />}
+        <div>
+          {book && <BookInfo book={book} />}
+          {book && <Bookrelated book={book} />}
+        </div>
         
         <BookPurchase price={book ? book.current_seller.price : 0} />
       </div>
