@@ -1,14 +1,15 @@
-import './App.css'
-import RouterClient from './components/AllRouter/RouterClient'
-import DetailBook from './pages/DetailBook'
-import Home from './pages/Home'
+// src/App.tsx
+import React from "react";
+import "./App.css"; // Nếu cần style toàn bộ ứng dụng
 
-function App() {
+import ProductPage from "./pages/ProductPage";
+
+const App = () => {
   return (
-    <>
-      <RouterClient/>
-    </>
-  )
-}
+    <div className="App">
+      <ProductPage />
+    </div>
+  );
+};
 
-export default App
+export default App;

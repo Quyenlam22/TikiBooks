@@ -1,0 +1,94 @@
+/* src/components/ProductInfo.css */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  max-width: 800px;
+  margin: auto;
+}
+
+.product-header {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.product-image img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.product-details {
+  flex-grow: 1;
+}
+
+.product-details h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.product-details p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.price {
+  font-size: 1.3rem;
+  color: #f44336;
+  font-weight: bold;
+}
+
+.rating {
+  margin-top: 10px;
+}
+
+.rating .filled {
+  color: #ffb400;
+}
+
+.rating .empty {
+  color: #ddd;
+}
+
+.additional-details {
+  margin-top: 20px;
+}
+
+.additional-details h2 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.additional-details ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1rem;
+}
+
+.additional-details li {
+  margin-bottom: 8px;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.description button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.description button:hover {
+  background-color: #0056b3;
+}
