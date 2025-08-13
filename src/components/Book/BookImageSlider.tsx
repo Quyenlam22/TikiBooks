@@ -1,16 +1,29 @@
 import React from 'react';
 import iconMore from '../../assets/icons/icon-more.png';
 import iconAi from '../../assets/icons/icon-ai.png';
+import type { Book } from '../../../type/Book';
 
 interface BookImageSliderProps {
-  images: string[];
+  book: Book;
 }
 
-const BookImageSlider: React.FC<BookImageSliderProps> = ({ images }) => {
+const BookImageSlider: React.FC<BookImageSliderProps> = ({ book }) => {
   const [selected, setSelected] = React.useState(0);
   const [hoverIdx, setHoverIdx] = React.useState<number | null>(null);
 
-  if (!images || images.length === 0) return <div>Không có ảnh</div>;
+  const images = book.images?.map(img => img.large_url || img.base_url) || [];
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="flex flex-col w-100 rounded-lg gap-4 bg-white pt-4 pb-3">
+        <div className="gap-2 bg-white flex flex-col px-4">
+          <div className="w-[368px] h-[368px] bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center text-gray-500">
+            Không có ảnh
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const mainIdx = hoverIdx !== null ? hoverIdx : selected;
 

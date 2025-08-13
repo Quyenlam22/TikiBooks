@@ -1,20 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import tikiLogo from '../../assets/icons/tiki-logo.png';
 import shieldIcon from '../../assets/icons/icon-0.png'
 import addIcon from '../../assets/icons/icons-add.svg';
-import removeIcon from '../../assets/icons/icons-remove.svg';
+import subIcon from '../../assets/icons/icons-sub.svg';
+import { AppContext } from '../../context/AppProvider';
+import type { Book } from '../../../type/Book';
 
 interface BookPurchaseProps {
-  price: number;
+  book: Book; 
 }
 
-const BookPurchase: React.FC<BookPurchaseProps> = ({ price }) => {
+const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const [quantity, setQuantity] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const { dataBook } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const price = book.current_seller?.price || 0;
+  const total = price * quantity;
 
   const handleIncrease = () => setQuantity(q => q + 1);
   const handleDecrease = () => setQuantity(q => (q > 1 ? q - 1 : 1));
 
-  const total = price * quantity;
+  const handleAddToCart = () => {
+    setIsAddingToCart(true);
+    
+    const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    
+    const existingItemIndex = currentCart.findIndex(
+      (item: any) => item.current_seller?.product_id === book.current_seller?.product_id
+    );
+
+    if (existingItemIndex !== -1) {
+      currentCart[existingItemIndex].quantity += quantity;
+    } else {
+      currentCart.push({
+        ...book,
+        quantity: quantity,
+        isSelected: true
+      });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(currentCart));
+    
+    setTimeout(() => {
+      setIsAddingToCart(false);
+      alert('Đã thêm sản phẩm vào giỏ hàng!');
+    }, 500);
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    
+    setTimeout(() => {
+      navigate('/cart');
+    }, 600);
+  };
 
   return (
     <div className="bg-white rounded-lg p-5 w-90">
@@ -36,7 +78,7 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ price }) => {
           className={`flex items-center justify-center w-8 h-8 border border-gray-300 rounded bg-white text-2xl ${quantity === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={quantity === 1}
         >
-            <img src={removeIcon} alt="" />
+            <img src={subIcon} alt="" />
         </button>
         <span className="flex items-center justify-center mx-2 w-10 h-8 border border-gray-300 rounded min-w-[24px] text-center">{quantity}</span>
         <button onClick={handleIncrease} className="flex items-center justify-center w-8 h-8 border border-gray-300 rounded bg-white">
@@ -45,9 +87,27 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ price }) => {
       </div>
       <div className="mb-2 font-bold">Tạm tính</div>
       <div className="text-2xl font-bold mb-4">{total.toLocaleString('vi-VN')}<sup>₫</sup></div>
-      <button className="flex items-center justify-center h-10 w-full bg-[#ff424e] text-white border-none cursor-pointer rounded py-3 font-normal text-base mb-2">Mua ngay</button>
-      <button className="flex items-center justify-center h-10 w-full bg-white text-blue-500 border border-blue-500 cursor-pointer rounded py-2.5 font-normal text-base mb-2">Thêm vào giỏ</button>
-      <button className="flex items-center justify-center h-10 w-full bg-white text-blue-500 border border-blue-500 cursor-pointer rounded py-2.5 font-normal text-base">Mua trước trả sau</button>
+      
+      <button 
+        onClick={handleBuyNow}
+        className="flex items-center justify-center h-10 w-full bg-[#ff424e] text-white border-none cursor-pointer rounded py-3 font-normal text-base mb-2 hover:bg-red-600 transition-colors"
+      >
+        Mua ngay
+      </button>
+      
+      <button 
+        onClick={handleAddToCart}
+        disabled={isAddingToCart}
+        className={`flex items-center justify-center h-10 w-full bg-white text-blue-500 border border-blue-500 cursor-pointer rounded py-2.5 font-normal text-base mb-2 hover:bg-blue-50 transition-colors ${
+          isAddingToCart ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
+      >
+        {isAddingToCart ? 'Đang thêm...' : 'Thêm vào giỏ'}
+      </button>
+      
+      <button className="flex items-center justify-center h-10 w-full bg-white text-blue-500 border border-blue-500 cursor-pointer rounded py-2.5 font-normal text-base hover:bg-blue-50 transition-colors">
+        Mua trước trả sau
+      </button>
     </div>
   );
 };
