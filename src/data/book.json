@@ -1,0 +1,61 @@
+[
+  {
+    "id": 1,
+    "title": "Chat GPT Thực chiến",
+    "author": "Dịch Dương, Phan Trạch Bân, Lý Thế Minh",
+    "images": {
+      "thumbnail": [
+        "https://via.placeholder.com/60x60?text=Thumb1",
+        "https://via.placeholder.com/60x60?text=Thumb2"
+      ],
+      "fullSize": "https://via.placeholder.com/300x400?text=ChatGPT+Thuc+chien"
+    },
+    "price": 169000,
+    "salePrice": 110000,
+    "discountPercentage": 35,
+    "rating": 4.7,
+    "description": {
+      "short": "Trong thời đại hiện nay, tất cả những ai không muốn bị tụt hậu đều cần học về các công cụ AI.",
+      "long": "Mô tả dài của cuốn sách Chat GPT Thực chiến..."
+    },
+    "category": "Công nghệ",
+    "isBestseller": true,
+    "productDetails": {
+      "company": "1980 Books",
+      "publisher": "Nhà Xuất Bản Dân Trí",
+      "publishedDate": "2024-07-01",
+      "size": "13 x 20.5 cm",
+      "translator": "Huyền Trang",
+      "coverType": "Bìa mềm",
+      "pages": 263
+    }
+  },
+  {
+    "id": 2,
+    "title": "Mục Tiêu (The Goal)",
+    "author": "Eliyahu M. Goldratt, Jeff Cox",
+    "images": {
+      "thumbnail": ["https://via.placeholder.com/60x60?text=Thumb3"],
+      "fullSize": "https://via.placeholder.com/300x400?text=Muc+Tieu"
+    },
+    "price": 170000,
+    "salePrice": 141950,
+    "discountPercentage": 16,
+    "rating": 4.9,
+    "description": {
+      "short": "Mục Tiêu là một trong những cuốn sách quản trị kinh doanh kinh điển nhất mọi thời đại.",
+      "long": "Mô tả dài của cuốn sách Mục Tiêu (The Goal)..."
+    },
+    "category": "Kinh doanh",
+    "isBestseller": true,
+    "productDetails": {
+      "company": "Alpha Books",
+      "publisher": "Nhà Xuất Bản Công Thương",
+      "publishedDate": "2023-01-01",
+      "size": "15 x 23 cm",
+      "translator": "Lý Hưng",
+      "coverType": "Bìa cứng",
+      "pages": 400
+    }
+  }
+]

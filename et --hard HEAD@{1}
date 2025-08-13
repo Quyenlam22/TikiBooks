@@ -1,0 +1,118 @@
+[33md3e320a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m HEAD@{0}: pull origin develop: Fast-forward
+[33mcfb12cf[m[33m ([m[1;31morigin/book-list[m[33m, [m[1;32mbook-list[m[33m)[m HEAD@{1}: merge book-list: Fast-forward
+[33m4772eae[m[33m ([m[1;31morigin/filter[m[33m, [m[1;32mfilter[m[33m)[m HEAD@{2}: checkout: moving from book-list to develop
+[33mcfb12cf[m[33m ([m[1;31morigin/book-list[m[33m, [m[1;32mbook-list[m[33m)[m HEAD@{3}: commit (merge): Pagination page
+[33m6705e21[m HEAD@{4}: checkout: moving from develop to book-list
+[33m4772eae[m[33m ([m[1;31morigin/filter[m[33m, [m[1;32mfilter[m[33m)[m HEAD@{5}: merge filter: Fast-forward
+[33m40a6bf1[m HEAD@{6}: checkout: moving from filter to develop
+[33m4772eae[m[33m ([m[1;31morigin/filter[m[33m, [m[1;32mfilter[m[33m)[m HEAD@{7}: commit (merge): Update carousel
+[33m1c2487a[m HEAD@{8}: checkout: moving from develop to filter
+[33m40a6bf1[m HEAD@{9}: pull origin develop: Fast-forward
+[33m4496273[m[33m ([m[1;31morigin/login-author[m[33m)[m HEAD@{10}: checkout: moving from filter to develop
+[33m1c2487a[m HEAD@{11}: commit: Update search
+[33m4496273[m[33m ([m[1;31morigin/login-author[m[33m)[m HEAD@{12}: pull origin develop: Fast-forward
+[33m5c4bb0c[m HEAD@{13}: checkout: moving from develop to filter
+[33m4496273[m[33m ([m[1;31morigin/login-author[m[33m)[m HEAD@{14}: checkout: moving from product-info to develop
+[33m54c2afa[m[33m ([m[1;31morigin/product-info[m[33m, [m[1;32mproduct-info[m[33m)[m HEAD@{15}: checkout: moving from develop to product-info
+[33m4496273[m[33m ([m[1;31morigin/login-author[m[33m)[m HEAD@{16}: pull origin develop: Fast-forward
+[33m514eccb[m[33m ([m[1;31morigin/layout-admin[m[33m, [m[1;32mlayout-admin[m[33m)[m HEAD@{17}: checkout: moving from product-info to develop
+[33m54c2afa[m[33m ([m[1;31morigin/product-info[m[33m, [m[1;32mproduct-info[m[33m)[m HEAD@{18}: checkout: moving from develop to product-info
+[33m514eccb[m[33m ([m[1;31morigin/layout-admin[m[33m, [m[1;32mlayout-admin[m[33m)[m HEAD@{19}: checkout: moving from feature/productIP to develop
+[33m915f670[m[33m ([m[1;31morigin/feature/productIP[m[33m, [m[1;32mfeature/productIP[m[33m)[m HEAD@{20}: pull origin feature/productIP: Fast-forward
+[33mc92c851[m HEAD@{21}: checkout: moving from develop to feature/productIP
+[33m514eccb[m[33m ([m[1;31morigin/layout-admin[m[33m, [m[1;32mlayout-admin[m[33m)[m HEAD@{22}: merge layout-admin: Fast-forward
+[33mf7b031c[m HEAD@{23}: checkout: moving from layout-admin to develop
+[33m514eccb[m[33m ([m[1;31morigin/layout-admin[m[33m, [m[1;32mlayout-admin[m[33m)[m HEAD@{24}: commit: Layout Admin and reconfig routers
+[33mf7b031c[m HEAD@{25}: checkout: moving from develop to layout-admin
+[33mf7b031c[m HEAD@{26}: commit: Merge category exploring
+[33m5c4bb0c[m HEAD@{27}: reset: moving to HEAD~1
+[33m6705e21[m HEAD@{28}: merge book-list: Fast-forward
+[33m5c4bb0c[m HEAD@{29}: checkout: moving from book-list to develop
+[33m6705e21[m HEAD@{30}: commit: Category exploring
+[33m5c4bb0c[m HEAD@{31}: pull origin develop: Fast-forward
+[33mf5c2dd5[m HEAD@{32}: checkout: moving from footer-component to book-list
+[33m54b43bc[m[33m ([m[1;32mfooter-component[m[33m)[m HEAD@{33}: commit (merge): Update Category Accordion
+[33mecff761[m[33m ([m[1;31morigin/footer-component[m[33m)[m HEAD@{34}: checkout: moving from develop to footer-component
+[33m5c4bb0c[m HEAD@{35}: merge filter: Fast-forward
+[33m6fe473d[m HEAD@{36}: checkout: moving from filter to develop
+[33m5c4bb0c[m HEAD@{37}: commit (merge): Update filter
+[33m623f34d[m HEAD@{38}: checkout: moving from develop to filter
+[33m6fe473d[m HEAD@{39}: checkout: moving from feature/search to develop
+[33m931efc6[m[33m ([m[1;32mfeature/search[m[33m)[m HEAD@{40}: checkout: moving from develop to feature/search
+[33m6fe473d[m HEAD@{41}: reset: moving to HEAD
+[33m6fe473d[m HEAD@{42}: checkout: moving from feature/productIP to develop
+[33mc92c851[m HEAD@{43}: reset: moving to HEAD
+[33mc92c851[m HEAD@{44}: checkout: moving from develop to feature/productIP
+[33m6fe473d[m HEAD@{45}: commit (merge): Merge product details
+[33m8da6d52[m HEAD@{46}: commit (merge): Merge related_topdeals
+[33m39b74c1[m HEAD@{47}: checkout: moving from related_topdeals to develop
+[33ma51323e[m[33m ([m[1;31morigin/related_topdeals[m[33m)[m HEAD@{48}: commit: Update realted_topdeals
+[33ma82550d[m HEAD@{49}: checkout: moving from develop to related_topdeals
+[33m39b74c1[m HEAD@{50}: commit (merge): Merge context-api and fix code
+[33mbb5178b[m HEAD@{51}: checkout: moving from develop to develop
+[33mbb5178b[m HEAD@{52}: checkout: moving from context-api to develop
+[33mc364410[m[33m ([m[1;31morigin/context-api[m[33m)[m HEAD@{53}: commit (merge): Update code
+[33mb1261fb[m HEAD@{54}: checkout: moving from book-list to context-api
+[33mf5c2dd5[m HEAD@{55}: pull origin develop: Fast-forward
+[33mcc73c92[m HEAD@{56}: checkout: moving from f5c2dd5777e93ce632170a4de040b5e5fdb34cca to book-list
+[33mf5c2dd5[m HEAD@{57}: reset: moving to origin/develop
+[33m28be8e7[m HEAD@{58}: commit: Merge header component
+[33mf5c2dd5[m HEAD@{59}: pull origin develop --rebase (start): checkout f5c2dd5777e93ce632170a4de040b5e5fdb34cca
+[33mbb5178b[m HEAD@{60}: commit (merge): Merge header component
+[33m5c82f4a[m HEAD@{61}: checkout: moving from feature/header to develop
+[33m9b7b9e6[m[33m ([m[1;31morigin/feature/header[m[33m)[m HEAD@{62}: pull origin feature/header: Fast-forward
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{63}: checkout: moving from filter to feature/header
+[33m623f34d[m HEAD@{64}: commit: Filter component
+[33mb1261fb[m HEAD@{65}: checkout: moving from context-api to filter
+[33mb1261fb[m HEAD@{66}: commit: use Context API
+[33m5c82f4a[m HEAD@{67}: checkout: moving from develop to context-api
+[33m5c82f4a[m HEAD@{68}: checkout: moving from context-api to develop
+[33m5c82f4a[m HEAD@{69}: checkout: moving from develop to context-api
+[33m5c82f4a[m HEAD@{70}: commit (merge): Book list component
+[33m180cbed[m[33m ([m[1;31morigin/book-card[m[33m)[m HEAD@{71}: merge book-card: Fast-forward
+[33m204c473[m HEAD@{72}: checkout: moving from book-card to develop
+[33m180cbed[m[33m ([m[1;31morigin/book-card[m[33m)[m HEAD@{73}: commit: Updaate book-card v2
+[33m204c473[m HEAD@{74}: checkout: moving from book-list to book-card
+[33mcc73c92[m HEAD@{75}: commit: Book list component
+[33m204c473[m HEAD@{76}: checkout: moving from book-card to book-list
+[33m204c473[m HEAD@{77}: checkout: moving from book-list to book-card
+[33m204c473[m HEAD@{78}: pull origin develop: Fast-forward
+[33m795bc57[m HEAD@{79}: checkout: moving from develop to book-list
+[33m204c473[m HEAD@{80}: merge book-card: Fast-forward
+[33m795bc57[m HEAD@{81}: checkout: moving from book-card to develop
+[33m204c473[m HEAD@{82}: commit (merge): Update Book card
+[33m8462db9[m HEAD@{83}: checkout: moving from develop to book-card
+[33m795bc57[m HEAD@{84}: reset: moving to HEAD
+[33m795bc57[m HEAD@{85}: reset: moving to HEAD
+[33m795bc57[m HEAD@{86}: checkout: moving from book-list to develop
+[33m795bc57[m HEAD@{87}: reset: moving to HEAD
+[33m795bc57[m HEAD@{88}: pull origin develop: Fast-forward
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{89}: checkout: moving from develop to book-list
+[33m795bc57[m HEAD@{90}: commit (merge): Merge branch 'top-seller' into develop
+[33m8c962f5[m HEAD@{91}: checkout: moving from top-seller to develop
+[33m69e3f00[m[33m ([m[1;31morigin/top-seller[m[33m)[m HEAD@{92}: checkout: moving from develop to top-seller
+[33m8c962f5[m HEAD@{93}: merge top-seller: updating HEAD
+[33m8c962f5[m HEAD@{94}: checkout: moving from develop to develop
+[33m8c962f5[m HEAD@{95}: checkout: moving from top-seller to develop
+[33m69e3f00[m[33m ([m[1;31morigin/top-seller[m[33m)[m HEAD@{96}: checkout: moving from develop to top-seller
+[33m8c962f5[m HEAD@{97}: checkout: moving from book-list to develop
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{98}: checkout: moving from feature/header to book-list
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{99}: checkout: moving from lth to feature/header
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{100}: checkout: moving from develop to lth
+[33m8c962f5[m HEAD@{101}: checkout: moving from top-seller to develop
+[33m69e3f00[m[33m ([m[1;31morigin/top-seller[m[33m)[m HEAD@{102}: checkout: moving from book-card to top-seller
+[33m8462db9[m HEAD@{103}: checkout: moving from develop to book-card
+[33m8c962f5[m HEAD@{104}: merge footer-component: Fast-forward
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{105}: checkout: moving from footer-component to develop
+[33m8c962f5[m HEAD@{106}: checkout: moving from book-card to footer-component
+[33m8462db9[m HEAD@{107}: commit: Book Card
+[33m8c962f5[m HEAD@{108}: reset: moving to HEAD~1
+[33m7472f4c[m HEAD@{109}: reset: moving to HEAD~1
+[33mc9bd46f[m HEAD@{110}: commit: Book Card
+[33m7472f4c[m HEAD@{111}: commit: Book Card
+[33m8c962f5[m HEAD@{112}: reset: moving to HEAD~1
+[33md234dc3[m HEAD@{113}: commit: Book Card
+[33m8c962f5[m HEAD@{114}: checkout: moving from footer-component to book-card
+[33m8c962f5[m HEAD@{115}: commit: Footer component
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{116}: checkout: moving from develop to footer-component
+[33mf29632a[m[33m ([m[1;31morigin/lth[m[33m)[m HEAD@{117}: commit (initial): Setup project and config folders
