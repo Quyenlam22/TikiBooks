@@ -1,0 +1,72 @@
+{
+  "scanned_files_count": 7,
+  "scanned_files": [
+    "src/index.js",
+    "src/App.js",
+    "src/app.tsx",
+    "src/types/product.ts",
+    "src/components/BookCard.tsx",
+    "src/components/BookList.tsx",
+    "src/components/BookDetails.tsx"
+  ],
+  "missing_imports": [
+    {
+      "file": "src/components/BookCard.tsx",
+      "import": "../types/Product",
+      "tried_candidates": [
+        "src/types/Product.ts",
+        "src/types/Product.tsx",
+        "src/types/Product.js",
+        "src/types/Product.jsx",
+        "src/types/Product.json",
+        "src/types/Product.css",
+        "src/types/Product/index.ts",
+        "src/types/Product/index.tsx",
+        "src/types/Product/index.js",
+        "src/types/Product/index.jsx",
+        "src/types/Product/index.json",
+        "src/types/Product/index.css"
+      ]
+    },
+    {
+      "file": "src/components/BookDetails.tsx",
+      "import": "../data/books.json",
+      "tried_candidates": null
+    },
+    {
+      "file": "src/components/BookDetails.tsx",
+      "import": "../types/Product",
+      "tried_candidates": [
+        "src/types/Product.ts",
+        "src/types/Product.tsx",
+        "src/types/Product.js",
+        "src/types/Product.jsx",
+        "src/types/Product.json",
+        "src/types/Product.css",
+        "src/types/Product/index.ts",
+        "src/types/Product/index.tsx",
+        "src/types/Product/index.js",
+        "src/types/Product/index.jsx",
+        "src/types/Product/index.json",
+        "src/types/Product/index.css"
+      ]
+    }
+  ],
+  "book_issues": [
+    {
+      "file": "src/components/BookDetails.tsx",
+      "import": "../data/books.json",
+      "candidates_found": [
+        "src/data/book.json"
+      ]
+    }
+  ],
+  "ts_files_count": 5,
+  "tsconfig_present": false,
+  "json_files": [
+    "package.json",
+    "src/data/book.json"
+  ],
+  "case_conflicts": [],
+  "all_imports_count": 15
+}

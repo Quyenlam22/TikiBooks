@@ -5,6 +5,7 @@ import type { Book } from "../../../type/Book";
 import { getBookById } from "../../services/bookService";
 import BookImageSlider from "../../components/Book/BookImageSlider";
 import BookPurchase from "../../components/Book/BookPurchase";
+import BookInfo from "../../components/Bookdetail/BookInfo";
 
 function DetailBook() {
   const { id } = useParams<{ id: string }>();
@@ -23,20 +24,25 @@ function DetailBook() {
     };
 
     fetchBook();
-  }, [id]);
+  }, [id]);  
 
   return (
     <>
-      <div className="text-xl font-semibold mb-4 text-center">
-        Chi tiết sách - ID: {id}
-      </div>
-
       <div className="flex justify-center w-full gap-6 mt-6 items-start">
         <div className="rounded-xl pl-4 flex flex-col gap-4">
-          {book && <BookImageSlider book={book} />}
+          <BookImageSlider
+            key={id}
+            images={book ? [
+              book.images[0].base_url,
+              book.images[0].small_url,
+            ] : []}
+          />
         </div>
 
-        {book && <Bookrelated book={book} />}
+        <div>
+          {book && <BookInfo book={book} />}
+          {book && <Bookrelated book={book} />}
+        </div>
         
         {book && <BookPurchase book={book} />}
       </div>

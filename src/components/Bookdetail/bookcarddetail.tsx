@@ -57,7 +57,7 @@ const BookCarddetail: React.FC<BookCardProps> = ({
                     </div>
 
                     <div className="text-[12px] leading-none mt-3">
-                        {price.toLocaleString()}₫
+                        {price.toLocaleString()}<sup>₫</sup>
                     </div>
                 </div>
             </div>

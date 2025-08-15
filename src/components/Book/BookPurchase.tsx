@@ -75,13 +75,13 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
       <div className="flex items-center mb-4">
         <button 
           onClick={handleDecrease} 
-          className={`flex items-center justify-center w-8 h-8 border border-gray-300 rounded bg-white text-2xl ${quantity === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`cursor-pointer flex items-center justify-center w-8 h-8 border border-gray-300 rounded bg-white text-2xl ${quantity === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={quantity === 1}
         >
             <img src={subIcon} alt="" />
         </button>
         <span className="flex items-center justify-center mx-2 w-10 h-8 border border-gray-300 rounded min-w-[24px] text-center">{quantity}</span>
-        <button onClick={handleIncrease} className="flex items-center justify-center w-8 h-8 border border-gray-300 rounded bg-white">
+        <button onClick={handleIncrease} className="cursor-pointer flex items-center justify-center w-8 h-8 border border-gray-300 rounded bg-white">
             <img src={addIcon} alt="" />
         </button>
       </div>
