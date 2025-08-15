@@ -1,21 +1,58 @@
-import { Button, Image, Space, Table, Tag } from "antd";
-import { EditOutlined, DeleteOutlined, StarFilled } from "@ant-design/icons";
-import { useContext } from "react";
+import { Button, Image, message, Modal, Space, Table, Tag } from "antd";
+import { EditOutlined, DeleteOutlined, StarFilled, InfoCircleFilled, PlusCircleOutlined } from "@ant-design/icons";
+import { useContext, useState } from "react";
 import { AppContext } from "../../../context/AppProvider";
 import type { ColumnsType } from "antd/es/table";
 import type { Book } from "../../../../type/Book";
 import type { Author } from "../../../../type/Author";
+import { deleteBook } from "../../../services/bookService";
+import CreateBook from "../../../components/Book/CreateBook";
 
 function Book() {
-  const {dataBook} = useContext(AppContext);
+  const {dataBook, setDataBook} = useContext(AppContext);
+  const [modalDelete, setModalDelete] = useState(false);
+  const [modalCreate, setModalCreate] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [ messageApi, contextHolder ] = message.useMessage();
+  
+  const handleCreate = (values: any) => {
+    console.log("Dữ liệu sách mới:", values);
+    setModalCreate(false);
+  };
+  
+  const handleCancelDelete = () => {
+    setModalDelete(false);
+    setDeleteId(null);
+  };
+
+  const handleOkDelete = async () => {
+    if (!deleteId) return;
+    try {
+      await deleteBook(deleteId);
+      setDataBook(prev => prev.filter(book => book.id !== deleteId));
+      messageApi.open({
+        type: 'success',
+        content: 'Xóa sách thành công!',
+      });
+    } catch (error) {
+      messageApi.open({
+        type: 'error',
+        content: 'Xóa sách thất bại!',
+      });
+    } finally {
+      setModalDelete(false);
+      setDeleteId(null);
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    setDeleteId(id);
+    setModalDelete(true);
+  };
 
   const handleEdit = (id: string) => {
     console.log("Edit book", id);
   };
-
-  const handleDelete = (id: string) => {
-    console.log("Delete book", id);
-  }
 
   const columns: ColumnsType<Book> = [
     {
@@ -28,12 +65,6 @@ function Book() {
           width={60}
           preview={true}
         />
-        // <img
-        //   src={images?.[0]?.small_url}
-        //   alt="Book cover"
-        //   width={60}
-        //   className="rounded shadow"
-        // />
       ),
     },
     {
@@ -134,7 +165,22 @@ function Book() {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow">
-      <h2 className="text-xl font-bold mb-4">Quản lý sách</h2>
+      {contextHolder}
+      <div className="flex justify-between">
+        <h2 className="text-xl font-bold mb-4">Quản lý sách</h2>
+        <Button 
+          type="primary" 
+          size="large"
+          onClick={() => setModalCreate(true)}
+        >
+          <PlusCircleOutlined />Thêm mới
+        </Button>
+        <CreateBook
+          open={modalCreate}
+          onCancel={() => setModalCreate(false)}
+          onSubmit={handleCreate}
+        />
+      </div>
       <Table
         dataSource={dataBook}
         columns={columns}
@@ -142,6 +188,17 @@ function Book() {
         pagination={{ pageSize: 5 }}
         className="overflow-x-auto"
       />
+      <Modal
+        title={
+          <>
+            <InfoCircleFilled className="text-2xl !text-yellow-500"/> Bạn có đồng ý muốn xóa bản ghi này?
+          </>
+          }
+        open={modalDelete}
+        onCancel={handleCancelDelete}
+        onOk={handleOkDelete}
+      >
+      </Modal>
     </div>
   );
 }

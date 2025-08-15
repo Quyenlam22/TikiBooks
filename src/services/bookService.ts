@@ -2,7 +2,6 @@ import type { Book } from "../../type/Book";
 import instance from "./api.service"
 
 export const getAllBooks = async () => {
-  
     const response = await instance.get("books");
     return response.data;
   }
@@ -21,4 +20,19 @@ export const getRelatedBooks = async (book: Book): Promise<Book[]> => {
     (item.authors?.[0]?.name === book.authors?.[0]?.name ||
       item.categories?.name === book.categories?.name)
   ).slice(0, 16);
+};
+
+export const deleteBook = async (id: string) => {
+  const token = localStorage.getItem("access_token");
+  
+  if (!token) {
+    throw new Error("Chưa đăng nhập hoặc không có accessToken");
+  }
+
+  const response = await instance.delete(`books/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  return response.data;
 };
