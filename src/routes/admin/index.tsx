@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import withSuspense from "../../utils/withSuspense";
 import PrivateRouteAdmin from "../../components/PrivateRouter/PrivateRouteAdmin";
-import LayoutAdmin from "../../layout/LayoutAdmin";"../../layout/LayoutAdmin";
+import LayoutAdmin from "../../layout/LayoutAdmin";
 
 const Error404 = lazy(() => import("../../pages/Error404"));
 const Author = lazy(() => import("../../pages/Admin/Author"));
@@ -14,11 +14,11 @@ const UserClient = lazy(() => import("../../pages/Admin/User/UserClient"));
 
 export const routesAdmin = [
   {
-    element: <PrivateRouteAdmin/>,
+    element: <PrivateRouteAdmin />,
     children: [
       {
         path: "/admin",
-        element: <LayoutAdmin/>,
+        element: <LayoutAdmin />,
         children: [
           {
             path: "dashboard",
@@ -58,10 +58,10 @@ export const routesAdmin = [
           },
         ],
       },
-    ]
+    ],
   },
   // {
   //   path: "admin/login",
   //   element: withSuspense(Login),
   // },
-]
+];
