@@ -6,7 +6,7 @@ const Home = lazy(() => import("../../pages/Home"));
 const Error404 = lazy(() => import("../../pages/Error404"));
 const DetailBook = lazy(() => import("../../pages/DetailBook"));
 const Search = lazy(() => import("../../pages/Search"));
-
+const Cart = lazy(() => import("../../pages/Cart"));
 export const routesClient = [
   {
     path: "/",
@@ -23,6 +23,10 @@ export const routesClient = [
       {
         path: "search",
         element: withSuspense(Search)
+      },
+      {
+        path: "cart",
+        element: withSuspense(Cart)
       },
       {
         path: "*",
