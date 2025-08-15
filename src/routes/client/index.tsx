@@ -7,6 +7,9 @@ const Error404 = lazy(() => import("../../pages/Error404"));
 const DetailBook = lazy(() => import("../../pages/DetailBook"));
 const Search = lazy(() => import("../../pages/Search"));
 const Myprofit = lazy(() => import("../../pages/Myprofit"));
+const AccountInfo = lazy(() => import("../../components/Myprofit/userinfor"));
+const OrderDetailPage = lazy(() => import("../../components/Myprofit/myorder"));
+const NotificationPage = lazy(() => import("../../components/Myprofit/myinform"));
 
 export const routesClient = [
   {
@@ -14,6 +17,7 @@ export const routesClient = [
     element: <LayoutDefault />,
     children: [
       {
+
         index: true,
         element: withSuspense(Home)
       },
@@ -32,6 +36,18 @@ export const routesClient = [
       {
         path: "myprofit",
         element: withSuspense(Myprofit)
+      },
+      {
+        path: "myprofit/userinfo",
+        element: withSuspense(AccountInfo)
+      },
+      {
+        path: "myprofit/order",
+        element: withSuspense(OrderDetailPage)
+      },
+      {
+        path: "myprofit/inform",
+        element: withSuspense(NotificationPage)
       }
     ]
   }
