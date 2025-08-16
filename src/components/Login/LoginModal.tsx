@@ -29,6 +29,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
       } else {
         navigate("/");
       }
+      // console.log("Login successful:", data);
     } catch (error) {
       console.error(error);
       alert("Login thất bại!");
