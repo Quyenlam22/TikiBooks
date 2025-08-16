@@ -5,19 +5,222 @@ import { AppContext } from "../../../context/AppProvider";
 import type { ColumnsType } from "antd/es/table";
 import type { Book } from "../../../../type/Book";
 import type { Author } from "../../../../type/Author";
-import { deleteBook } from "../../../services/bookService";
-import CreateBook from "../../../components/Book/CreateBook";
+import { createBook, deleteBook, getBookById, updateBook } from "../../../services/bookService";
+import { convertToSlug } from "../../../utils/convertToSlug";
+import { formatDate } from "../../../utils/formatDate";
+import BookForm from "../../../components/Book/BookForm";
+import dayjs from "dayjs";
 
 function Book() {
   const {dataBook, setDataBook} = useContext(AppContext);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [editData, setEditData] = useState<any>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [ messageApi, contextHolder ] = message.useMessage();
   
-  const handleCreate = (values: any) => {
-    console.log("Dữ liệu sách mới:", values);
-    setModalCreate(false);
+  const handleCreate = async (values: any) => {
+    const authors = values.authors.map((author: { name: string }) => ({
+      id: Date.now(),
+      name: author.name,
+      slug: convertToSlug(author.name)
+    }));
+
+    const newData = {
+      authors: authors,
+      book_cover: null,
+      categories: {
+        id: Date.now(),
+        name: values.categories.name,
+        is_leaf: false
+      },
+      current_seller: {
+        price: values.current_seller.price,
+        id: Date.now(),
+        sku: "string",
+        name: "string",
+        link: "string",
+        logo: "string",
+        product_id: "string",
+        store_id: Date.now(),
+        is_best_store: false,
+        is_offline_installment_supported: null
+      },
+      original_price: values.original_price,
+      list_price: values.original_price,
+      quantity_sold: {
+        text: `Đã bán ${values.quantity_sold.value || 0}`,
+        value: values.quantity_sold.value || 0,
+      },
+      description: values.description,
+      images: values.images,
+      name: values.name,
+      specifications: [  
+        {
+          name: "Thông tin sách",
+          attributes: [
+            {
+              code: "publisher_vn",
+              name: "Công ty phát hành",
+              value: values.specifications[0].attributes[0].value
+            },
+            {
+              code: "publication_date",
+              name: "Ngày xuất bản",
+              value: formatDate(new Date(values.specifications[0].attributes[1].value))
+            },
+            // {
+            //   code: "dimensions",
+            //   name: "Kích thước",
+            //   value: 14 x 20.5 cm
+            // },
+            // {
+            //   code: "dich_gia",
+            //   name: "Dịch Giả",
+            //   value: ["Nguyễn Bích Lan" , "Tô Yến Ly"]
+            // },
+            {
+              code: "book_cover",
+              name: "Loại bìa",
+              value: values.specifications[0].attributes[2].value
+            },
+            {
+              code: "number_of_page",
+              name: "Số trang",
+              value: values.specifications[0].attributes[3].value
+            },
+            // {
+            //   code: "manufacturer",
+            //   name: "Nhà xuất bản",
+            //   value: values.specifications[0].attributes[0].value
+            // }
+          ]
+        }
+      ],
+      rating_average: values.rating_average || 5,
+    }
+    
+    try {
+      const createdBook = await createBook(newData);
+      setDataBook(prev => [createdBook, ...prev]);
+      messageApi.open({
+        type: "success",
+        content: "Thêm sách thành công!"
+      });
+      setModalCreate(false);
+    } catch (error) {
+      messageApi.open({
+        type: "error",
+        content: "Thêm sách thất bại!"
+      });
+    }
+  };
+
+  const handleEdit = async (id: string) => {
+    const book = await getBookById(id);
+    if (!book) return;
+    const fixedBook = {
+      ...book,
+      specifications: Array.isArray(book.specifications)
+        ? book.specifications.map((spec) => ({
+            ...spec,
+            attributes: Array.isArray(spec.attributes)
+              ? spec.attributes.map((attr) => ({
+                  ...attr,
+                  value:
+                    attr.code === "publication_date" && typeof attr.value === "string"
+                      ? dayjs(attr.value)
+                      : attr.value,
+                }))
+              : [],
+          }))
+        : [],
+    };
+
+    setEditData(fixedBook);
+    setModalEdit(true);
+  };
+
+  const handleUpdate = async (values: any) => {
+    try {
+      const authors = values.authors.map((author: { name: string }) => ({
+        id: Date.now(),
+        name: author.name,
+        slug: convertToSlug(author.name)
+      }));
+
+      const updateData = {
+        ...editData, 
+        authors: authors,
+        book_cover: null,
+        categories: {
+          id: Date.now(),
+          name: values.categories.name,
+          is_leaf: false
+        },
+        current_seller: {
+          price: values.current_seller.price,
+          id: Date.now(),
+          sku: "string",
+          name: "string",
+          link: "string",
+          logo: "string",
+          product_id: "string",
+          store_id: Date.now(),
+          is_best_store: false,
+          is_offline_installment_supported: null
+        },
+        original_price: values.original_price,
+        list_price: values.original_price,
+        quantity_sold: {
+          text: `Đã bán ${values.quantity_sold.value || 0}`,
+          value: values.quantity_sold.value || 0,
+        },
+        description: values.description,
+        images: values.images,
+        name: values.name,
+        specifications: [  
+          {
+            name: "Thông tin sách",
+            attributes: [
+              {
+                code: "publisher_vn",
+                name: "Công ty phát hành",
+                value: values.specifications[0].attributes[0].value
+              },
+              {
+                code: "publication_date",
+                name: "Ngày xuất bản",
+                value: formatDate(new Date(values.specifications[0].attributes[1].value))
+              },
+              {
+                code: "book_cover",
+                name: "Loại bìa",
+                value: values.specifications[0].attributes[2].value
+              },
+              {
+                code: "number_of_page",
+                name: "Số trang",
+                value: values.specifications[0].attributes[3].value
+              },
+            ]
+          }
+        ],
+        rating_average: values.rating_average || 5,
+      };
+
+      const updatedBook = await updateBook(editData.id, updateData);
+      setDataBook(prev =>
+        prev.map(book => (book.id === editData.id ? updatedBook : book))
+      );
+
+      messageApi.open({ type: "success", content: "Cập nhật thành công!" });
+      setModalEdit(false);
+    } catch (error) {
+      console.error(error);
+      messageApi.open({ type: "error", content: "Cập nhật thất bại!" });
+    }
   };
   
   const handleCancelDelete = () => {
@@ -48,10 +251,6 @@ function Book() {
   const handleDelete = (id: string) => {
     setDeleteId(id);
     setModalDelete(true);
-  };
-
-  const handleEdit = (id: string) => {
-    console.log("Edit book", id);
   };
 
   const columns: ColumnsType<Book> = [
@@ -175,10 +374,12 @@ function Book() {
         >
           <PlusCircleOutlined />Thêm mới
         </Button>
-        <CreateBook
+        <BookForm
           open={modalCreate}
           onCancel={() => setModalCreate(false)}
           onSubmit={handleCreate}
+          initialValues={null} 
+          isEdit={false}   
         />
       </div>
       <Table
@@ -199,6 +400,13 @@ function Book() {
         onOk={handleOkDelete}
       >
       </Modal>
+      <BookForm
+        open={modalEdit}
+        onCancel={() => setModalEdit(false)}
+        onSubmit={handleUpdate}
+        initialValues={editData}
+        isEdit
+      />
     </div>
   );
 }

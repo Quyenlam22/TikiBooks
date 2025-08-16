@@ -1,14 +1,23 @@
-import { Modal, Form, Input, InputNumber, Button, DatePicker, Select } from "antd";
+import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
+import { useEffect } from "react";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 
-interface CreateBookProps {
+interface BookFormProps {
   open: boolean;
   onCancel: () => void;
   onSubmit: (values: any) => void;
+  initialValues?: any; 
+  isEdit?: boolean;   
 }
 
-const CreateBook: React.FC<CreateBookProps> = ({ open, onCancel, onSubmit }) => {
+const BookForm: React.FC<BookFormProps> = ({ open, onCancel, onSubmit, initialValues, isEdit }) => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (initialValues) {
+      form.setFieldsValue(initialValues); 
+    }
+  }, [initialValues, form]);
 
   const handleOk = async () => {
     try {
@@ -20,22 +29,21 @@ const CreateBook: React.FC<CreateBookProps> = ({ open, onCancel, onSubmit }) => 
     }
   };
 
-  const handleCancel = () => {
-    form.resetFields();
-    onCancel();
-  };
-
   return (
     <Modal
-      title="Thêm mới sách"
+      title={isEdit ? "Chỉnh sửa sách" : "Thêm mới sách"} 
       open={open}
-      onCancel={handleCancel}
+      onCancel={() => { form.resetFields(); onCancel(); }}
       onOk={handleOk}
       okText="Lưu"
       cancelText="Hủy"
       width={800}
     >
-      <Form form={form} layout="vertical" className="space-y-4">
+      <Form 
+        form={form} 
+        layout="vertical"
+        initialValues={isEdit ? undefined : { quantity_sold: { value: 0 }, rating_average: 5 }}
+      >
         <Form.Item
           label="Tên sách"
           name="name"
@@ -54,7 +62,7 @@ const CreateBook: React.FC<CreateBookProps> = ({ open, onCancel, onSubmit }) => 
 
         <Form.Item
           label="Giá bán"
-          name="list_price"
+          name={["current_seller", "price"]}
           rules={[{ required: true, message: "Vui lòng nhập giá bán" }]}
         >
           <InputNumber min={0} className="w-full" />
@@ -70,16 +78,16 @@ const CreateBook: React.FC<CreateBookProps> = ({ open, onCancel, onSubmit }) => 
 
         <Form.Item
           label="Số lượng đã bán"
-          name={["quantity_sold", "text"]}
+          name={["quantity_sold", "value"]}
         >
-          <InputNumber defaultValue={0} />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
           label="Đánh giá (rating)"
           name="rating_average"
         >
-          <InputNumber defaultValue={5} min={0} max={5} step={0.1} className="w-full" />
+          <InputNumber min={0} max={5} step={0.1} className="w-full" />
         </Form.Item>
 
         <Form.Item
@@ -228,4 +236,4 @@ const CreateBook: React.FC<CreateBookProps> = ({ open, onCancel, onSubmit }) => 
   );
 };
 
-export default CreateBook;
+export default BookForm;
