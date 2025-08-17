@@ -2,19 +2,12 @@ import { useMemo, useState } from "react";
 import BookCard from "./BookCard";
 import type { Book } from '../../../type/Book';
 import PaginationPage from "../PaginationPage";
+import { removeVietnameseTones } from "../../utils/removeVietnameseTones";
 
 type Props = {
   dataBook: Book[];
   searchTerm: string;
 };
-
-function removeVietnameseTones(str: string) {
-  return str
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/Đ/g, "D");
-}
 
 const BookSearchList = ({ dataBook, searchTerm }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);

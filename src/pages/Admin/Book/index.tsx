@@ -1,6 +1,6 @@
-import { Button, Image, message, Modal, Space, Table, Tag } from "antd";
+import { Button, Flex, Image, Input, message, Modal, Select, Space, Table, Tag } from "antd";
 import { EditOutlined, DeleteOutlined, StarFilled, InfoCircleFilled, PlusCircleOutlined } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { AppContext } from "../../../context/AppProvider";
 import type { ColumnsType } from "antd/es/table";
 import type { Book } from "../../../../type/Book";
@@ -10,6 +10,31 @@ import { convertToSlug } from "../../../utils/convertToSlug";
 import { formatDate } from "../../../utils/formatDate";
 import BookForm from "../../../components/Book/BookForm";
 import dayjs from "dayjs";
+import { removeVietnameseTones } from "../../../utils/removeVietnameseTones";
+import type { MenuItemType } from "antd/es/menu/interface";
+
+const sortMenuItems: MenuItemType[] = [
+  {
+    key: 'popular',
+    label: 'Phổ biến',
+  },
+  {
+    key: 'top_seller',
+    label: 'Bán chạy nhất',
+  },
+  {
+    key: 'top_rate',
+    label: 'Rate cao nhất',
+  },
+  {
+    key: 'price_asc',
+    label: 'Giá tăng dần',
+  },
+  {
+    key: 'price_desc',
+    label: 'Giá giảm dần',
+  },
+];
 
 function Book() {
   const {dataBook, setDataBook} = useContext(AppContext);
@@ -20,6 +45,53 @@ function Book() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [ messageApi, contextHolder ] = message.useMessage();
   
+  const [filterText, setFilterText] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string | null>(null);
+  const [sortKey, setSortKey] = useState("popular");
+
+  const filteredBooks = useMemo(() => {
+    let books = dataBook.filter((book) => {
+      const matchText = filterText
+        ? removeVietnameseTones(book.name.toLowerCase()).includes(
+            removeVietnameseTones(filterText.trim().toLowerCase())
+          )
+        : true;
+
+      const matchCategory = filterCategory
+        ? book.categories?.name === filterCategory
+        : true;
+
+      return matchText && matchCategory;
+    });
+
+    switch (sortKey) {
+      case "top_seller":
+        books = [...books].sort(
+          (a, b) => (b.quantity_sold?.value || 0) - (a.quantity_sold?.value || 0)
+        );
+        break;
+      case "top_rate":
+        books = [...books].sort(
+          (a, b) => (b.rating_average || 0) - (a.rating_average || 0)
+        );
+        break;
+      case "price_asc":
+        books = [...books].sort(
+          (a, b) => (a.current_seller?.price || 0) - (b.current_seller?.price || 0)
+        );
+        break;
+      case "price_desc":
+        books = [...books].sort(
+          (a, b) => (b.current_seller?.price || 0) - (a.current_seller?.price || 0)
+        );
+        break;
+      default:
+        break;
+    }
+
+    return books;
+  }, [dataBook, filterText, filterCategory, sortKey]);
+
   const handleCreate = async (values: any) => {
     const authors = values.authors.map((author: { name: string }) => ({
       id: Date.now(),
@@ -365,8 +437,40 @@ function Book() {
   return (
     <div className="p-4 bg-white rounded-lg shadow">
       {contextHolder}
-      <div className="flex justify-between">
-        <h2 className="text-xl font-bold mb-4">Quản lý sách</h2>
+      <Flex justify="space-between" wrap={true}>
+        <Flex gap={8} align="center">
+          <Input.Search
+            placeholder="Tìm sách theo tên"
+            onChange={(e) => setFilterText(e.target.value)}
+            style={{ width: 200 }}
+            allowClear
+          />
+          <Select
+            placeholder="Chọn danh mục"
+            style={{ width: 180 }}
+            onChange={(val) => setFilterCategory(val)}
+            allowClear
+          >
+            {[...new Set(dataBook.map((b) => b.categories?.name))].map((cat) => (
+              <Select.Option key={cat} value={cat}>
+                {cat}
+              </Select.Option>
+            ))}
+          </Select>
+
+          <Select
+            placeholder="Sắp xếp"
+            style={{ width: 180 }}
+            onChange={(val) => setSortKey(val)}
+            allowClear
+          >
+            {sortMenuItems.map((item) => (
+              <Select.Option key={item.key} value={item.key}>
+                {item.label}
+              </Select.Option>
+            ))}
+          </Select>
+        </Flex>
         <Button 
           type="primary" 
           size="large"
@@ -374,6 +478,9 @@ function Book() {
         >
           <PlusCircleOutlined />Thêm mới
         </Button>
+      </Flex>
+      <div className="mt-4">
+        <h2 className="text-xl font-bold mb-4">Quản lý sách</h2>
         <BookForm
           open={modalCreate}
           onCancel={() => setModalCreate(false)}
@@ -383,7 +490,7 @@ function Book() {
         />
       </div>
       <Table
-        dataSource={dataBook}
+        dataSource={filteredBooks}
         columns={columns}
         rowKey="id"
         pagination={{ pageSize: 5 }}
