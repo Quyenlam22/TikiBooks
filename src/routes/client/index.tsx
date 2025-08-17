@@ -2,6 +2,7 @@ import LayoutDefault from "../../layout/LayoutClient";
 import { lazy } from "react";
 import withSuspense from "../../utils/withSuspense";
 import LayoutOrderSuccess from "../../layout/LayoutOrder";
+import PrivateRouteClient from "../../components/PrivateRouter/PrivateRouterClient";
 
 const Home = lazy(() => import("../../pages/Home"));
 const Error404 = lazy(() => import("../../pages/Error404"));
@@ -34,8 +35,13 @@ export const routesClient = [
         element: withSuspense(Search)
       },
       {
-        path: "cart",
-        element: withSuspense(Cart)
+        element: <PrivateRouteClient/>,
+        children: [
+          {
+            path: "cart",
+            element: withSuspense(Cart)
+          }
+        ]
       },
       {
         path: "*",
