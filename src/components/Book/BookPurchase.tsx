@@ -14,8 +14,7 @@ interface BookPurchaseProps {
 const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const { dataBook } = useContext(AppContext);
-  const { setSelectedBookId } = useContext(AppContext);
+  const { dataBook, user, setSelectedBookId } = useContext(AppContext);
   const navigate = useNavigate();
 
   const price = book.current_seller?.price || 0;
@@ -25,14 +24,15 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const handleDecrease = () => setQuantity(q => (q > 1 ? q - 1 : 1));
 
   const handleAddToCart = () => {
+    if (!user) {
+      alert('Vui lòng đăng nhập để thực hiện thao tác này!');
+      return;
+    }
     setIsAddingToCart(true);
-    
     const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    
     const existingItemIndex = currentCart.findIndex(
       (item: any) => item.current_seller?.product_id === book.current_seller?.product_id
     );
-
     if (existingItemIndex !== -1) {
       currentCart[existingItemIndex].quantity += quantity;
     } else {
@@ -42,9 +42,7 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
         isSelected: true
       });
     }
-
     localStorage.setItem('cart', JSON.stringify(currentCart));
-    
     setTimeout(() => {
       setIsAddingToCart(false);
       alert('Đã thêm sản phẩm vào giỏ hàng!');
@@ -52,6 +50,10 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   };
 
   const handleBuyNow = () => {
+    if (!user) {
+      alert('Vui lòng đăng nhập để thực hiện thao tác này!');
+      return;
+    }
     if (setSelectedBookId) {
       setSelectedBookId(book.id);
     }
