@@ -15,6 +15,7 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { dataBook } = useContext(AppContext);
+  const { setSelectedBookId } = useContext(AppContext);
   const navigate = useNavigate();
 
   const price = book.current_seller?.price || 0;
@@ -51,10 +52,11 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   };
 
   const handleBuyNow = () => {
-    handleAddToCart();
-    
+    if (setSelectedBookId) {
+      setSelectedBookId(book.id);
+    }
     setTimeout(() => {
-      navigate('/cart');
+      navigate('/checkout');
     }, 600);
   };
 

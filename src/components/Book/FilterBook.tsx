@@ -66,9 +66,9 @@ function FilterBook() {
       case "top_rate":
         newBooks.sort((a, b) => b.rating_average - a.rating_average);
         break;
-      case "price_asc":
-        newBooks.sort((a, b) => a.current_seller.price - b.current_seller.price);
-        break;
+      // case "price_asc":
+      //   newBooks.sort((a, b) => a.current_seller.price - b.current_seller.price);
+      //   break;
       case "price_desc":
         newBooks.sort((a, b) => b.current_seller.price - a.current_seller.price);
         break;

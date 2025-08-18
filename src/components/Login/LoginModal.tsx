@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from '../../context/AppProvider';
 import { login } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useContext(AppContext);
 
   const handleLogin = async (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -21,6 +23,8 @@ export default function LoginModal({ onClose }: LoginModalProps) {
 
       localStorage.setItem("access_token", data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.user));
+
+      if (setUser) setUser(data.user);
 
       onClose();
 

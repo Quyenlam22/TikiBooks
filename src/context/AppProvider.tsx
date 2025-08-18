@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Book } from "../../type/Book";
 import type { Category } from "../../type/Category";
+import type { User } from "../../type/user";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
 
@@ -11,6 +12,10 @@ type AppContextType = {
   setDataBookTopSelling: React.Dispatch<React.SetStateAction<Book[]>>;
   dataCategory: Category[];
   setDataCategory: React.Dispatch<React.SetStateAction<Category[]>>;
+  selectedBookId?: string;
+  setSelectedBookId?: React.Dispatch<React.SetStateAction<string | undefined>>;
+  user?: User;
+  setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -20,6 +25,10 @@ export const AppContext = createContext<AppContextType>({
   setDataBookTopSelling: () => [],
   dataCategory: [],
   setDataCategory: () => {},
+  selectedBookId: undefined,
+  setSelectedBookId: () => {},
+  user: undefined,
+  setUser: () => {},
 });
 
 type AppProviderProps = {
@@ -30,6 +39,8 @@ function AppProvider ({children}: AppProviderProps) {
   const [dataBook, setDataBook] = useState<Book[]>([]);
   const [dataBookTopSelling, setDataBookTopSelling] = useState<Book[]>([]);
   const [dataCategory, setDataCategory] = useState<Category[]>([]);
+  const [selectedBookId, setSelectedBookId] = useState<string | undefined>(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -88,7 +99,11 @@ function AppProvider ({children}: AppProviderProps) {
           dataBookTopSelling,
           setDataBookTopSelling,
           dataCategory, 
-          setDataCategory
+          setDataCategory,
+          selectedBookId,
+          setSelectedBookId,
+          user,
+          setUser
         }}
       >
         {children}

@@ -15,6 +15,7 @@ const OrderDetailPage = lazy(() => import("../../components/Myprofit/myorder"));
 const NotificationPage = lazy(() => import("../../components/Myprofit/myinform"));
 
 const OrderSuccess = lazy(() => import("../../pages/OrderSuccess"));
+const CheckOut = lazy(() => import("../../pages/CheckOut/CheckOut"));
 
 export const routesClient = [
   {
@@ -62,6 +63,10 @@ export const routesClient = [
       {
         path: "myprofit/inform",
         element: withSuspense(NotificationPage)
+      },
+      {
+        path: "checkout",
+        element: withSuspense(CheckOut)
       }
     ]
   },
