@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Book } from "../../type/Book";
 import type { Category } from "../../type/Category";
-import type { User } from "../../type/user";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
+import type { User } from "../../type/user";
 
 type AppContextType = {
   dataBook: Book[];
@@ -12,37 +12,31 @@ type AppContextType = {
   setDataBookTopSelling: React.Dispatch<React.SetStateAction<Book[]>>;
   dataCategory: Category[];
   setDataCategory: React.Dispatch<React.SetStateAction<Category[]>>;
-  selectedBookId?: string;
-  setSelectedBookId?: React.Dispatch<React.SetStateAction<string | undefined>>;
-  user?: User;
-  setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
+  dataUser: User[];
+  setDataUser: React.Dispatch<React.SetStateAction<User[]>>;
 };
 
 export const AppContext = createContext<AppContextType>({
   dataBook: [],
-  setDataBook: () => {},
+  setDataBook: () => { },
   dataBookTopSelling: [],
   setDataBookTopSelling: () => [],
   dataCategory: [],
-  setDataCategory: () => {},
-  selectedBookId: undefined,
-  setSelectedBookId: () => {},
-  user: undefined,
-  setUser: () => {},
+  setDataCategory: () => { },
+  dataUser: [],
+  setDataUser: () => { },
 });
 
 type AppProviderProps = {
   children: ReactNode;
 };
 
-function AppProvider ({children}: AppProviderProps) {
+function AppProvider({ children }: AppProviderProps) {
   const [dataBook, setDataBook] = useState<Book[]>([]);
   const [dataBookTopSelling, setDataBookTopSelling] = useState<Book[]>([]);
   const [dataCategory, setDataCategory] = useState<Category[]>([]);
-  const [selectedBookId, setSelectedBookId] = useState<string | undefined>(undefined);
-  const [user, setUser] = useState<User | undefined>(undefined);
-
   const [messageApi, contextHolder] = message.useMessage();
+  const [dataUser, setDataUser] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -50,7 +44,7 @@ function AppProvider ({children}: AppProviderProps) {
         const response = await getAllBooks();
         setDataBook(response);
 
-        if(response.length > 0) {
+        if (response.length > 0) {
           const topBook = response.filter(
             (book: Book) => book.quantity_sold && book.quantity_sold.value !== undefined
           ).sort(
@@ -76,7 +70,7 @@ function AppProvider ({children}: AppProviderProps) {
             }
           });
 
-          setDataCategory(category);          
+          setDataCategory(category);
         }
       } catch (error) {
         messageApi.open({
@@ -84,26 +78,24 @@ function AppProvider ({children}: AppProviderProps) {
           content: 'An error occurred while fetching book data!',
         });
       }
-      
+
     }
     fetchApi();
   }, []);
-  
+
   return (
     <>
       {contextHolder}
       <AppContext.Provider
         value={{
-          dataBook, 
-          setDataBook, 
+          dataBook,
+          setDataBook,
           dataBookTopSelling,
           setDataBookTopSelling,
-          dataCategory, 
+          dataCategory,
           setDataCategory,
-          selectedBookId,
-          setSelectedBookId,
-          user,
-          setUser
+          dataUser,
+          setDataUser,
         }}
       >
         {children}
