@@ -10,7 +10,8 @@ import Logout from "../../components/Admin/Logout";
 
 function LayoutAdmin () {
     const [collapse, setCollapse] = useState(false);
-
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    
     const login = [
         {
             key: "userinfo",
@@ -47,7 +48,7 @@ function LayoutAdmin () {
                         </div>
                         <div className="mx-2 px-2">
                             <Dropdown menu={{ items:login }} placement="bottom">
-                                <Button><UserOutlined /></Button>
+                                <Button>{user.fullName ? user.fullName : <UserOutlined />}</Button>
                             </Dropdown>
                         </div>
                     </div>

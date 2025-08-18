@@ -2,6 +2,7 @@
 import { Form, Input, Modal, Select, DatePicker } from "antd";
 import dayjs from "dayjs";
 import type { User } from "../../../type/user";
+import { useEffect } from "react";
 
 interface UserFormProps {
     open: boolean;
@@ -14,16 +15,23 @@ interface UserFormProps {
 function UserForm({ open, onCancel, onSubmit, initialValues, isEdit }: UserFormProps) {
     const [form] = Form.useForm();
 
+    useEffect(() => {
+        if (open) {
+            form.setFieldsValue({
+                ...initialValues,
+                birthDay: initialValues?.birthDay ? dayjs(initialValues.birthDay) : null,
+            });
+        } else {
+            form.resetFields(); 
+        }
+    }, [open, initialValues, form]);
+
     return (
         <Modal open={open} title={isEdit ? "Chỉnh sửa User" : "Thêm User"} onCancel={onCancel} onOk={() => form.submit()}>
             <Form
                 form={form}
                 layout="vertical"
                 onFinish={onSubmit}
-                initialValues={{
-                    ...initialValues,
-                    birthDay: initialValues?.birthDay ? dayjs(initialValues.birthDay) : null,
-                }}
             >
                 <Form.Item name="email" label="Email" rules={[{ required: true, type: "email" }]}>
                     <Input />
