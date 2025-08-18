@@ -7,4 +7,6 @@ export interface User {
     nickName?: string;
     phone?: string;
     id?: number;
+    role?: string;
+    password: string;
 }
