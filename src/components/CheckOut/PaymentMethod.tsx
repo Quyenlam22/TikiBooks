@@ -5,7 +5,7 @@ const PaymentMethod = () => {
   const [selected, setSelected] = useState('cash');
 
   return (
-    <div className="payment-method">
+    <div className="payment-method p-4 bg-white rounded-lg">
       <h3 className="font-semibold mb-3">Chọn hình thức thanh toán</h3>
       <div className="flex flex-col gap-3">
         <label className={`flex items-center gap-2 cursor-pointer ${selected === 'cash' ? '' : ''}`}>

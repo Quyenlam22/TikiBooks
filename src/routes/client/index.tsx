@@ -63,20 +63,23 @@ export const routesClient = [
       {
         path: "myprofit/inform",
         element: withSuspense(NotificationPage)
-      },
-      {
-        path: "checkout",
-        element: withSuspense(CheckOut)
       }
     ]
   },
   {
-    path: "/order/:id",
     element: <LayoutOrderSuccess />,
     children: [
       {
         index: true,
         element: withSuspense(OrderSuccess)
+      }, 
+      {
+        path: "/order/:id",
+        element: withSuspense(OrderSuccess)
+      },
+      {
+        path: "checkout",
+        element: withSuspense(CheckOut)
       }
     ]
   }

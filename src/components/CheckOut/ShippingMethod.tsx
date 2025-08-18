@@ -8,10 +8,10 @@ interface ShippingMethodProps {
 
 const ShippingMethod: React.FC<ShippingMethodProps> = ({ value, onChange }) => {
   return (
-    <div className="shipping-method">
+    <div className="shipping-method bg-white p-4 rounded-lg">
       <h3 className="font-semibold mb-2">Chọn hình thức giao hàng</h3>
-      <div className="relative">
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col gap-3 shadow-sm">
+      <div>
+        <div className="mb-4 relative bg-blue-50 w-[500px] border border-blue-200 rounded-xl p-4 flex flex-col gap-3 shadow-sm">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
@@ -37,9 +37,9 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({ value, onChange }) => {
             <span className="font-medium text-gray-800">Giao tiết kiệm</span>
             <span className="ml-auto text-green-600 font-semibold">-16K</span>
           </label>
+          {/* Mũi nhọn dưới khung */}
+          <div className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-5 h-5 bg-blue-50 border-l border-b border-blue-200 rotate-315"></div>
         </div>
-        {/* Mũi nhọn dưới khung */}
-        <div className="absolute left-10 -bottom-3 w-5 h-5 bg-blue-50 border-l border-b border-blue-200 rotate-45"></div>
       </div>
     </div>
   );
