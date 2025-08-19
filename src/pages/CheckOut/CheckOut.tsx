@@ -10,6 +10,8 @@ import { AppContext } from '../../context/AppProvider';
 import { createOrder } from '../../services/orderService';
 import type { Order } from '../../../type/order';
 import { getStatusFromCreatedAt } from '../../utils/orderstatus';
+import { LuTicketPercent } from "react-icons/lu";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const CheckOut = () => {
     const { dataBook, selectedBookId, user } = useContext(AppContext);
@@ -76,23 +78,31 @@ const CheckOut = () => {
 
     return (
         <div className="flex flex-row gap-6 w-full justify-center items-start mt-6">
-            <div className="flex-1 max-w-2xl flex flex-col gap-6">
-                <ShippingMethod value={shippingType} onChange={setShippingType} />
-                {book && (
-                    <div className="mb-4">
-                        <label htmlFor="quantity" className="mr-2 font-semibold">Số lượng:</label>
-                        <input
-                            id="quantity"
-                            type="number"
-                            min={1}
-                            value={quantity}
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                            className="border rounded px-2 py-1 w-20"
-                        />
-                    </div>
-                )}
+            <div className="flex-1 max-w-2xl flex flex-col gap-4">
+                <div className='bg-white'>
+                    <ShippingMethod value={shippingType} onChange={setShippingType} />
+                    {book && (
+                        <div className="mt-2 mb-6 ml-4">
+                            <label htmlFor="quantity" className="mr-2 font-semibold">Số lượng:</label>
+                            <input
+                                id="quantity"
+                                type="number"
+                                min={1}
+                                value={quantity}
+                                onChange={(e) => setQuantity(Number(e.target.value))}
+                                className="border rounded px-2 py-1 w-20"
+                            />
+                        </div>
+                    )}
 
-                {book && <ProductInfo book={book} quantity={quantity} shippingFee={shippingFee} />}
+                    {book && <ProductInfo book={book} quantity={quantity} shippingFee={shippingFee} />}
+                    
+                    <div className='flex items-center gap-1 text-md py-4 mx-4 border-t border-gray-300'>
+                        <LuTicketPercent className='text-xl text-blue-700'/>
+                        Thêm mã khuyến mãi của shop
+                        <MdKeyboardArrowRight className='text-2xl'/>
+                    </div>
+                </div>
                 <PaymentMethod />
             </div>
             <div className="w-[340px] flex flex-col gap-4">

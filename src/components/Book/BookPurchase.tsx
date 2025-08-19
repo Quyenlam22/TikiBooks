@@ -14,8 +14,11 @@ interface BookPurchaseProps {
 const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const { dataBook, user, setSelectedBookId } = useContext(AppContext);
+  const { user, setSelectedBookId } = useContext(AppContext);
   const navigate = useNavigate();
+
+  console.log(user);
+  
 
   const price = book.current_seller?.price || 0;
   const total = price * quantity;

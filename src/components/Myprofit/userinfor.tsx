@@ -24,11 +24,8 @@ export default function AccountInfo() {
 
         fetchUser();
     }, []);
-    const handleChange = (field: string, value: string) => {
-        setUser((prev) => ({
-            ...prev,
-            [field]: value
-        }));
+    const handleChange = (field: keyof User, value: string) => {
+        setUser((prev) => (prev ? { ...prev, [field]: value } : prev));
     };
     const handleSave = async () => {
         if (!user?.id) return;
