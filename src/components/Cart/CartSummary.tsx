@@ -18,7 +18,7 @@ const CartSummary = ({ selectedItems, subtotalCurrent, subtotalOriginal, totalDi
   };
 
   return (
-    <>
+    <div>
     <div className="bg-white rounded-xl p-4 mb-4 top-4">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold">Giao tới</h3>
@@ -90,7 +90,7 @@ const CartSummary = ({ selectedItems, subtotalCurrent, subtotalOriginal, totalDi
         </button>
       </div>
       </div>
-    </>
+    </div>
   );
 };
 

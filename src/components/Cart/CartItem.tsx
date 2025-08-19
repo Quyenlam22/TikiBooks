@@ -36,9 +36,9 @@ const CartItem = ({item, isSelected, onSelected, onQuantityChange, onRemove}: Ca
                 <div className="text-sm font-medium text-gray-900 line-clamp-2">{item.name}</div>
                 
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-10">
                 <div className="min-w-30">
-                <div className="text-red-600 font-semibold">{price.toLocaleString("vi-VN")}<sup>₫</sup></div>
+                <div className="text-red-600 font-semibold ml-8">{price.toLocaleString("vi-VN")}<sup>₫</sup></div>
                 {originalPrice > price && (
                     <div className="text-gray-400 line-through text-xs">{originalPrice.toLocaleString("vi-VN")}<sup>₫</sup></div>
                 )}

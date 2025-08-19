@@ -2,6 +2,7 @@ import type { Book } from "../../../type/Book";
 import CartItem from "./CartItem";
 import shopIcon from "../../assets/icons/icon-shop.png"
 import trashIcon from '../../assets/icons/trash.svg';
+import fsIcon from '../../assets/icons/icon-fs.png';
 
 type CartItem = Book & { quantity?: number; isSelected?: boolean };
 
@@ -64,7 +65,7 @@ const CartList = ({ cartItems, onSelectAll, onSelectItem, onQuantityChange, onRe
             <span className="font-medium">Tất cả ({cartItems.length} sản phẩm)</span>
           </label>
 
-          <div className="hidden md:flex items-center gap-10 text-sm text-gray-500 pr-2">
+          <div className="hidden md:flex items-center gap-8 text-sm text-gray-500 pr-1">
             <span className="w-[120px] text-center">Đơn giá</span>
             <span className="w-[120px] text-center">Số lượng</span>
             <span className="w-[120px] text-center">Thành tiền</span>
@@ -142,7 +143,7 @@ const CartList = ({ cartItems, onSelectAll, onSelectItem, onQuantityChange, onRe
           </div>
           <div className="bg-white rounded-xl p-3">
             <div className="font-medium text-sm text-gray-600 flex items-center gap-2">
-              <span className="inline-block h-5 w-5 rounded bg-green-100 text-green-600 grid place-items-center">��</span>
+              <img src={fsIcon} alt="" className="h-4 w-4" />
               <span>Freeship 10k đơn từ 45k, Freeship 25k đơn từ 100k</span>
             </div>
           </div>
