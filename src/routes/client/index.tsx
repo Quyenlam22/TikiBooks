@@ -36,7 +36,7 @@ export const routesClient = [
         element: withSuspense(Search)
       },
       {
-        element: <PrivateRouteClient/>,
+        element: <PrivateRouteClient />,
         children: [
           {
             path: "cart",
@@ -49,7 +49,7 @@ export const routesClient = [
         element: withSuspense(Error404)
       },
       {
-        path: "myprofit",
+        path: "myprofit/order/:id",
         element: withSuspense(Myprofit)
       },
       {
@@ -72,7 +72,7 @@ export const routesClient = [
       {
         index: true,
         element: withSuspense(OrderSuccess)
-      }, 
+      },
       {
         path: "/order/:id",
         element: withSuspense(OrderSuccess)

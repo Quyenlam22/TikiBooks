@@ -53,7 +53,7 @@ export default function AccountInfo() {
                 </div>
 
                 {/* Nội dung */}
-                <div className="bg-white w-full max-w-[973px] h-[600px] flex flex-col lg:flex-row gap-6 lg:gap-8 p-4 sm:p-5 md:p-6 rounded shadow mx-auto">
+                <div className="bg-white w-full max-w-[973px] h-auto md:h-[600px] flex flex-col lg:flex-row gap-6 lg:gap-8 p-4 sm:p-5 md:p-6 rounded shadow mx-auto">
 
                     {/* Cột trái */}
                     <div className="flex-1 flex flex-col justify-between gap-4">
@@ -104,6 +104,7 @@ export default function AccountInfo() {
                                 value={user?.birthDay || ""}
                                 onChange={(e) => handleChange("birthDay", e.target.value)}
                                 className="flex-1 border border-gray-300 rounded px-3 py-1 h-[38px] text-sm"
+                                placeholder='Chọn ngày sinh'
                             />
                         </div>
 

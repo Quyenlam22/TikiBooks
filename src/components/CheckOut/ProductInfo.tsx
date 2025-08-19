@@ -1,13 +1,18 @@
 import React from 'react';
 import type { Book } from '../../../type/Book';
 
+
 interface ProductInfoProps {
   book: Book;
   shippingFee?: number;
   shippingLabel?: string;
+  quantity: number; // Optional, if you want to display quantity
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ book, shippingFee = 0, shippingLabel = '' }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ book, shippingFee = 0, shippingLabel = '', quantity }) => {
+  const unitPrice = book.current_seller?.price || book.list_price || 0;
+  const totalListPrice = (book.list_price || 0) * quantity;
+  const totalPrice = unitPrice * quantity;
   return (
     <div className="border rounded-xl p-4 bg-white flex flex-col gap-2 relative">
       <div className="text-green-600 font-medium mb-2 flex items-center gap-2">
@@ -26,10 +31,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ book, shippingFee = 0, shippi
             <span className="text-green-600 font-semibold text-sm">MIỄN PHÍ</span>
           </div>
           <div className="font-medium text-gray-800 mb-1">{book.name}</div>
-          <div className="text-gray-500 text-sm mb-1">SL: x1</div>
+          <div className="text-gray-500 text-sm mb-1">SL: x{quantity ?? 1}</div>
           <div className="flex items-center gap-2">
-            <span className="line-through text-gray-400 text-sm">{book.list_price ? book.list_price.toLocaleString('vi-VN') + '₫' : '169.000₫'}</span>
-            <span className="text-red-500 font-bold text-lg">{book.current_seller?.price ? book.current_seller.price.toLocaleString('vi-VN') + '₫' : '110.000₫'}</span>
+            <span className="line-through text-gray-400 text-sm">{totalListPrice.toLocaleString('vi-VN')}₫</span>
+            <span className="text-red-500 font-bold text-lg">{totalPrice.toLocaleString('vi-VN')}₫</span>
           </div>
         </div>
       </div>

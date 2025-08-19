@@ -1,8 +1,18 @@
 import React from 'react';
 
-const InfoBlock: React.FC = () => {
+type InfoBlockProps = {
+    fullname?: string;
+    phone?: string;
+    address: string;
+
+
+};
+
+const InfoBlock: React.FC<InfoBlockProps> = ({ fullname, phone, address }) => {
+
+
     return (
-        <div className="w-full  lg:px-0 mb-6">
+        <div className="w-full lg:px-0 mb-6">
             {/* Tiêu đề */}
             <div className="hidden sm:flex sm:flex-wrap sm:space-x-4 mb-2">
                 <h4 className="w-full sm:w-[317px] font-semibold mb-2 sm:mb-0">Địa chỉ người nhận</h4>
@@ -14,11 +24,12 @@ const InfoBlock: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
                 {/* Box 1 */}
                 <div className="w-full sm:w-[317px] bg-white p-4 rounded-md shadow-sm">
-                    {/* Tiêu đề hiển thị riêng trên mobile */}
                     <h4 className="sm:hidden font-semibold mb-2">Địa chỉ người nhận</h4>
-                    <p>Võ Anh Tú</p>
-                    <p>Số 17 Duy Tân, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội</p>
-                    <p>0942436893</p>
+                    <p>{fullname || 'Chưa có '}</p>
+                    <p>{address || 'Chưa có địa chỉ'}</p>
+                    <p>{phone || 'Chưa có số điện thoại'}</p>
+
+
                 </div>
 
                 {/* Box 2 */}

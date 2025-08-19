@@ -6,7 +6,10 @@ interface OrderSummaryProps {
   directDiscount: number;
   shippingDiscount: number;
   finalPrice: number;
+  quantity: number;
   savedAmount: number;
+  onOrderSubmit: () => void;
+  //  onOrderSubmit: () => void;
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({
@@ -15,8 +18,13 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   directDiscount,
   shippingDiscount,
   finalPrice,
-  savedAmount
+  savedAmount,
+  quantity,
+  onOrderSubmit
+
 }) => {
+  const totalAmount = totalPrice * quantity;
+  finalPrice = totalAmount + shippingFee - quantity * directDiscount - shippingDiscount;
   return (
     <div className="bg-white rounded-xl p-4 shadow-sm w-full max-w-xs">
       <div className="flex justify-between items-center mb-2">
@@ -26,7 +34,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       <div className="space-y-1 mb-2">
         <div className="flex justify-between text-gray-700">
           <span>Tổng tiền hàng</span>
-          <span>{totalPrice.toLocaleString('vi-VN')}đ</span>
+          <span>{(totalPrice * quantity).toLocaleString('vi-VN')}đ</span>
         </div>
         <div className="flex justify-between text-gray-700">
           <span>Phí vận chuyển</span>
@@ -47,7 +55,9 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       </div>
       <div className="text-green-600 font-medium mb-2">Tiết kiệm {savedAmount.toLocaleString('vi-VN')}đ</div>
       <div className="text-gray-400 text-xs mb-3">(Giá này đã bao gồm thuế GTGT, phí đóng gói, phí vận chuyển và các chi phí phát sinh khác)</div>
-      <button className="w-full py-3 bg-red-500 text-white font-semibold rounded-lg text-base hover:bg-red-600 transition-colors">Đặt hàng</button>
+      <button
+        onClick={onOrderSubmit}
+        className="w-full py-3 bg-red-500 text-white font-semibold rounded-lg text-base hover:bg-red-600 transition-colors">Đặt hàng</button>
     </div>
   );
 };
