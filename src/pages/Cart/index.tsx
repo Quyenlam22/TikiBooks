@@ -12,33 +12,31 @@ interface CartItem extends Book {
 const CartPage = () => {
   const { dataBook } = useContext(AppContext);
   
-  
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (dataBook.length > 0) {
-      const initialCartItems: CartItem[] = [
-        {
-          ...dataBook[0],
-          quantity: 1,
-          isSelected: true
-        },
-        {
-          ...dataBook[1],
-          quantity: 2,
-          isSelected: false
-        },
-        {
-          ...dataBook[2],
-          quantity: 1,
-          isSelected: true
-        }
-      ];
-      setCartItems(initialCartItems);
+    try {
+      const saved = localStorage.getItem('cart');
+      if (saved) {
+        const parsed = JSON.parse(saved) as CartItem[];
+        setCartItems(parsed);
+      } else {
+        setCartItems([]);
+      }
+    } catch {
+      setCartItems([]);
+    } finally {
       setIsLoading(false);
     }
-  }, [dataBook]);
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+    } catch {
+    }
+  }, [cartItems]);
 
   const handleSelectAll = (checked: boolean) => {
     setCartItems(prev => 
@@ -85,32 +83,26 @@ const CartPage = () => {
     return sum + (originalPrice * (item.quantity || 1));
   }, 0);
   
-
   const subtotalCurrent = selectedItems.reduce((sum, item) => {
     const currentPrice = item.current_seller?.price || 0;
     return sum + (currentPrice * (item.quantity || 1));
   }, 0);
   
-
   const totalDiscount = selectedItems.reduce((sum, item) => {
     const originalPrice = item.original_price || 0;
     const currentPrice = item.current_seller?.price || 0;
     return sum + ((originalPrice - currentPrice) * item.quantity);
   }, 0);
 
-
   const handleCheckout = () => {
     if (selectedItems.length === 0) {
       alert("Vui lòng chọn ít nhất 1 sản phẩm để thanh toán!");
       return;
     }
-    
-    
     console.log("Proceeding to checkout with:", selectedItems);
     alert("Chuyển đến trang thanh toán...");
   };
 
-  
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -119,7 +111,6 @@ const CartPage = () => {
     );
   }
 
-  
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen bg-gray-100 py-6">
@@ -127,7 +118,7 @@ const CartPage = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-8">GIỎ HÀNG</h1>
           <div className="bg-white rounded-lg shadow-sm p-12">
             <svg className="w-24 h-24 text-gray-400 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l-.386-1.902L5.5 6.5H17a1 1 0 00.89-.55l2.5-5A1 1 0 0019 0H3zM6.5 6.5L5.5 6.5H6.5zM8 9a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2z" />
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l-.386-1.902L5.5 6.5H17a1 1 0 00.89-.55l2.5-5A1 1 0 0019 0H3zM6.5 6.5L5.5 6.5H6.5zM8 9a1 1 0 100-2 1 1 0 000 2z" />
             </svg>
             <h2 className="text-xl font-medium text-gray-900 mb-2">Giỏ hàng trống</h2>
             <p className="text-gray-500 mb-6">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
@@ -145,14 +136,12 @@ const CartPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">GIỎ HÀNG</h1>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
           <div className="lg:col-span-2">
             <CartList
               cartItems={cartItems}
@@ -164,7 +153,6 @@ const CartPage = () => {
             />
           </div>
 
-          
           <div className="lg:col-span-1">
             <CartSummary
               selectedItems={selectedItems}
