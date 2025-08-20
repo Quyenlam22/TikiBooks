@@ -37,7 +37,7 @@ const sortMenuItems: MenuItemType[] = [
 ];
 
 function Book() {
-  const {dataBook, setDataBook} = useContext(AppContext);
+  const {dataBook, setDataBook, dataCategory} = useContext(AppContext);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
@@ -451,7 +451,7 @@ function Book() {
             onChange={(val) => setFilterCategory(val)}
             allowClear
           >
-            {[...new Set(dataBook.map((b) => b.categories?.name))].map((cat) => (
+            {[...new Set(dataCategory.map((c) => c?.name))].map((cat) => (
               <Select.Option key={cat} value={cat}>
                 {cat}
               </Select.Option>

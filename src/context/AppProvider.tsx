@@ -5,6 +5,7 @@ import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
 import type { User } from "../type/user";
 import type { Cart } from "../type/Cart";
+import { getAllCategories } from "../services/categoryService";
 
 type AppContextType = {
   dataBook: Book[];
@@ -67,11 +68,14 @@ function AppProvider({ children }: AppProviderProps) {
   useEffect(() => {
     const fetchApi = async () => {
       try {
-        const response = await getAllBooks();
-        setDataBook(response);
+        const [booksResponse, categoriesResponse] = await Promise.all([
+          getAllBooks(),
+          getAllCategories()
+        ]);
+        setDataBook(booksResponse);
 
-        if (response.length > 0) {
-          const topBook = response.filter(
+        if (booksResponse.length > 0) {
+          const topBook = booksResponse.filter(
             (book: Book) => book.quantity_sold && book.quantity_sold.value !== undefined
           ).sort(
             (a: Book, b: Book) => b.quantity_sold.value - a.quantity_sold.value
@@ -79,24 +83,17 @@ function AppProvider({ children }: AppProviderProps) {
 
           setDataBookTopSelling(topBook);
 
-          let category: Category[] = [];
-          response.forEach((book: Book) => {
-            if (book.categories) {
-              const existingCategory = category.find(c => c.id === book.categories.id);
-              if (existingCategory) {
-                existingCategory.books.push(book);
-              } else {
-                category.push({
-                  id: book.categories.id,
-                  name: book.categories.name,
-                  is_leaf: book.categories.is_leaf,
-                  books: [book],
-                });
-              }
-            }
+          const categoryList: Category[] = categoriesResponse.map((cat: Category) => {
+            const booksInCat = booksResponse.filter(
+              (book: Book) => book.categories && book.categories.id === cat.id
+            );
+            return {
+              ...cat,
+              books: booksInCat,
+            };
           });
 
-          setDataCategory(category);
+          setDataCategory(categoryList);
         }
 
         const userData = JSON.parse(localStorage.getItem("user") || "{}");
