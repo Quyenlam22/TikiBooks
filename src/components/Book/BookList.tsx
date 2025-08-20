@@ -22,7 +22,7 @@ function BookList(props: BookListProps) {
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-2">
         {currentBooks.length > 0 && (
           currentBooks.map((book: Book) => (
-            <BookCard key={book.current_seller?.product_id || book.id} book={book} />
+            <BookCard key={book.id || book.id} book={book} />
           ))
         )}
       </div>

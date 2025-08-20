@@ -81,8 +81,14 @@ const BookInfo: React.FC<BookDetailProps> = ({ book }) => {
                 <td className="py-2 text-gray-500 w-1/2">{attr.name}</td>
                 <td className="py-2 text-gray-800">
                   {attr.code === "publication_date"
-                    ? new Date(attr.value).toLocaleDateString("vi-VN")
-                    : attr.value}
+                    ? new Date(
+                        typeof attr.value === "object" && attr.value !== null
+                          ? (attr.value as { value: string }).value
+                          : attr.value
+                      ).toLocaleDateString("vi-VN")
+                    : typeof attr.value === "object" && attr.value !== null
+                      ? (attr.value as { value: string }).value
+                      : attr.value}
                 </td>
               </tr>
             ))}

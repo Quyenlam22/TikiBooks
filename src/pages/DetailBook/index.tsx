@@ -37,7 +37,6 @@ function DetailBook() {
               book.images[0].small_url,
             ] : []}
           />
-          
         </div>
 
         <div>
@@ -45,7 +44,7 @@ function DetailBook() {
           {book && <Bookrelated book={book} />}
         </div>
         
-        <BookPurchase price={book ? book.current_seller.price : 0} />
+        {book && <BookPurchase book={book} />}
       </div>
     </>
   );
