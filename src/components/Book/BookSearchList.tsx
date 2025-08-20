@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import BookCard from "./BookCard";
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import PaginationPage from "../PaginationPage";
 import { removeVietnameseTones } from "../../utils/removeVietnameseTones";
 

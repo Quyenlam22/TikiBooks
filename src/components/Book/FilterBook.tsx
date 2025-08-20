@@ -4,7 +4,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { AppContext } from '../../context/AppProvider';
 import BookList from './BookList';
 import { AiFillLike } from "react-icons/ai";
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import type { MenuItemType } from 'antd/es/menu/interface';
 
 const sortMenuItems: MenuItemType[] = [

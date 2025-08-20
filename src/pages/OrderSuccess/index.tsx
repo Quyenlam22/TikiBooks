@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import OrderInfo from '../../components/OrderSuccess/Orderinfor';
 import OrderSummary from '../../components/OrderSuccess/OrderSumary';
 import { getOrderById } from '../../services/orderService';
-import type { Order } from '../../../type/order';
+import type { Order } from '../../type/order';
 
 import './OrderSuccess.css';
 

@@ -1,7 +1,7 @@
 import Sidebar from '../../components/Myprofit/sibar';
 import { getUserById, updateUserById } from '../../services/authService';
 import { useEffect, useState } from 'react';
-import type { User } from '../../../type/user';
+import type { User } from '../../type/user';
 import { User as UserIcon, Tag as TagIcon, UserCircle2 } from "lucide-react";
 
 export default function AccountInfo() {

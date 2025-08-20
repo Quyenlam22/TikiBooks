@@ -3,8 +3,8 @@ import { EditOutlined, DeleteOutlined, StarFilled, InfoCircleFilled, PlusCircleO
 import { useContext, useMemo, useState } from "react";
 import { AppContext } from "../../../context/AppProvider";
 import type { ColumnsType } from "antd/es/table";
-import type { Book } from "../../../../type/Book";
-import type { Author } from "../../../../type/Author";
+import type { Book } from "../../../type/Book";
+import type { Author } from "../../../type/Author";
 import { createBook, deleteBook, getBookById, updateBook } from "../../../services/bookService";
 import { convertToSlug } from "../../../utils/convertToSlug";
 import { formatDate } from "../../../utils/formatDate";

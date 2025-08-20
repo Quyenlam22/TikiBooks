@@ -1,6 +1,6 @@
 import { Form, Input, Modal, Select, DatePicker } from "antd";
 import dayjs from "dayjs";
-import type { User } from "../../../type/user";
+import type { User } from "../../type/user";
 import { useEffect } from "react";
 
 interface UserFormProps {

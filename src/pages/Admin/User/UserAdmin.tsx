@@ -17,7 +17,7 @@ import {
 } from "../../../services/authService";
 import UserForm from "../../../components/User/userform";
 
-import type { User } from "../../../../type/user";
+import type { User } from "../../../type/user";
 import dayjs from "dayjs";
 import { isAxiosError } from "axios";
 

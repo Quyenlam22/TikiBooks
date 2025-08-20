@@ -1,5 +1,5 @@
 import instance from './api.service';
-import type { Order } from '../../type/order';
+import type { Order } from '../type/order';
 
 export const createOrder = async (data: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>) => {
     const token = localStorage.getItem('access_token');

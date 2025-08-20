@@ -1,5 +1,5 @@
 import { Rate } from 'antd';
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import "./Book.css";
 import { BiSolidLike } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';

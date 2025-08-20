@@ -1,4 +1,4 @@
-import type { Book } from "../../type/Book";
+import type { Book } from "../type/Book";
 import instance from "./api.service"
 
 export const getAllBooks = async () => {

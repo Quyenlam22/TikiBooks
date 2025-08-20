@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import type { Book } from "../../type/Book";
-import type { Category } from "../../type/Category";
+import type { Book } from "../type/Book";
+import type { Category } from "../type/Category";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
-import type { User } from "../../type/user";
-import type { Cart } from "../../type/Cart";
+import type { User } from "../type/user";
+import type { Cart } from "../type/Cart";
 
 type AppContextType = {
   dataBook: Book[];

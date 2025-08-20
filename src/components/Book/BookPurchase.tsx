@@ -5,7 +5,7 @@ import shieldIcon from '../../assets/icons/icon-0.png'
 import addIcon from '../../assets/icons/icons-add.svg';
 import subIcon from '../../assets/icons/icons-sub.svg';
 import { AppContext } from '../../context/AppProvider';
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 
 interface BookPurchaseProps {
   book: Book; 

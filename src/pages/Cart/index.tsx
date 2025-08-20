@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import CartList from "../../components/Cart/CartList";
 import CartSummary from "../../components/Cart/CartSummary";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import { useNavigate } from "react-router";
 import { AppContext } from "../../context/AppProvider";
 

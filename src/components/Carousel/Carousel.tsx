@@ -1,4 +1,4 @@
-import type { Book } from "../../../type/Book-carousel";
+import type { Book } from "../../type/Book-carousel";
 import BookSlider from "./BookSlider";
 import CategoryList from "./CategoryList";
 import { ChevronLeft, ChevronRight } from "lucide-react";

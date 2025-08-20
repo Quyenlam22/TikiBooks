@@ -1,6 +1,6 @@
 import { Pagination } from "antd";
 import { useEffect } from "react";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 
 export type PaginationPageProps = {
   dataBook: Book[];

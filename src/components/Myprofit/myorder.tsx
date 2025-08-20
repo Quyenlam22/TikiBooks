@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '../../components/Myprofit/sibar';
 import { getAllorders } from '../../services/orderService';
-import type { Order } from '../../../type/order';
+import type { Order } from '../../type/order';
 import { Link } from 'react-router-dom';
 
 const statuses = ['Tất cả đơn', 'Đang xử lý', 'Đã xác nhận', 'Đang giao', 'Đã giao', 'Đã huỷ'];

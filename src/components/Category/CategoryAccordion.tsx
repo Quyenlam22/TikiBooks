@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/AppProvider";
-import type { Category } from "../../../type/Category";
+import type { Category } from "../../type/Category";
 
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';

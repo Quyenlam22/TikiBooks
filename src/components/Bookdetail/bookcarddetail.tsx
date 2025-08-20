@@ -1,5 +1,5 @@
 import { Rate } from 'antd';
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import { Link } from 'react-router-dom';
 import "./Book.css";
 

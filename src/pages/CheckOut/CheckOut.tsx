@@ -8,7 +8,7 @@ import ShippingPromo from '../../components/CheckOut/ShippingPromo';
 import OrderSummary from '../../components/CheckOut/OrderSummary';
 import { AppContext } from '../../context/AppProvider';
 import { createOrder } from '../../services/orderService';
-import type { Order } from '../../../type/order';
+import type { Order } from '../../type/order';
 import { getStatusFromCreatedAt } from '../../utils/orderstatus';
 import { LuTicketPercent } from "react-icons/lu";
 import { MdKeyboardArrowRight } from "react-icons/md";

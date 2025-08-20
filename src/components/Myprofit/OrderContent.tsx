@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from './sibar';
 import InfoBlock from './infoblock';
 import { getOrderById } from '../../services/orderService';
-import type { Order } from '../../../type/order';
+import type { Order } from '../../type/order';
 import { getStatusFromCreatedAt } from '../../utils/orderstatus';
 
 const OrderDetailPage: React.FC = () => {

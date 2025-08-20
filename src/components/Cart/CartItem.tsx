@@ -1,4 +1,4 @@
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import addIcon from '../../assets/icons/icons-add.svg';
 import subIcon from '../../assets/icons/icons-sub.svg';
 import trashIcon from '../../assets/icons/trash.svg';
