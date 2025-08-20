@@ -78,8 +78,13 @@ export const routesClient = [
         element: withSuspense(OrderSuccess)
       },
       {
-        path: "checkout",
-        element: withSuspense(CheckOut)
+        element: <PrivateRouteClient/>,
+        children: [
+          {
+            path: "checkout",
+            element: withSuspense(CheckOut)
+          }
+        ]
       }
     ]
   }

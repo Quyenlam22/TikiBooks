@@ -14,113 +14,109 @@ import { LuTicketPercent } from "react-icons/lu";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const CheckOut = () => {
-    const { dataBook, selectedBookId, user } = useContext(AppContext);
-    const book = dataBook.find(b => b.id === selectedBookId);
-    const [shippingType, setShippingType] = React.useState<'express' | 'economy'>('express');
-    const [shippingPromoSelected, setShippingPromoSelected] = React.useState(true);
-    const navigate = useNavigate();
-    const [quantity, setQuantity] = React.useState(1);
+  const { checkoutBooks, user } = useContext(AppContext);
+  const [shippingType, setShippingType] = React.useState<'express' | 'economy'>('express');
+  const [shippingPromoSelected, setShippingPromoSelected] = React.useState(true);
+  const navigate = useNavigate();
 
-    // Tính phí vận chuyển
-    const shippingFee = shippingType === 'express' ? 25000 : 16000;
-    // Tính giảm giá vận chuyển
-    const shippingDiscount = shippingPromoSelected ? 25000 : 0;
+  if (!checkoutBooks || checkoutBooks.length === 0) {
+    return <div className="text-center mt-10">Chưa có sản phẩm để thanh toán</div>;
+  }
 
-    const totalPrice = book?.list_price || 169000;
-    const directDiscount = book ? (book.list_price - (book.current_seller?.price || 0)) : 59000;
-    const totalAmount = totalPrice * quantity;
-    const totalDiscount = directDiscount * quantity;
-    const finalPrice = totalAmount + shippingFee - totalDiscount - shippingDiscount;
-    const savedAmount = directDiscount + shippingDiscount;
+  // phí ship
+  const shippingFee = shippingType === 'express' ? 25000 : 16000;
+  // giảm ship
+  const shippingDiscount = shippingPromoSelected ? 25000 : 0;
 
-    const handleOrderSubmit = async () => {
-        if (!user || !book) {
-            alert('Thiếu thông tin người dùng hoặc sản phẩm');
-            return;
-        }
-        const createdAt = new Date().toISOString();
-        const orderData: Omit<Order, 'id' | 'updatedAt'> = {
-            userId: user.id!,
-            address: user.address || '',
-            products: [
-                {
-                    id: Number(book.id),
-                    name: book.name,
-                    price: book.current_seller?.price || book.list_price,
-                    quantity: quantity,
-                    images: book.images?.length
-                        ? [{
-                            base_url: book.images[0].base_url,
-                            // thumbnail_url: book.images[0].thumbnail_url
-                        }]
-                        : [],
-                },
-            ],
-            totalPrice: finalPrice,
-            status: getStatusFromCreatedAt(createdAt),
-            fullname: user.fullName || '',
-            phone: user.phone || '',
-            createdAt: createdAt
-        };
+  // Tổng tiền gốc (chưa giảm)
+  const totalPrice = checkoutBooks.reduce(
+    (sum, item) =>
+      sum + (item.book.list_price || 0) * (item.quantity || 1),
+    0
+  );
 
-        try {
-            const order = await createOrder(orderData);
-            // console.log('Order created successfully', orderData);
-            setTimeout(() => {
-                navigate(`/order/${order.id}`);
-            }, 1000); // delay 2 giây
-        } catch (error) {
-            console.error(error);
-            alert('Đặt hàng thất bại. Vui lòng thử lại.');
-        }
+  // Giảm giá trực tiếp (so với list_price)
+  const directDiscount = checkoutBooks.reduce(
+    (sum, item) =>
+      sum + ((item.book.list_price || 0) - (item.book.current_seller?.price || 0)) * (item.quantity || 1),
+    0
+  );
+
+  const finalPrice = totalPrice + shippingFee - directDiscount - shippingDiscount;
+  const savedAmount = directDiscount + shippingDiscount;
+
+  const handleOrderSubmit = async () => {
+    if (!user) {
+      alert('Thiếu thông tin người dùng');
+      return;
+    }
+
+    const createdAt = new Date().toISOString();
+
+    const orderData: Omit<Order, 'id' | 'updatedAt'> = {
+      userId: user.id!,
+      address: user.address || '',
+      products: checkoutBooks.map(item => ({
+        id: Number(item.book.id),
+        name: item.book.name,
+        price: item.book.current_seller?.price || item.book.list_price,
+        quantity: item.quantity || 1,
+        images: item.book.images?.length ? [{ base_url: item.book.images[0].base_url }] : [],
+      })),
+      totalPrice: finalPrice,
+      status: getStatusFromCreatedAt(createdAt),
+      fullname: user.fullName || '',
+      phone: user.phone || '',
+      createdAt
     };
 
+    try {
+      const order = await createOrder(orderData);
+      setTimeout(() => {
+        navigate(`/order/${order.id}`);
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+      alert('Đặt hàng thất bại. Vui lòng thử lại.');
+    }
+  };
 
-    return (
-        <div className="flex flex-row gap-6 w-full justify-center items-start mt-6">
-            <div className="flex-1 max-w-2xl flex flex-col gap-4">
-                <div className='bg-white'>
-                    <ShippingMethod value={shippingType} onChange={setShippingType} />
-                    {book && (
-                        <div className="mt-2 mb-6 ml-4">
-                            <label htmlFor="quantity" className="mr-2 font-semibold">Số lượng:</label>
-                            <input
-                                id="quantity"
-                                type="number"
-                                min={1}
-                                value={quantity}
-                                onChange={(e) => setQuantity(Number(e.target.value))}
-                                className="border rounded px-2 py-1 w-20"
-                            />
-                        </div>
-                    )}
+  return (
+    <div className="flex flex-row gap-6 w-full justify-center items-start mt-6">
+      <div className="flex-1 max-w-2xl flex flex-col gap-4">
+        <div className="bg-white">
+          <ShippingMethod value={shippingType} onChange={setShippingType} />
 
-                    {book && <ProductInfo book={book} quantity={quantity} shippingFee={shippingFee} />}
-                    
-                    <div className='flex items-center gap-1 text-md py-4 mx-4 border-t border-gray-300'>
-                        <LuTicketPercent className='text-xl text-blue-700'/>
-                        Thêm mã khuyến mãi của shop
-                        <MdKeyboardArrowRight className='text-2xl'/>
-                    </div>
-                </div>
-                <PaymentMethod />
-            </div>
-            <div className="w-[340px] flex flex-col gap-4">
-                {user && <ReceiverInfo user={user} />}
-                <ShippingPromo selected={shippingPromoSelected} onChange={setShippingPromoSelected} />
-                <OrderSummary
-                    totalPrice={totalPrice}
-                    shippingFee={shippingFee}
-                    directDiscount={directDiscount}
-                    shippingDiscount={shippingDiscount}
-                    finalPrice={finalPrice}
-                    savedAmount={savedAmount}
-                    onOrderSubmit={handleOrderSubmit}
-                    quantity={quantity}
-                />
-            </div>
+          <ProductInfo
+            books={checkoutBooks}
+            shippingFee={shippingFee}
+            shippingLabel={shippingType}
+          />
+
+          <div className="flex items-center gap-1 text-md py-4 mx-4 border-t border-gray-300">
+            <LuTicketPercent className="text-xl text-blue-700" />
+            Thêm mã khuyến mãi của shop
+            <MdKeyboardArrowRight className="text-2xl" />
+          </div>
         </div>
-    );
+        <PaymentMethod />
+      </div>
+      <div className="w-[340px] flex flex-col gap-4">
+        {user && <ReceiverInfo user={user} />}
+        <ShippingPromo selected={shippingPromoSelected} onChange={setShippingPromoSelected} />
+        <OrderSummary
+          totalPrice={totalPrice}
+          shippingFee={shippingFee}
+          directDiscount={directDiscount}
+          shippingDiscount={shippingDiscount}
+          finalPrice={finalPrice}
+          savedAmount={savedAmount}
+          quantity={checkoutBooks.reduce((sum, item) => sum + (item.quantity || 1), 0)} 
+          onOrderSubmit={handleOrderSubmit}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default CheckOut;

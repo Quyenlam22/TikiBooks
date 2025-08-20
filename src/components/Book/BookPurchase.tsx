@@ -14,11 +14,9 @@ interface BookPurchaseProps {
 const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const { user, setSelectedBookId } = useContext(AppContext);
+  const { user, setCheckoutBooks } = useContext(AppContext);
   const navigate = useNavigate();
 
-  console.log(user);
-  
 
   const price = book.current_seller?.price || 0;
   const total = price * quantity;
@@ -57,8 +55,8 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
       alert('Vui lòng đăng nhập để thực hiện thao tác này!');
       return;
     }
-    if (setSelectedBookId) {
-      setSelectedBookId(book.id);
+    if (setCheckoutBooks) {
+      setCheckoutBooks([{ book, quantity }]); 
     }
     setTimeout(() => {
       navigate('/checkout');

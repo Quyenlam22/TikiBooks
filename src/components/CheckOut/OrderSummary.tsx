@@ -19,12 +19,8 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   shippingDiscount,
   finalPrice,
   savedAmount,
-  quantity,
   onOrderSubmit
-
 }) => {
-  const totalAmount = totalPrice * quantity;
-  finalPrice = totalAmount + shippingFee - quantity * directDiscount - shippingDiscount;
   return (
     <div className="bg-white rounded-xl p-4 shadow-sm w-full max-w-xs">
       <div className="flex justify-between items-center mb-2">
@@ -34,7 +30,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       <div className="space-y-1 mb-2">
         <div className="flex justify-between text-gray-700">
           <span>Tổng tiền hàng</span>
-          <span>{(totalPrice * quantity).toLocaleString('vi-VN')}đ</span>
+          <span>{totalPrice.toLocaleString('vi-VN')}đ</span>
         </div>
         <div className="flex justify-between text-gray-700">
           <span>Phí vận chuyển</span>

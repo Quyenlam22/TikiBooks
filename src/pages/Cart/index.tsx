@@ -1,19 +1,20 @@
-import { useState, useContext, useEffect } from "react";
-import { AppContext } from "../../context/AppProvider";
+import { useState, useEffect, useContext } from "react";
 import CartList from "../../components/Cart/CartList";
 import CartSummary from "../../components/Cart/CartSummary";
 import type { Book } from "../../../type/Book";
+import { useNavigate } from "react-router";
+import { AppContext } from "../../context/AppProvider";
 
 interface CartItem extends Book {
   quantity: number;
   isSelected: boolean;
 }
 
-const CartPage = () => {
-  const { dataBook } = useContext(AppContext);
-  
+const CartPage = () => {  
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const {setCheckoutBooks} = useContext(AppContext);
 
   useEffect(() => {
     try {
@@ -99,8 +100,11 @@ const CartPage = () => {
       alert("Vui lòng chọn ít nhất 1 sản phẩm để thanh toán!");
       return;
     }
-    console.log("Proceeding to checkout with:", selectedItems);
-    alert("Chuyển đến trang thanh toán...");
+
+    setCheckoutBooks(
+      selectedItems.map(item => ({ book: {...item}, quantity: item.quantity, }))
+    ); 
+    navigate("/checkout");
   };
 
   if (isLoading) {

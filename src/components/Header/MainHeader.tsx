@@ -14,6 +14,13 @@ const MainHeader = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const totalQuantity = cart.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0);
+    setCartCount(totalQuantity);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -76,10 +83,12 @@ const MainHeader = () => {
               {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
 
               <a href="/cart" className="relative">
-              <img src={cartLogo} alt="" />
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
-                  0
-              </span>
+                <img src={cartLogo} alt="" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
+                    {cartCount}
+                  </span>
+                )}
               </a>
           </div>
           </div>

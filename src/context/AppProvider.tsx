@@ -4,6 +4,7 @@ import type { Category } from "../../type/Category";
 import { getAllBooks } from "../services/bookService";
 import { message } from "antd";
 import type { User } from "../../type/user";
+import type { Cart } from "../../type/Cart";
 
 type AppContextType = {
   dataBook: Book[];
@@ -18,6 +19,12 @@ type AppContextType = {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   selectedBookId: string | null;
   setSelectedBookId: React.Dispatch<React.SetStateAction<string | null>>;
+
+  cart: Cart[];
+  setCart: React.Dispatch<React.SetStateAction<Cart[]>>;
+
+  checkoutBooks: { book: Book; quantity: number }[];
+  setCheckoutBooks: React.Dispatch<React.SetStateAction<{ book: Book; quantity: number }[]>>;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -33,6 +40,12 @@ export const AppContext = createContext<AppContextType>({
   setUser: () => { },
   selectedBookId: null,
   setSelectedBookId: () => { },
+
+  cart: [],
+  setCart: () => {},
+
+  checkoutBooks: [],
+  setCheckoutBooks: () => {},
 });
 
 type AppProviderProps = {
@@ -47,6 +60,9 @@ function AppProvider({ children }: AppProviderProps) {
   const [dataUser, setDataUser] = useState<User[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
+  const [checkoutBooks, setCheckoutBooks] = useState<{ book: Book; quantity: number }[]>([]);
+
+  const [cart, setCart] = useState<Cart[]>([]);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -112,7 +128,11 @@ function AppProvider({ children }: AppProviderProps) {
           user,
           setUser,
           selectedBookId,
-          setSelectedBookId
+          setSelectedBookId,
+          cart,
+          setCart,
+          checkoutBooks,
+          setCheckoutBooks
         }}
       >
         {children}
