@@ -5,7 +5,7 @@ import {
   PlusCircleOutlined,
   InfoCircleFilled,
 } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../../context/AppProvider";
 import type { ColumnsType } from "antd/es/table";
 import {
@@ -13,22 +13,20 @@ import {
   deleteUserById,
   getUserById,
   updateUserById,
+  getUsers,
 } from "../../../services/authService";
 import UserForm from "../../../components/User/userform";
-
 import type { User } from "../../../../type/user";
-import { getUsers } from "../../../services/authService";
-import { useEffect } from "react";
 import dayjs from "dayjs";
 import { isAxiosError } from "axios";
 
 function UserClient() {
   const { dataUser, setDataUser } = useContext(AppContext);
 
-  const [modalDelete, setModalDelete] = useState(false);
-  const [modalCreate, setModalCreate] = useState(false);
-  const [modalEdit, setModalEdit] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState<User | null>(null);
+  const [modalDelete, setModalDelete] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [messageApi, contextHolder] = message.useMessage();
   const [searchEmail, setSearchEmail] = useState<string>("");
@@ -46,7 +44,7 @@ function UserClient() {
     fetchUsers();
   }, [setDataUser]);
 
-
+  // CREATE
   const handleCreate = async (values: User) => {
     const payload = {
       email: values.email,
@@ -55,16 +53,18 @@ function UserClient() {
       phone: values.phone || "",
       address: values.address || "",
       gender: values.gender || undefined,
-      birthDay: values.birthDay ? dayjs(values.birthDay).format("YYYY-MM-DD") : undefined,
+      birthDay: values.birthDay
+        ? dayjs(values.birthDay).format("YYYY-MM-DD")
+        : undefined,
       nickName: values.nickName || "",
       role: values.role || "user",
     };
 
     try {
       const newUser = await createUser(payload);
-      setDataUser((prev) => [newUser, ...(prev ?? [])]); // thêm vào danh sách
+      setDataUser((prev) => [newUser, ...(prev ?? [])]);
       messageApi.success("Thêm user thành công!");
-      setModalCreate(false);
+      setModalVisible(false);
     } catch (error: unknown) {
       if (isAxiosError(error) && error.response?.status === 400) {
         messageApi.error("Email đã tồn tại hoặc payload không hợp lệ!");
@@ -75,16 +75,14 @@ function UserClient() {
     }
   };
 
-
-
-
   // EDIT
   const handleEdit = async (id: number) => {
     try {
       const user = await getUserById(id);
       if (user) {
         setEditData(user);
-        setModalEdit(true);
+        setIsEdit(true);
+        setModalVisible(true);
       }
     } catch (err) {
       console.error(err);
@@ -101,8 +99,9 @@ function UserClient() {
         prev.map((u) => (u.id === editData.id ? updatedUser : u))
       );
       messageApi.success("Cập nhật thành công!");
-      setModalEdit(false);
+      setModalVisible(false);
       setEditData(null);
+      setIsEdit(false);
     } catch (err) {
       console.error(err);
       messageApi.error("Cập nhật thất bại!");
@@ -129,29 +128,26 @@ function UserClient() {
       setDeleteId(null);
     }
   };
+
   const columns: ColumnsType<User> = [
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email"
-    },
+    { title: "Email", dataIndex: "email", key: "email" },
     {
       title: "Họ và tên",
       dataIndex: "fullName",
       key: "fullName",
-      render: (text) => text || "---"
+      render: (text) => text || "---",
     },
     {
       title: "Số điện thoại",
       dataIndex: "phone",
       key: "phone",
-      render: (text) => text || "---"
+      render: (text) => text || "---",
     },
     {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
-      render: (text) => text || "---"
+      render: (text) => text || "---",
     },
     {
       title: "Hành động",
@@ -173,7 +169,6 @@ function UserClient() {
     },
   ];
 
-
   return (
     <div className="p-4 bg-white rounded-lg shadow">
       {contextHolder}
@@ -189,7 +184,11 @@ function UserClient() {
         <Button
           type="primary"
           size="large"
-          onClick={() => setModalCreate(true)}
+          onClick={() => {
+            setIsEdit(false);
+            setEditData(null);
+            setModalVisible(true);
+          }}
         >
           <PlusCircleOutlined /> Thêm mới
         </Button>
@@ -222,21 +221,17 @@ function UserClient() {
         onOk={handleOkDelete}
       />
 
-      {/* Form thêm */}
+      {/* Form thêm + sửa dùng chung */}
       <UserForm
-        open={modalCreate}
-        onCancel={() => setModalCreate(false)}
-        onSubmit={handleCreate}
-        isEdit={false}
-      />
-
-      {/* Form sửa */}
-      <UserForm
-        open={modalEdit}
-        onCancel={() => setModalEdit(false)}
-        onSubmit={handleUpdate}
-        initialValues={editData ?? undefined}
-        isEdit
+        open={modalVisible}
+        onCancel={() => {
+          setModalVisible(false);
+          setEditData(null);
+          setIsEdit(false);
+        }}
+        onSubmit={isEdit ? handleUpdate : handleCreate}
+        initialValues={isEdit ? editData ?? undefined : undefined}
+        isEdit={isEdit}
       />
     </div>
   );
