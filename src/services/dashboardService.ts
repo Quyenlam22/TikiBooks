@@ -33,16 +33,13 @@ export interface DashboardResponse {
   userStats: UserStatistics;
 }
 
-// Helper function to generate mock data based on actual books from API
 async function generateMockDataFromBooks(): Promise<DashboardResponse> {
   try {
     const books: Book[] = await getAllBooks();
     
-    // Calculate book statistics from actual data
     const totalBooks = books.length;
     const avgRating = books.reduce((sum, book) => sum + (book.rating_average || 0), 0) / totalBooks;
     
-    // Group books by category
     const categoryMap = new Map<string, number>();
     books.forEach(book => {
       const categoryName = book.categories?.name || 'Unknown';
@@ -55,15 +52,12 @@ async function generateMockDataFromBooks(): Promise<DashboardResponse> {
       count
     }));
 
-    // Generate mock sales data based on actual book data
     const totalSold = books.reduce((sum, book) => sum + (book.quantity_sold?.value || Math.floor(Math.random() * 100) + 20), 0);
     const totalRevenue = books.reduce((sum, book) => sum + ((book.current_seller?.price || book.list_price || 0) * (book.quantity_sold?.value || Math.floor(Math.random() * 50) + 10)), 0);
     
-    // Mock order statistics
     const totalOrders = Math.floor(totalSold / 2) + 100;
     const avgOrderValue = totalRevenue / totalOrders;
 
-    // Generate daily orders for the last 7 days
     const ordersByDay = Array.from({ length: 7 }).map((_, idx) => {
       const d = new Date();
       d.setDate(d.getDate() - (6 - idx));
@@ -117,7 +111,6 @@ async function generateMockDataFromBooks(): Promise<DashboardResponse> {
       },
     };
   } catch {
-    // Fallback data if API fails
     return {
       orderStats: {
         totalOrders: 0,
@@ -162,7 +155,6 @@ export async function fetchDashboardSummary(params: { from?: string; to?: string
     const response = await instance.get<DashboardResponse>("/admin/dashboard", { params });
     return response.data;
   } catch {
-    // Use actual book data from API to generate realistic mock data
     return await generateMockDataFromBooks();
   }
 }
