@@ -16,10 +16,9 @@ function Bookrelated({ book }: BookrelatedProps) {
     const [currentPage, setCurrentPage] = useState(0);
     const [topDealsPage, setTopDealsPage] = useState(0);
 
-    // Responsive books per page
     const getBooksPerPage = () => {
-        if (window.innerWidth < 580) return 4;
-        if (window.innerWidth < 768) return 6;
+        if (window.innerWidth < 580) return 3;
+        if (window.innerWidth < 768) return 4;
         return 8;
     };
 
@@ -32,7 +31,6 @@ function Bookrelated({ book }: BookrelatedProps) {
     const [booksPerPage, setBooksPerPage] = useState(getBooksPerPage());
     const [topDealsPerPage, setTopDealsPerPage] = useState(getTopDealsPerPage());
 
-    // Update per-page values on resize
     useEffect(() => {
         const handleResize = () => {
             setBooksPerPage(getBooksPerPage());
@@ -42,7 +40,6 @@ function Bookrelated({ book }: BookrelatedProps) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Fetch data
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -62,7 +59,6 @@ function Bookrelated({ book }: BookrelatedProps) {
         if (book) fetchData();
     }, [book]);
 
-    // Pagination calculations
     const totalPages = Math.ceil(relatedBooks.length / booksPerPage);
     const topDealsTotalPages = Math.ceil(topDeals.length / topDealsPerPage);
 
@@ -93,21 +89,20 @@ function Bookrelated({ book }: BookrelatedProps) {
 
 
     return (
-        <div className="flex flex-col items-center gap-4">
-            {/* Sản phẩm tương tự */}
-            <div className="w-[390px] sm:w-[584px] flex flex-col items-center bg-white shadow rounded p-4 pb-5.5 relative">
-
-
+        <div className="flex flex-col items-center gap-4 w-full px-4">
+            <div className="w-full sm:w-[584px] flex flex-col items-center bg-white shadow rounded p-4 pb-5.5 relative">
                 <h2 className="text-base font-semibold text-gray-800 mb-4 self-start">
                     Sản phẩm tương tự
                 </h2>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+                <div className="w-full flex flex-wrap justify-start gap-3">
                     {paginatedBooks.map((book: Book) => (
-                        <BookCarddetail
-                            key={book.current_seller?.product_id}
-                            book={book}
-                        />
+                        <div className="w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-10px)]">
+                            <BookCarddetail
+                                key={book.current_seller?.product_id}
+                                book={book}
+                            />
+                        </div>
                     ))}
                 </div>
 
@@ -147,19 +142,21 @@ function Bookrelated({ book }: BookrelatedProps) {
             </div>
 
             {/* Top Deals */}
-            <div className="w-[390px] sm:w-[584px] flex flex-col items-center bg-white shadow rounded p-4 pb-5.5 relative">
+            <div className="w-full sm:w-[584px] flex flex-col items-center bg-white shadow rounded p-4 pb-5.5 relative">
 
 
                 <h2 className="text-base font-semibold text-gray-800 mb-4 self-start">
                     Top deals
                 </h2>
 
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                <div className="w-full flex flex-wrap justify-start gap-3">
                     {paginatedTopDeals.map((book: Book) => (
+                        <div className="w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-10px)]">
                         <BookCarddetail
                             key={book.current_seller?.product_id}
                             book={book}
                         />
+                    </div>
                     ))}
                 </div>
 

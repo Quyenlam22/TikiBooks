@@ -69,7 +69,7 @@ const MainHeader = () => {
     <div className="bg-white px-5 py-2">
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-center space-x-2 w-[96px]  ml-[24px]">
-          <img src={tikiLogo} alt="Tiki Logo" className="h-10" />
+          <a href="/" className="h-10"><img src={tikiLogo} alt="Tiki Logo"  /></a>
           <span className=" font-bold text-blue-700 text-sm mt-2">Tốt & Nhanh</span>
         </div>
 
@@ -93,7 +93,7 @@ const MainHeader = () => {
         </div>
         <div className="flex self-start pt-3 space-x-6">
           <a href="/" className="flex self-start space-x-1">
-            <img src={homeLogo} alt="" />
+            <img src={homeLogo} alt="" className="w-6 h-6"/>
             <span>Trang chủ</span>
           </a>
 

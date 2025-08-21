@@ -11,6 +11,8 @@ interface BookPurchaseProps {
   book: Book; 
 }
 
+type CartItem = Book & { quantity: number; isSelected: boolean };
+
 const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -30,9 +32,11 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
       return;
     }
     setIsAddingToCart(true);
-    const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const currentCart: CartItem[] = JSON.parse(
+      localStorage.getItem('cart') || '[]'
+    ) as CartItem[];
     const existingItemIndex = currentCart.findIndex(
-      (item: any) => item.current_seller?.product_id === book.current_seller?.product_id
+      (item: CartItem) => item.current_seller?.product_id === book.current_seller?.product_id
     );
     if (existingItemIndex !== -1) {
       currentCart[existingItemIndex].quantity += quantity;
@@ -64,7 +68,7 @@ const BookPurchase: React.FC<BookPurchaseProps> = ({ book }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg p-5 w-90">
+    <div className="bg-white rounded-lg p-5 w-full lg:w-full">
       <div className="flex items-center mb-2.5">
         <img src={tikiLogo} alt="Tiki Trading" className="w-10 mr-2" />
         <div>

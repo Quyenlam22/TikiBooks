@@ -6,7 +6,10 @@
   padding: 0;
 }
 
-
+@media (max-width: 768px) {
+  .container { padding: 0 1rem; }
+  .grid { grid-template-columns: 1fr; }
+}
 /* 
 .logo {
   height: 6em;
