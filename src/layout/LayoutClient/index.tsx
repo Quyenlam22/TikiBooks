@@ -2,11 +2,11 @@ import { Outlet } from "react-router-dom";
 import "./LayoutClient.css";
 import FooterComponent from "../../components/FooterComponent";
 import Header from "../../components/Header/Header";
-import { useEffect } from "react";
-import { message } from "antd";
+import { useContext, useEffect } from "react";
+import { AppContext } from "../../context/AppProvider";
 
 function LayoutClient() {
-  const [messageApi, contextHolder] = message.useMessage();
+  const {messageApi} = useContext(AppContext);
 
   useEffect(() => {
     const warningType = sessionStorage.getItem("isAdmin");
@@ -21,7 +21,6 @@ function LayoutClient() {
 
   return (
     <>
-      {contextHolder}
       <Header/>
 
       <main className="main p-0 md:p-4 min-h-[60vh]">

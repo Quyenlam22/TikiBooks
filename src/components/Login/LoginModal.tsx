@@ -13,7 +13,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setUser } = useContext(AppContext);
+  const { setUser, messageApi } = useContext(AppContext);
 
   const handleLogin = async (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -30,12 +30,18 @@ export default function LoginModal({ onClose }: LoginModalProps) {
       if (data.user.role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/");
+        messageApi.open({
+          type: 'success',
+          content: `Xin chào ${data.user?.nickName || ""}!`,
+        });
       }
       // console.log("Login successful:", data);
     } catch (error) {
       console.error(error);
-      alert("Login thất bại!");
+      messageApi.open({
+        type: 'error',
+        content: 'Login thất bại!',
+      });
     } finally {
       setLoading(false);
     }
@@ -44,7 +50,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
   return (
     // Nền mờ + click ra ngoài để đóng
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center backdrop-blur-sm bg-black/30"
+      className="fixed inset-0 z-[99] flex items-center justify-center backdrop-blur-sm bg-black/30"
       onClick={onClose}
     >
       {/* Ngăn click vào modal bị đóng */}
@@ -102,7 +108,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-red-500 text-white rounded py-2 hover:bg-red-600 disabled:bg-gray-400"
+              className="w-full cursor-pointer bg-red-500 text-white rounded py-2 hover:bg-red-600 disabled:bg-gray-400"
               disabled={loading}
             >
               {loading ? "Đang đăng nhập..." : "Đăng nhập"}

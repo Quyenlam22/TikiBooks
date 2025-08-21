@@ -1,4 +1,4 @@
-import { Button, Flex, Input, Modal, Space, Table, message } from "antd";
+import { Button, Flex, Input, Modal, Space, Table } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
@@ -21,14 +21,13 @@ import dayjs from "dayjs";
 import { isAxiosError } from "axios";
 
 function UserClient() {
-  const { dataUser, setDataUser } = useContext(AppContext);
+  const { dataUser, setDataUser, messageApi } = useContext(AppContext);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState<User | null>(null);
   const [modalDelete, setModalDelete] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
-  const [messageApi, contextHolder] = message.useMessage();
   const [searchEmail, setSearchEmail] = useState<string>("");
 
   useEffect(() => {
@@ -171,8 +170,6 @@ function UserClient() {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow">
-      {contextHolder}
-
       <Flex justify="space-between">
         <Input.Search
           placeholder="Tìm user theo email"

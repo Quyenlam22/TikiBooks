@@ -22,7 +22,7 @@ export interface Book {
         is_best_store: boolean;
         is_offline_installment_supported: boolean | null;
     };
-    description: string;
+    description?: string;
     images: {
         base_url: string;
         is_gallery: boolean;
@@ -45,9 +45,9 @@ export interface Book {
     specifications: {
         name: string;
         attributes: {
-            code: string;
-            name: string;
-            value: string;
+            code?: string;
+            name?: string;
+            value?: string;
         }[];
     }[];
     id: string;

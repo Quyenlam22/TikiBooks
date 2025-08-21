@@ -18,7 +18,7 @@ const MainHeader = () => {
   const location = useLocation();
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser, messageApi } = useContext(AppContext);
 
   const menuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -58,6 +58,10 @@ const MainHeader = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
+    messageApi.open({
+      type: 'success',
+      content: `Đăng xuất thành công!`,
+    });
     setUser(null);
     setShowAccountMenu(false);
   };

@@ -14,7 +14,7 @@ import { LuTicketPercent } from "react-icons/lu";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const CheckOut = () => {
-  const { checkoutBooks, user } = useContext(AppContext);
+  const { checkoutBooks, user, messageApi } = useContext(AppContext);
   const [shippingType, setShippingType] = React.useState<'express' | 'economy'>('express');
   const [shippingPromoSelected, setShippingPromoSelected] = React.useState(true);
   const navigate = useNavigate();
@@ -47,7 +47,10 @@ const CheckOut = () => {
 
   const handleOrderSubmit = async () => {
     if (!user) {
-      alert('Thiếu thông tin người dùng');
+      messageApi.open({
+        type: 'warning',
+        content: 'Thiếu thông tin người dùng'
+      });
       return;
     }
 
@@ -77,7 +80,10 @@ const CheckOut = () => {
       }, 1000);
     } catch (error) {
       console.error(error);
-      alert('Đặt hàng thất bại. Vui lòng thử lại.');
+      messageApi.open({
+        type: 'error',
+        content: `Đặt hàng thất bại. Vui lòng thử lại.`,
+      });
     }
   };
 

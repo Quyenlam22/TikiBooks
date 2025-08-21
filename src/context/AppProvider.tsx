@@ -6,6 +6,7 @@ import { message } from "antd";
 import type { User } from "../type/user";
 import type { Cart } from "../type/Cart";
 import { getAllCategories } from "../services/categoryService";
+import { MessageInstance } from "antd/es/message/interface";
 
 type AppContextType = {
   dataBook: Book[];
@@ -26,6 +27,8 @@ type AppContextType = {
 
   checkoutBooks: { book: Book; quantity: number }[];
   setCheckoutBooks: React.Dispatch<React.SetStateAction<{ book: Book; quantity: number }[]>>;
+
+  messageApi: MessageInstance;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -47,6 +50,8 @@ export const AppContext = createContext<AppContextType>({
 
   checkoutBooks: [],
   setCheckoutBooks: () => { },
+
+  messageApi: {} as MessageInstance,
 });
 
 type AppProviderProps = {
@@ -62,7 +67,7 @@ function AppProvider({ children }: AppProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
   const [checkoutBooks, setCheckoutBooks] = useState<{ book: Book; quantity: number }[]>([]);
-
+  
   const [cart, setCart] = useState<Cart[]>([]);
 
   useEffect(() => {
@@ -139,7 +144,8 @@ function AppProvider({ children }: AppProviderProps) {
           cart,
           setCart,
           checkoutBooks,
-          setCheckoutBooks
+          setCheckoutBooks,
+          messageApi 
         }}
       >
         {children}
