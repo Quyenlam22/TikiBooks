@@ -11,7 +11,7 @@ const BookSlider = ({ title, sponsor, rating, books }: BookSliderProps) => {
   return (
     <div className="bg-white rounded-lg shadow-md flex p-4 gap-4">
       {/* Left: Logo */}
-      <div className="flex-shrink-0 aspect-square w-40 flex items-center justify-center bg-green-100 rounded-md relative">
+      <div className="flex-shrink-0 lg:hidden xl:block aspect-square w-40 flex items-center justify-center bg-green-100 rounded-md relative">
         <div className="absolute inset-0 bg-green-600 backdrop-blur-sm opacity-10 rounded-md" />
         <img
             src="https://theme.hstatic.net/1000290493/1000909353/14/logo-footer.png?v=231/240x240"
@@ -33,7 +33,7 @@ const BookSlider = ({ title, sponsor, rating, books }: BookSliderProps) => {
         {/* Book list */}
         <div className="flex gap-4 mt-4">
           {books.slice(0, 3).map((book) => (
-            <div key={book.id} className="relative w-20 h-32 flex-shrink-0">
+            <div key={book.id} className="relative w-16 h-28 lg:w-20 lg:h-32 flex-shrink-0">
               <img
                 src={book.image}
                 alt={book.title}

@@ -48,10 +48,9 @@ const Carousel = () => {
   };
 
   return (
-    <div>
+    <div className="hidden sm:block">
       <h2 className="text-2xl bg-white rounded-lg px-3 py-5 font-bold mb-4">Nhà Sách Tiki</h2>
 
-      {/* Vùng chỉ chứa slider + nút */}
       <div className="relative">
         <button
           onClick={prev}
@@ -67,7 +66,7 @@ const Carousel = () => {
           <ChevronRight size={20} />
         </button>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid lg:grid-cols-2 gap-4">
           {slides.slice(currentIndex, currentIndex + 2).map((slide, idx) => (
             <BookSlider key={idx} {...slide} />
           ))}

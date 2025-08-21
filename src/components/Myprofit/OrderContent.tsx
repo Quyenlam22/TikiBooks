@@ -4,8 +4,6 @@ import Sidebar from './sibar';
 import InfoBlock from './infoblock';
 import { getOrderById, updateOrder } from '../../services/orderService';
 import type { Order, OrderStatus } from '../../type/order';
-//import { getStatusFromCreatedAt } from '../../utils/orderstatus';
-
 
 const OrderDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
