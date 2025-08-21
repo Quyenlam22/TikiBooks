@@ -50,6 +50,11 @@ function MenuSider () {
         //     icon: <SettingOutlined />,
         //     label: <Link to={"/admin/settings"}>Cài đặt chung</Link>,
         // },
+        {
+            key: '/admin/orders',
+            icon: <OrderedListOutlined />,
+            label: <Link to={"/admin/orders"}>Quản lý đơn hàng</Link>
+        },
     ];
 
     return (

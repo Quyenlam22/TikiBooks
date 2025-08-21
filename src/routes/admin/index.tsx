@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import withSuspense from "../../utils/withSuspense";
 import PrivateRouteAdmin from "../../components/PrivateRouter/PrivateRouteAdmin";
-import LayoutAdmin from "../../layout/LayoutAdmin";"../../layout/LayoutAdmin";
+import LayoutAdmin from "../../layout/LayoutAdmin";
 
 const Error404 = lazy(() => import("../../pages/Error404"));
 // const Author = lazy(() => import("../../pages/Admin/Author"));
@@ -11,6 +11,7 @@ const DashBoard = lazy(() => import("../../pages/Admin/Dashboard"));
 const UserAdmin = lazy(() => import("../../pages/Admin/User/UserAdmin"));
 const UserClient = lazy(() => import("../../pages/Admin/User/UserClient"));
 // const Login = lazy(() => import("../../pages/Admin/Login"));
+const Order = lazy(() => import("../../pages/Admin/Order/Order"));
 
 export const routesAdmin = [
   {
@@ -56,6 +57,10 @@ export const routesAdmin = [
             path: "*",
             element: withSuspense(Error404),
           },
+          {
+            path: "orders",
+            element: withSuspense(Order),
+          }
         ],
       },
     ]
