@@ -54,7 +54,7 @@ export default function FilterBarMobile({ onSort }: { onSort: (books: Book[]) =>
               {menuItems.map((item) => (
                 <button
                   key={item.key}
-                  onClick={() => handleMenuClick(item.key)} // ✅ truyền key
+                  onClick={() => handleMenuClick(item.key)} 
                   className={`${
                     sortKey === item.key ? "text-blue-500" : "text-gray-600"
                   }`}

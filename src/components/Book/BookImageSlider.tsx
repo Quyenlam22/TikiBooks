@@ -15,14 +15,14 @@ const BookImageSlider: React.FC<BookImageSliderProps> = ({ images }) => {
   const mainIdx = hoverIdx !== null ? hoverIdx : selected;
 
   return (
-    <div className="flex flex-col w-100 rounded-lg gap-4 bg-white pt-4 pb-3">
-      <div className="gap-2 bg-white flex flex-col px-4">
+    <div className="flex flex-col w-full rounded-lg gap-4 bg-white pt-4 pb-3">
+      <div className="gap-2 bg-white flex flex-col px-4 items-center sm:items-start">
         <img
           src={images[mainIdx]}
           alt={`Ảnh sách ${mainIdx + 1}`}
-          className="block w-[368px] h-[368px] object-contain rounded-lg border border-gray-200 cursor-pointer"
+          className="block w-full max-w-[368px] h-auto aspect-square object-contain rounded-lg border border-gray-200 cursor-pointer mx-auto lg:mx-0"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap justify-center sm:justify-start">
           {images.map((img, idx) => (
             <a
               key={idx}

@@ -26,25 +26,37 @@ function DetailBook() {
     fetchBook();
   }, [id]);  
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [id]);
+
   return (
     <>
-      <div className="flex justify-center w-full gap-6 mt-6 items-start">
-        <div className="rounded-xl pl-4 flex flex-col gap-4">
-          <BookImageSlider
-            key={id}
-            images={book ? [
-              book.images[0].base_url,
-              book.images[0].small_url,
-            ] : []}
-          />
-        </div>
+      <div className="w-full px-3 md:px-4 lg:px-6 mt-4 md:mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-start">
+          <div className="lg:col-span-4">
+            <div className="rounded-xl flex flex-col items-center lg:items-start gap-4 lg:sticky lg:top-4">
+              <BookImageSlider
+                key={id}
+                images={book ? [
+                  book.images[0].base_url,
+                  book.images[0].small_url,
+                ] : []}
+              />
+            </div>
+          </div>
 
-        <div>
-          {book && <BookInfo book={book} />}
-          {book && <Bookrelated book={book} />}
+          <div className="lg:col-span-5 w-full">
+            {book && <BookInfo book={book} />}
+            {book && <Bookrelated book={book} />}
+          </div>
+
+          <div className="lg:col-span-3 w-full">
+            <div className="lg:sticky lg:top-4">
+              {book && <BookPurchase book={book} />}
+            </div>
+          </div>
         </div>
-        
-        {book && <BookPurchase book={book} />}
       </div>
     </>
   );

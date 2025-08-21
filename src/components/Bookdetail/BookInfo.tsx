@@ -26,7 +26,7 @@ const BookInfo: React.FC<BookDetailProps> = ({ book }) => {
   if (!infoSpec || infoSpec.attributes.length === 0) return null;
 
   return (
-    <div className="w-[390px] sm:w-[584px]">
+    <div className="w-full">
       <div className="p-4 mb-4 bg-white rounded-lg shadow-sm">
         <div className="text-sm text-gray-500 space-x-1">
           <span className="text-gray-400">Tác giả:</span>

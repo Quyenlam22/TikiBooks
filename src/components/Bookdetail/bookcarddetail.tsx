@@ -28,7 +28,7 @@ const BookCarddetail: React.FC<BookCardProps> = ({
 
     return (
         <Link to={`/book/${id}`} className="no-underline text-inherit">
-            <div className="relative flex flex-col rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 w-[132px] h-[235px] cursor-pointer">
+            <div className="relative flex flex-col rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 w-full max-w-[160px] mx-auto h-[235px] cursor-pointer">
                 {isAd && (
                     <div className="absolute top-2 right-2 bg-gray-100 rounded-sm text-xs text-gray-700 px-1 py-0.5 font-bold z-10">
                         AD
