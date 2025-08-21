@@ -1,37 +1,55 @@
 import Sidebar from '../../components/Myprofit/sibar';
 import { getUserById, updateUserById } from '../../services/authService';
-import { useEffect, useState } from 'react';
-import type { User } from '../../../type/user';
+import { useEffect, useState, useContext } from 'react';
+import type { User } from '../../type/user';
 import { User as UserIcon, Tag as TagIcon, UserCircle2 } from "lucide-react";
+import { AppContext } from '../../context/AppProvider';
+
+
 
 export default function AccountInfo() {
-    const [user, setUser] = useState<User | null>(null);
+    const context = useContext(AppContext);
+    if (!context) throw new Error('AppContext not found');
+
+    const { user: contextUser, setUser: setContextUser } = context;
+
+    const [user, setUser] = useState<User | null>(contextUser);
     const [loading, setLoading] = useState(false);
 
-    // Lấy dữ liệu ban đầu
+    // Khi contextUser thay đổi, cập nhật state local user để hiển thị
+    useEffect(() => {
+        setUser(contextUser);
+    }, [contextUser]);
+
+    // Nếu cần fetch lại user từ API thay vì chỉ lấy từ context
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-                if (!storedUser.id) return;
-
-                const data = await getUserById(storedUser.id.toString());
+                if (!contextUser?.id) return;
+                const data = await getUserById(contextUser.id);
                 setUser(data);
+                setContextUser(data); // Cập nhật luôn context để đồng bộ
             } catch (err) {
                 console.error('Lỗi lấy thông tin người dùng:', err);
             }
         };
-
         fetchUser();
-    }, []);
+    }, [contextUser?.id, setContextUser]);
+
     const handleChange = (field: keyof User, value: string) => {
         setUser((prev) => (prev ? { ...prev, [field]: value } : prev));
     };
+
     const handleSave = async () => {
         if (!user?.id) return;
         try {
             setLoading(true);
             await updateUserById(user.id, user);
+
+            // Cập nhật lại user trong context và localStorage
+            setContextUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
+
             alert('Cập nhật thành công!');
         } catch (err) {
             console.error('Lỗi cập nhật:', err);
@@ -40,6 +58,8 @@ export default function AccountInfo() {
             setLoading(false);
         }
     };
+
+
 
     return (
         <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8">

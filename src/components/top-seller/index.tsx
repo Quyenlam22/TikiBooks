@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import { AppContext } from "../../context/AppProvider";
 
 function TopSellingSection() {

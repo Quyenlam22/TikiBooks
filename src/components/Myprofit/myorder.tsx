@@ -1,30 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Sidebar from '../../components/Myprofit/sibar';
 import { getAllorders } from '../../services/orderService';
-import type { Order } from '../../../type/order';
+import type { Order } from '../../type/order';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../context/AppProvider';
 
-const statuses = ['Tất cả đơn', 'Đang xử lý', 'Đã xác nhận', 'Đang giao', 'Đã giao', 'Đã huỷ'];
+
+const statuses = ['Tất cả đơn', 'Đang xử lý', 'Đã xác nhận', 'Đang giao', 'Đã giao', 'Đã hủy'];
 
 export default function AccountOrders() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
     const [selectedStatus, setSelectedStatus] = useState<string>('Tất cả đơn');
     const [searchText, setSearchText] = useState<string>('');
+    const { user } = useContext(AppContext);
 
     // Fetch all orders once
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const data: Order[] = await getAllorders();
-                setOrders(data);
+                if (!user?.id) return;
+                // Lọc đơn hàng chỉ của user hiện tại
+                const filteredOrders = data.filter(order => order.userId === user.id);
+                setOrders(filteredOrders);
             } catch (err) {
                 console.error('Error fetching orders:', err);
             }
         };
 
         fetchOrders();
-    }, []);
+    }, [user]);
+
 
     // Filter orders based on status and search text
     useEffect(() => {
@@ -97,26 +104,17 @@ export default function AccountOrders() {
                                 Tạo đơn hàng mới
                                 {filteredOrders.map((order) => (
                                     <Link
-
-                                        to={`${order.id}`} className="text-blue-600 font-medium text-sm hover:underline cursor-pointer">
-                                        <div
-                                            key={order.id}
-                                            className="border p-4 rounded shadow-sm bg-gray-50"
-                                        >
-                                            <p>
-                                                <strong>Mã đơn:</strong> {order.id}
-                                            </p>
-                                            <p>
-                                                <strong>Khách:</strong> {order.fullname} - {order.phone}
-                                            </p>
-                                            <p>
-                                                <strong>Trạng thái:</strong> {order.status}
-                                            </p>
-                                            <p>
-                                                <strong>Sản phẩm:</strong>
-                                            </p>
+                                        key={order.id}
+                                        to={`${order.id}`}
+                                        className="text-blue-600 font-medium text-sm hover:underline cursor-pointer"
+                                    >
+                                        <div className="border p-4 rounded shadow-sm bg-gray-50">
+                                            <p><strong>Mã đơn:</strong> {order.id}</p>
+                                            <p><strong>Khách:</strong> {order.fullname} - {order.phone}</p>
+                                            <p><strong>Trạng thái:</strong> {order.status}</p>
+                                            <p><strong>Sản phẩm:</strong></p>
                                             <ul className="list-disc ml-5">
-                                                {order.products.map((p) => (
+                                                {order.products?.map((p) => (
                                                     <li key={p.id}>
                                                         {p.name} x {p.quantity}
                                                     </li>
@@ -124,6 +122,7 @@ export default function AccountOrders() {
                                             </ul>
                                         </div>
                                     </Link>
+
                                 ))}
 
                             </div>
@@ -132,6 +131,6 @@ export default function AccountOrders() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

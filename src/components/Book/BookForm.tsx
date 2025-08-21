@@ -1,6 +1,7 @@
 import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import { AppContext } from "../../context/AppProvider";
 
 interface BookFormProps {
   open: boolean;
@@ -12,6 +13,7 @@ interface BookFormProps {
 
 const BookForm: React.FC<BookFormProps> = ({ open, onCancel, onSubmit, initialValues, isEdit }) => {
   const [form] = Form.useForm();
+  const { dataCategory } = useContext(AppContext); 
 
   useEffect(() => {
     if (initialValues) {
@@ -68,12 +70,18 @@ const BookForm: React.FC<BookFormProps> = ({ open, onCancel, onSubmit, initialVa
           <InputNumber min={0} className="w-full" />
         </Form.Item>
 
-        <Form.Item
+         <Form.Item
           label="Danh mục"
-          name={["categories", "name"]}
-          rules={[{ required: true, message: "Vui lòng nhập danh mục" }]}
+          name={["categories", "id"]}
+          rules={[{ required: true, message: "Vui lòng chọn danh mục" }]}
         >
-          <Input placeholder="Nhập tên danh mục" />
+          <Select
+            placeholder="Chọn danh mục"
+            options={dataCategory.map((cat) => ({
+              value: cat.id,   // hoặc _id tùy DB
+              label: cat.name,
+            }))}
+          />
         </Form.Item>
 
         <Form.Item

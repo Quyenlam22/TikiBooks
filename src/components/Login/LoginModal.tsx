@@ -23,7 +23,6 @@ export default function LoginModal({ onClose }: LoginModalProps) {
 
       localStorage.setItem("access_token", data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.user));
-
       if (setUser) setUser(data.user);
 
       onClose();

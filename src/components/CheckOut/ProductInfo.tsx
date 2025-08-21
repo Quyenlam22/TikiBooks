@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 
 interface ProductInfoProps {
   books: { book: Book; quantity: number }[];

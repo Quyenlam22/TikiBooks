@@ -1,4 +1,4 @@
-import type { OrderStatus } from '../../type/order';
+import type { OrderStatus } from '../type/order';
 
 
 export const getStatusFromCreatedAt = (createdAt: string): OrderStatus => {

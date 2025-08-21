@@ -5,5 +5,6 @@ export interface LoginResponse {
     confirmPassword: string;
     role: string;
     id: number;
+    password?: string;
   };
 }

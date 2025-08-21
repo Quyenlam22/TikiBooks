@@ -1,5 +1,5 @@
 import React from "react";
-import { Category } from "./types";
+import type { Category } from "./types";
 
 interface CategoryCardProps {
   category: Category;

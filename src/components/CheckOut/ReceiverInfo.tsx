@@ -1,5 +1,5 @@
 import React from 'react';
-import type { User } from '../../../type/user';
+import type { User } from '../../type/user';
 
 interface ReceiverInfoProps {
   user: User;

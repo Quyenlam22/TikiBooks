@@ -1,7 +1,7 @@
 import instance from "./api.service";
-import type { LoginPayload } from "../../type/login/LoginRequest";
-import type { LoginResponse } from "../../type/login/LoginResponse";
-import type { User } from "../../type/user";
+import type { LoginPayload } from "../type/login/LoginRequest";
+import type { LoginResponse } from "../type/login/LoginResponse";
+import type { User } from "../type/user";
 import axios from "axios";
 
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {

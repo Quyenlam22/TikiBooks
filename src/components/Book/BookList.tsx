@@ -1,4 +1,4 @@
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import BookCard from "./BookCard";
 import { useState } from 'react';
 import PaginationPage from '../PaginationPage';
