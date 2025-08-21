@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import { Rate } from "antd";
 import { Link } from "react-router";
 

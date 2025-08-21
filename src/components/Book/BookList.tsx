@@ -1,4 +1,4 @@
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import BookCard from "./BookCard";
 import { useState } from 'react';
 import PaginationPage from '../PaginationPage';
@@ -19,7 +19,7 @@ function BookList(props: BookListProps) {
 
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-2">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-2 px-4 md:p-0">
         {currentBooks.length > 0 && (
           currentBooks.map((book: Book) => (
             <BookCard key={book.id || book.id} book={book} />

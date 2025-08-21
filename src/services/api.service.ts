@@ -30,5 +30,26 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+// Thêm interceptor để xử lý token hết hạn
+instance.interceptors.response.use(
+  function onFulfilled(response) {
+    return response;
+  },
+  function onRejected(error) {
+    if (error?.response?.status === 401 || error?.response?.status === 403) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user');
+
+
+      alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+
+
+      window.location.href = '/login';
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 
 export default instance;

@@ -1,4 +1,4 @@
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 
 type CartSummaryProps = {
   selectedItems: (Book & { quantity?: number })[];

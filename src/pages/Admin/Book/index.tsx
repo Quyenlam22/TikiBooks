@@ -1,10 +1,10 @@
-import { Button, Flex, Image, Input, message, Modal, Select, Space, Table, Tag } from "antd";
+import { Button, Flex, Image, Input, Modal, Select, Space, Table, Tag } from "antd";
 import { EditOutlined, DeleteOutlined, StarFilled, InfoCircleFilled, PlusCircleOutlined } from "@ant-design/icons";
 import { useContext, useMemo, useState } from "react";
 import { AppContext } from "../../../context/AppProvider";
 import type { ColumnsType } from "antd/es/table";
-import type { Book } from "../../../../type/Book";
-import type { Author } from "../../../../type/Author";
+import type { Book } from "../../../type/Book";
+import type { Author } from "../../../type/Author";
 import { createBook, deleteBook, getBookById, updateBook } from "../../../services/bookService";
 import { convertToSlug } from "../../../utils/convertToSlug";
 import { formatDate } from "../../../utils/formatDate";
@@ -37,13 +37,12 @@ const sortMenuItems: MenuItemType[] = [
 ];
 
 function Book() {
-  const {dataBook, setDataBook} = useContext(AppContext);
+  const {dataBook, setDataBook, dataCategory, messageApi} = useContext(AppContext);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalCreate, setModalCreate] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [editData, setEditData] = useState<any>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [ messageApi, contextHolder ] = message.useMessage();
   
   const [filterText, setFilterText] = useState("");
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
@@ -436,7 +435,6 @@ function Book() {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow">
-      {contextHolder}
       <Flex justify="space-between" wrap={true}>
         <Flex gap={8} align="center">
           <Input.Search
@@ -451,7 +449,7 @@ function Book() {
             onChange={(val) => setFilterCategory(val)}
             allowClear
           >
-            {[...new Set(dataBook.map((b) => b.categories?.name))].map((cat) => (
+            {[...new Set(dataCategory.map((c) => c?.name))].map((cat) => (
               <Select.Option key={cat} value={cat}>
                 {cat}
               </Select.Option>

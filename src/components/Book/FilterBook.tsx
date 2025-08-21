@@ -4,7 +4,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { AppContext } from '../../context/AppProvider';
 import BookList from './BookList';
 import { AiFillLike } from "react-icons/ai";
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import type { MenuItemType } from 'antd/es/menu/interface';
 
 const sortMenuItems: MenuItemType[] = [
@@ -66,9 +66,9 @@ function FilterBook() {
       case "top_rate":
         newBooks.sort((a, b) => b.rating_average - a.rating_average);
         break;
-      // case "price_asc":
-      //   newBooks.sort((a, b) => a.current_seller.price - b.current_seller.price);
-      //   break;
+      case "price_asc":
+        newBooks.sort((a, b) => a.current_seller.price - b.current_seller.price);
+        break;
       case "price_desc":
         newBooks.sort((a, b) => b.current_seller.price - a.current_seller.price);
         break;
@@ -86,7 +86,7 @@ function FilterBook() {
 
   return (
     <div>
-      <div className="mb-4 bg-white rounded-xl p-4">
+      <div className="mb-4 bg-white rounded-xl p-4 hidden sm:block">
         <h2 className="text-lg font-semibold mb-4">Tất cả sản phẩm</h2>
 
         <div className="flex flex-wrap items-center gap-4 md:gap-8 mb-4 pb-4">

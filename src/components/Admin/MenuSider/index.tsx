@@ -1,7 +1,7 @@
 import { Menu } from "antd";
-import { BookOutlined, DashboardOutlined, OrderedListOutlined, SettingOutlined } from '@ant-design/icons';
+import { BookOutlined, DashboardOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { Link, useLocation } from "react-router-dom";
-import { FaUser, FaUsers, FaUsersCog, FaUserSecret } from "react-icons/fa";
+import { FaUser, FaUsers, FaUsersCog } from "react-icons/fa";
 
 function MenuSider () {
     const location = useLocation();
@@ -23,11 +23,11 @@ function MenuSider () {
             icon: <BookOutlined />,
             label: <Link to={"/admin/books"}>Quản lý sách</Link>,
         },
-        {
-            key: '/admin/authors',
-            icon: <FaUserSecret />,
-            label: <Link to={"/admin/authors"}>Quản lý tác giả</Link>,
-        },
+        // {
+        //     key: '/admin/authors',
+        //     icon: <FaUserSecret />,
+        //     label: <Link to={"/admin/authors"}>Quản lý tác giả</Link>,
+        // },
         {
             key: '/admin/user',
             icon: <FaUsers />,
@@ -45,11 +45,11 @@ function MenuSider () {
                 }
             ]
         },
-        {
-            key: '/admin/settings',
-            icon: <SettingOutlined />,
-            label: <Link to={"/admin/settings"}>Cài đặt chung</Link>,
-        },
+        // {
+        //     key: '/admin/settings',
+        //     icon: <SettingOutlined />,
+        //     label: <Link to={"/admin/settings"}>Cài đặt chung</Link>,
+        // },
     ];
 
     return (

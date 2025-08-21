@@ -1,13 +1,13 @@
 
 import { useContext } from "react";
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import { AppContext } from "../../context/AppProvider";
 
 function TopSellingSection() {
     const { dataBookTopSelling } = useContext(AppContext);
 
     return (
-        <div className=" ">
+        <div className="hidden sm:block">
             <div className=" mx-auto px-1 py-1 bottom-[35px] pl-4">
 
                 {/* top-[2554px] */}

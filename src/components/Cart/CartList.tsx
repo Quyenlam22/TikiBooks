@@ -1,4 +1,4 @@
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import CartItem from "./CartItem";
 import shopIcon from "../../assets/icons/icon-shop.png"
 import trashIcon from '../../assets/icons/trash.svg';

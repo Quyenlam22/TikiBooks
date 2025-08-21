@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from './sibar';
 import InfoBlock from './infoblock';
-import { getOrderById } from '../../services/orderService';
-import type { Order } from '../../../type/order';
-import { getStatusFromCreatedAt } from '../../utils/orderstatus';
+import { getOrderById, updateOrder } from '../../services/orderService';
+import type { Order, OrderStatus } from '../../type/order';
+import { AppContext } from '../../context/AppProvider';
 
 const OrderDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
+    const {messageApi} = useContext(AppContext);
 
     useEffect(() => {
         if (!id) {
@@ -27,12 +28,38 @@ const OrderDetailPage: React.FC = () => {
             })
             .catch(err => {
                 console.error('Lỗi khi lấy đơn hàng:', err);
-                alert('Không thể tải đơn hàng');
+                messageApi.open({
+                    type: 'warning',
+                    content: `Không thể tải đơn hàng!`,
+                });
             })
             .finally(() => {
                 setLoading(false);
             });
     }, [id]);
+    const handleUpdateStatus = async (newStatus: OrderStatus) => {
+        if (!order) return;
+
+        try {
+            await updateOrder(order.id!, { status: newStatus });
+
+            const updatedOrder = await getOrderById(order.id!);  // gọi lại API lấy đơn hàng mới nhất
+
+            setOrder(updatedOrder);
+            messageApi.open({
+                type: 'success',
+                content: `Cập nhật trạng thái đơn hàng sang "${newStatus}" thành công!`,
+            });
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái đơn hàng:', error);
+            messageApi.open({
+                type: 'error',
+                content: `Cập nhật đơn hàng thất bại!`,
+            });
+        }
+    };
+
+
 
     if (loading) return <div>Đang tải đơn hàng...</div>;
     if (!order) return <div>Không tìm thấy đơn hàng</div>;
@@ -49,7 +76,8 @@ const OrderDetailPage: React.FC = () => {
                         <div className="mb-4 px-2 sm:px-0">
                             <h2 className="text-xl sm:text-2xl font-semibold">
                                 Chi tiết đơn hàng #{order.id} –{' '}
-                                <span className="text-yellow-600">{getStatusFromCreatedAt(order.createdAt!)}</span>
+                                <span className="text-yellow-600">{order.status}</span>
+
                             </h2>
                         </div>
                         <div className="text-right ml-auto mt-2">
@@ -113,9 +141,14 @@ const OrderDetailPage: React.FC = () => {
                                 <div className="flex justify-between"><span>Giảm giá vận chuyển:</span><span>25000₫</span></div>
                                 <div className="flex justify-between font-bold text-base pt-2"><span>Tổng cộng:</span><span className="text-red-500">{order.totalPrice.toLocaleString()}₫</span></div>
                                 <div className="flex justify-end mt-4">
-                                    <button className="bg-yellow-400 px-4 py-2 rounded text-white hover:bg-yellow-500 cursor-pointer">
-                                        Hủy đơn hàng
-                                    </button>
+                                    {(order.status === 'Đang xử lý' || order.status === 'Đã xác nhận') && (
+                                        <button
+                                            onClick={() => handleUpdateStatus('Đã hủy')}
+                                            className="bg-yellow-400 px-4 py-2 rounded text-white hover:bg-yellow-500 cursor-pointer"
+                                        >
+                                            Hủy đơn hàng
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>

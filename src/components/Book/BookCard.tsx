@@ -1,5 +1,5 @@
 import { Rate } from 'antd';
-import type { Book } from '../../../type/Book';
+import type { Book } from '../../type/Book';
 import "./Book.css";
 import { BiSolidLike } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
@@ -48,22 +48,22 @@ const BookCard: React.FC<BookCardProps> = ({
           <img src={imageUrl} alt={name} className="object-cover w-full h-auto transform transition-transform duration-300 ease-in-out hover:scale-110" />
 
           <div className="absolute bottom-0 left-0 flex items-center gap-2 bg-white rounded-sm px-2 py-1">
-            <div className="h-10 flex items-center bg-red-100 text-xs px-2 py-1 rounded shadow">
+            <div className="h-10 flex items-center bg-red-100 text-xs px-1 md:px-2 py-1 rounded shadow">
               <BiSolidLike className='text-sm mr-0.5 text-red-700' />
-              <div className='font-bold text-[10px] text-red-700'>
+              <div className='font-bold text-[8px] md:text-[10px] text-red-700'>
                 <p>TOP</p>
                 <p>DEAL</p>
               </div>
             </div>
-            <div className="h-10 text-center bg-[#F2F7FF] px-2 py-1 rounded shadow">
-              <p className="font-bold italic text-[10px] text-blue-600">FREESHIP</p>
+            <div className="h-10 text-center bg-[#F2F7FF] px-1 md:px-2 py-1 rounded shadow">
+              <p className="font-bold italic text-[8px] md:text-[10px] text-blue-600">FREESHIP</p>
               <p className="font-bold italic text-xs text-green-600">XTRA</p>
             </div>
-            <div className="h-10 rou flex items-center bg-[#F2F7FF] px-2 py-1 rounded shadow">
+            <div className="h-10 rou flex items-center bg-[#F2F7FF] px-1 md:px-2 py-1 rounded shadow">
               <div className="w-4 h-4 mr-1 rounded-full bg-blue-700 flex items-center justify-center">
-                <FaCheck className="text-white text-[10px]" />
+                <FaCheck className="text-white text-[8px] md:text-[10px]" />
               </div>
-              <div className='font-bold text-[10px] text-blue-700'>
+              <div className='font-bold text-[8px] md:text-[10px] text-blue-700'>
                 <p>CHÍNH</p>
                 <p>HÃNG</p>
               </div>

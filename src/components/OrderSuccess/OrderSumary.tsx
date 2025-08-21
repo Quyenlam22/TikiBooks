@@ -1,4 +1,3 @@
-import React from 'react';
 import tikiLogo from '../../assets/icons/logoder.webp';
 
 type OrderSummaryProps = {

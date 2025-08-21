@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import CartList from "../../components/Cart/CartList";
 import CartSummary from "../../components/Cart/CartSummary";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import { useNavigate } from "react-router";
 import { AppContext } from "../../context/AppProvider";
 
@@ -14,7 +14,7 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const {setCheckoutBooks} = useContext(AppContext);
+  const {setCheckoutBooks, messageApi} = useContext(AppContext);
 
   useEffect(() => {
     try {
@@ -97,7 +97,10 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     if (selectedItems.length === 0) {
-      alert("Vui lòng chọn ít nhất 1 sản phẩm để thanh toán!");
+      messageApi.open({
+          type: 'success',
+          content: `Vui lòng chọn ít nhất 1 sản phẩm để thanh toán!`,
+      });
       return;
     }
 

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import OrderInfo from '../../components/OrderSuccess/Orderinfor';
 import OrderSummary from '../../components/OrderSuccess/OrderSumary';
 import { getOrderById } from '../../services/orderService';
-import type { Order } from '../../../type/order';
+import type { Order } from '../../type/order';
 
 import './OrderSuccess.css';
 
@@ -35,7 +35,7 @@ function OrderSuccess() {
 
     return (
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4 max-w-[1080px] mx-auto">
+        <div className="flex flex-col md:flex-row md:justify-center  gap-4 max-w-[1080px] mx-auto">
 
             <OrderSummary
                 totalPrice={order.totalPrice}
