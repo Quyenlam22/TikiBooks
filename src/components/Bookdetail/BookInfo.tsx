@@ -83,8 +83,8 @@ const BookInfo: React.FC<BookDetailProps> = ({ book }) => {
                   {attr.code === "publication_date"
                     ? new Date(
                         typeof attr.value === "object" && attr.value !== null
-                          ? (attr.value as { value: string }).value
-                          : attr.value
+                          ? (attr.value as { value: string }).value ?? ""
+                          : attr.value ?? ""
                       ).toLocaleDateString("vi-VN")
                     : typeof attr.value === "object" && attr.value !== null
                       ? (attr.value as { value: string }).value
@@ -103,8 +103,8 @@ const BookInfo: React.FC<BookDetailProps> = ({ book }) => {
             className={`text-gray-700 text-sm transition-all duration-300`}
             dangerouslySetInnerHTML={{
               __html: showMore
-                ? book.description
-                : book.description.slice(0, 250) + "..."
+                ? book.description ?? ""
+                : (book.description?.slice(0, 250) ?? "") + "..."
             }}
           />
           {!showMore && (

@@ -1,4 +1,4 @@
-import { Button, Flex, Input, message, Modal, Space, Table, Tag } from "antd";
+import { Button, Flex, Input, Modal, Space, Table, Tag } from "antd";
 import { EditOutlined, DeleteOutlined, InfoCircleFilled, PlusCircleOutlined } from "@ant-design/icons";
 import { useContext, useMemo, useState } from "react";
 import type { ColumnsType } from "antd/es/table";
@@ -11,14 +11,13 @@ import { getAllBooks, updateBook } from "../../../services/bookService";
 import type { Book } from "../../../type/Book";
 
 function Category() {
-  const { dataCategory, setDataCategory } = useContext(AppContext);
+  const { dataCategory, setDataCategory, messageApi } = useContext(AppContext);
   const [modalCreate, setModalCreate] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [editData, setEditData] = useState<Category | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [filterText, setFilterText] = useState("");
-  const [messageApi, contextHolder] = message.useMessage();
 
   const filteredCategories = useMemo(() => {
     return dataCategory.filter((cat) =>
@@ -145,7 +144,6 @@ function Category() {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow">
-      {contextHolder}
       <Flex justify="space-between" wrap>
         <Input.Search
           placeholder="Tìm danh mục"

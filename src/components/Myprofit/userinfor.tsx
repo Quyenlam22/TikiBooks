@@ -11,7 +11,7 @@ export default function AccountInfo() {
     const context = useContext(AppContext);
     if (!context) throw new Error('AppContext not found');
 
-    const { user: contextUser, setUser: setContextUser } = context;
+    const { user: contextUser, setUser: setContextUser, messageApi } = context;
 
     const [user, setUser] = useState<User | null>(contextUser);
     const [loading, setLoading] = useState(false);
@@ -49,11 +49,16 @@ export default function AccountInfo() {
             // Cập nhật lại user trong context và localStorage
             setContextUser(user);
             localStorage.setItem('user', JSON.stringify(user));
-
-            alert('Cập nhật thành công!');
+            messageApi.open({
+                type: 'success',
+                content: `Cập nhật thành công!`,
+            });
         } catch (err) {
             console.error('Lỗi cập nhật:', err);
-            alert('Cập nhật thất bại!');
+            messageApi.open({
+                type: 'error',
+                content: `Cập nhật thất bại!`,
+            });
         } finally {
             setLoading(false);
         }

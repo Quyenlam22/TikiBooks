@@ -41,6 +41,22 @@ export const routesClient = [
           {
             path: "cart",
             element: withSuspense(Cart)
+          },
+          {
+            path: "myprofit/order/:id",
+            element: withSuspense(Myprofit)
+          },
+          {
+            path: "myprofit/userinfo",
+            element: withSuspense(AccountInfo)
+          },
+          {
+            path: "myprofit/order",
+            element: withSuspense(OrderDetailPage)
+          },
+          {
+            path: "myprofit/inform",
+            element: withSuspense(NotificationPage)
           }
         ]
       },
@@ -48,38 +64,22 @@ export const routesClient = [
         path: "*",
         element: withSuspense(Error404)
       },
-      {
-        path: "myprofit/order/:id",
-        element: withSuspense(Myprofit)
-      },
-      {
-        path: "myprofit/userinfo",
-        element: withSuspense(AccountInfo)
-      },
-      {
-        path: "myprofit/order",
-        element: withSuspense(OrderDetailPage)
-      },
-      {
-        path: "myprofit/inform",
-        element: withSuspense(NotificationPage)
-      }
     ]
   },
   {
     element: <LayoutOrderSuccess />,
     children: [
       {
-        index: true,
-        element: withSuspense(OrderSuccess)
-      },
-      {
-        path: "/order/:id",
-        element: withSuspense(OrderSuccess)
-      },
-      {
         element: <PrivateRouteClient/>,
         children: [
+          {
+            index: true,
+            element: withSuspense(OrderSuccess)
+          },
+          {
+            path: "/order/:id",
+            element: withSuspense(OrderSuccess)
+          },
           {
             path: "checkout",
             element: withSuspense(CheckOut)

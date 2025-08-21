@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from './sibar';
 import InfoBlock from './infoblock';
 import { getOrderById, updateOrder } from '../../services/orderService';
 import type { Order, OrderStatus } from '../../type/order';
+import { AppContext } from '../../context/AppProvider';
 
 const OrderDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
-
+    const {messageApi} = useContext(AppContext);
 
     useEffect(() => {
         if (!id) {
@@ -27,7 +28,10 @@ const OrderDetailPage: React.FC = () => {
             })
             .catch(err => {
                 console.error('Lỗi khi lấy đơn hàng:', err);
-                alert('Không thể tải đơn hàng');
+                messageApi.open({
+                    type: 'warning',
+                    content: `Không thể tải đơn hàng!`,
+                });
             })
             .finally(() => {
                 setLoading(false);
@@ -42,11 +46,16 @@ const OrderDetailPage: React.FC = () => {
             const updatedOrder = await getOrderById(order.id!);  // gọi lại API lấy đơn hàng mới nhất
 
             setOrder(updatedOrder);
-
-            alert(`Cập nhật trạng thái đơn hàng sang "${newStatus}" thành công!`);
+            messageApi.open({
+                type: 'success',
+                content: `Cập nhật trạng thái đơn hàng sang "${newStatus}" thành công!`,
+            });
         } catch (error) {
             console.error('Lỗi khi cập nhật trạng thái đơn hàng:', error);
-            alert('Cập nhật đơn hàng thất bại!');
+            messageApi.open({
+                type: 'error',
+                content: `Cập nhật đơn hàng thất bại!`,
+            });
         }
     };
 
