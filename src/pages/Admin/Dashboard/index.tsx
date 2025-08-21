@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchDashboardSummary, type DashboardResponse } from "../../../services/dashboardService";
-import KpiCards from "../../../components/Admin/Dashboard/KpiCards";
-import RevenueChart from "../../../components/Admin/Dashboard/RevenueChart";
-import OrdersStatus from "../../../components/Admin/Dashboard/OrdersStatus";
-import TopSellers from "../../../components/Admin/Dashboard/TopSellers";
-import LowStock from "../../../components/Admin/Dashboard/LowStock";
+import OrderStatistics from "../../../components/Admin/Dashboard/OrderStatistics";
+import BookStatistics from "../../../components/Admin/Dashboard/BookStatistics";
+import UserStatistics from "../../../components/Admin/Dashboard/UserStatistics";
 
 function DashBoard() {
   const [data, setData] = useState<DashboardResponse | null>(null);
@@ -32,22 +30,19 @@ function DashBoard() {
   if (!data) return null;
 
   return (
-    <div className="space-y-4">
-      <KpiCards kpis={data.kpis} />
-      <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-8">
-          <RevenueChart timeseries={data.timeseries} />
-        </div>
-        <div className="col-span-4">
-          <OrdersStatus status={data.ordersStatus} />
+    <div className="space-y-6">
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-12">
+          <OrderStatistics orderStats={data.orderStats} />
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-7">
-          <TopSellers items={data.topSellers} />
+
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-6">
+          <BookStatistics bookStats={data.bookStats} />
         </div>
-        <div className="col-span-5">
-          <LowStock items={data.lowStock} />
+        <div className="col-span-6">
+          <UserStatistics userStats={data.userStats} />
         </div>
       </div>
     </div>
