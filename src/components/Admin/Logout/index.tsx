@@ -14,8 +14,10 @@ function Logout () {
 
     const handleClick = async () => {
         openNotification();
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
         setTimeout(() => {
-            navigate("/admin/login");
+            navigate("/");
         }, 1000);
     }
 

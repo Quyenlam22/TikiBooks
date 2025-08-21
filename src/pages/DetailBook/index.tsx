@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Bookrelated from "../../components/Bookdetail/related_topdeals";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import { getBookById } from "../../services/bookService";
 import BookImageSlider from "../../components/Book/BookImageSlider";
 import BookPurchase from "../../components/Book/BookPurchase";
@@ -37,7 +37,6 @@ function DetailBook() {
               book.images[0].small_url,
             ] : []}
           />
-          
         </div>
 
         <div>
@@ -45,7 +44,7 @@ function DetailBook() {
           {book && <Bookrelated book={book} />}
         </div>
         
-        <BookPurchase price={book ? book.current_seller.price : 0} />
+        {book && <BookPurchase book={book} />}
       </div>
     </>
   );

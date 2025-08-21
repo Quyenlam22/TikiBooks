@@ -1,6 +1,6 @@
 import BookCarddetail from "./bookcarddetail";
 import { useEffect, useState } from "react";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import { getRelatedBooks } from "../../services/bookService";
 import SecureShopping from "./SecureShopping";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { Book } from "../../../type/Book";
+import type { Book } from "../../type/Book";
 import { Rate } from "antd";
 import { Link } from "react-router";
 
@@ -81,8 +81,14 @@ const BookInfo: React.FC<BookDetailProps> = ({ book }) => {
                 <td className="py-2 text-gray-500 w-1/2">{attr.name}</td>
                 <td className="py-2 text-gray-800">
                   {attr.code === "publication_date"
-                    ? new Date(attr.value).toLocaleDateString("vi-VN")
-                    : attr.value}
+                    ? new Date(
+                        typeof attr.value === "object" && attr.value !== null
+                          ? (attr.value as { value: string }).value ?? ""
+                          : attr.value ?? ""
+                      ).toLocaleDateString("vi-VN")
+                    : typeof attr.value === "object" && attr.value !== null
+                      ? (attr.value as { value: string }).value
+                      : attr.value}
                 </td>
               </tr>
             ))}
@@ -97,8 +103,8 @@ const BookInfo: React.FC<BookDetailProps> = ({ book }) => {
             className={`text-gray-700 text-sm transition-all duration-300`}
             dangerouslySetInnerHTML={{
               __html: showMore
-                ? book.description
-                : book.description.slice(0, 250) + "..."
+                ? book.description ?? ""
+                : (book.description?.slice(0, 250) ?? "") + "..."
             }}
           />
           {!showMore && (
