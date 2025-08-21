@@ -44,14 +44,14 @@ const MainHeader = () => {
               <span className=" font-bold text-blue-700 text-sm mt-2">Tốt & Nhanh</span>
           </div>
         
-          <div className="flex-1 mx-10">
+          <div className="flex-1 mx-10" style={{minWidth: "240px"}}>
             <form onSubmit={handleSearch}>
               <div className="flex border border-gray-500 rounded-[8px] overflow-hidden">
               <img src={searchIcon} alt="" className="w-5 h-5 m-auto ml-3 "/>
               <input
                   type="text"
                   placeholder="100% hàng thật"
-                  className="flex-1 px-3 py-2 outline-none"
+                  className="flex-1 !min-w-[100px] px-3 py-2 outline-none"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
               />

@@ -24,7 +24,7 @@ const CategoryAccordion: React.FC = () => {
 
   return (
     <div>
-      <div className="bg-white rounded-lg">
+      <div className="bg-white rounded-lg hidden md:block">
         <h2 className="text-lg rounded-lg font-semibold p-4">Khám phá theo danh mục</h2>
         <Menu
           mode="inline"

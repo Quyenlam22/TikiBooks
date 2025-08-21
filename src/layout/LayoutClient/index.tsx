@@ -24,7 +24,7 @@ function LayoutClient() {
       {contextHolder}
       <Header/>
 
-      <main className="main p-4 min-h-[60vh]">
+      <main className="main p-0 md:p-4 min-h-[60vh]">
         <Outlet />
       </main>
       
