@@ -11,7 +11,7 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({ value, onChange }) => {
     <div className="shipping-method bg-white p-4 rounded-lg">
       <h3 className="font-semibold mb-2">Chọn hình thức giao hàng</h3>
       <div>
-        <div className="mb-4 relative bg-blue-50 w-[500px] border border-blue-200 rounded-xl p-4 flex flex-col gap-3 shadow-sm">
+        <div className="mb-4 relative bg-blue-50 w-full max-w-md border border-blue-200 rounded-xl p-4 flex flex-col gap-3 shadow-sm">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"

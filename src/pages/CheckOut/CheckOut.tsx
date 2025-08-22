@@ -88,8 +88,8 @@ const CheckOut = () => {
   };
 
   return (
-    <div className="flex flex-row gap-6 w-full justify-center items-start mt-6">
-      <div className="flex-1 max-w-2xl flex flex-col gap-4">
+    <div className="flex flex-col lg:flex-row gap-6 w-full justify-center items-start mt-6">
+      <div className="w-full lg:flex-1 max-w-2xl  flex flex-col gap-4">
         <div className="bg-white">
           <ShippingMethod value={shippingType} onChange={setShippingType} />
 
@@ -117,7 +117,7 @@ const CheckOut = () => {
           shippingDiscount={shippingDiscount}
           finalPrice={finalPrice}
           savedAmount={savedAmount}
-          quantity={checkoutBooks.reduce((sum, item) => sum + (item.quantity || 1), 0)} 
+          quantity={checkoutBooks.reduce((sum, item) => sum + (item.quantity || 1), 0)}
           onOrderSubmit={handleOrderSubmit}
         />
       </div>

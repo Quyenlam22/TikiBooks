@@ -24,7 +24,7 @@ function DetailBook() {
     };
 
     fetchBook();
-  }, [id]);  
+  }, [id]);
 
   return (
     <>
@@ -43,7 +43,7 @@ function DetailBook() {
           {book && <BookInfo book={book} />}
           {book && <Bookrelated book={book} />}
         </div>
-        
+
         {book && <BookPurchase book={book} />}
       </div>
     </>
