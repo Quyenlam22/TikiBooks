@@ -35,8 +35,7 @@ function OrderSuccess() {
 
     return (
 
-        <div className="flex flex-col md:flex-row md:justify-center  gap-4 max-w-[1080px] mx-auto">
-
+        <div className="flex flex-col items-center md:flex-row md:items-stretch gap-4 max-w-[1080px] mx-auto">
             <OrderSummary
                 totalPrice={order.totalPrice}
                 shippingFee={shippingFee}

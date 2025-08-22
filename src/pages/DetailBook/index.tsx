@@ -24,10 +24,6 @@ function DetailBook() {
     };
 
     fetchBook();
-  }, [id]);  
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [id]);
 
   return (
@@ -50,14 +46,13 @@ function DetailBook() {
             {book && <BookInfo book={book} />}
             {book && <Bookrelated book={book} />}
           </div>
-
           <div className="lg:col-span-3 w-full">
-            <div className="lg:sticky lg:top-4">
-              {book && <BookPurchase book={book} />}
-            </div>
+            <div className="lg:sticky lg:top-4"></div>
+            {book && <BookPurchase book={book} />}
           </div>
         </div>
       </div>
+
     </>
   );
 }

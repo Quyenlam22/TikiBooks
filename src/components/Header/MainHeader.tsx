@@ -10,6 +10,8 @@ import LoginModal from "../Login/LoginModal";
 import CategoryMenu from "./CategoryMenu";
 import { AppContext } from "../../context/AppProvider";
 import { Link } from "react-router-dom";
+import { MdLocationOn } from 'react-icons/md';
+
 
 const MainHeader = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -73,7 +75,7 @@ const MainHeader = () => {
     <div className="bg-white px-5 py-2">
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-center space-x-2 w-[96px]  ml-[24px]">
-          <a href="/" className="h-10"><img src={tikiLogo} alt="Tiki Logo"  /></a>
+          <a href="/" className="h-10"><img src={tikiLogo} alt="Tiki Logo" /></a>
           <span className=" font-bold text-blue-700 text-sm mt-2">Tốt & Nhanh</span>
         </div>
 
@@ -95,98 +97,106 @@ const MainHeader = () => {
 
           <CategoryMenu />
         </div>
-        <div className="flex self-start pt-3 space-x-6">
-          <a href="/" className="flex self-start space-x-1">
-            <img src={homeLogo} alt="" className="w-6 h-6"/>
-            <span>Trang chủ</span>
-          </a>
 
-          {!user ? (
-            <>
-              <a
-                href="/account"
-                className="flex items-center space-x-1"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsLoginOpen(true);
-                }}
-              >
-                <img src={accountLogo} alt="" />
-                <span>Tài khoản</span>
-              </a>
-              {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
-            </>
-          ) : (
-            <div className="relative">
-              <div
-                className="cursor-pointer flex items-center space-x-2"
-                onClick={() => setShowAccountMenu(!showAccountMenu)}
-              >
-                <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center">
-                  {getInitial(user.fullName!)}
-                </div>
-                <span>{user.fullName}</span>
-              </div>
+        <div className="flex flex-col self-start pt-3">
+          <div className="flex items-center space-x-6">
+            <a href="/" className="flex self-start space-x-1">
+              <img src={homeLogo} alt="" />
+              <span>Trang chủ</span>
+            </a>
 
-              {showAccountMenu && (
-                <div
-                  ref={menuRef}
-                  className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-50"
+            {!user ? (
+              <>
+                <a
+                  href="/account"
+                  className="flex items-center space-x-1"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsLoginOpen(true);
+                  }}
                 >
-                  <ul className="text-sm">
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Link
-                        to="myprofit/userinfo"
-                        onClick={() => setShowAccountMenu(false)}
-                      >
-                        Thông tin cá nhân
-                      </Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Link
-                        to="myprofit/inform"
-                        onClick={() => setShowAccountMenu(false)}
-                      >
-                        Thông báo của tôi
-                      </Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Link
-                        to="myprofit/order"
-                        onClick={() => setShowAccountMenu(false)}
-                      >
-                        Quản lý đơn hàng
-                      </Link>
-                    </li>
-                    <li
-                      className="px-4 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
-                      onClick={() => {
-                        handleLogout();
-                        setShowAccountMenu(false);
-                      }}
-                    >
-                      Đăng xuất
-                    </li>
-                  </ul>
+                  <img src={accountLogo} alt="" />
+                  <span>Tài khoản</span>
+                </a>
+                {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+              </>
+            ) : (
+              <div className="relative">
+                <div
+                  className="cursor-pointer flex items-center space-x-2"
+                  onClick={() => setShowAccountMenu(!showAccountMenu)}
+                >
+                  <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center">
+                    {getInitial(user.fullName!)}
+                  </div>
+                  <span>{user.fullName}</span>
                 </div>
-              )}
-            </div>
-          )}
-          {/* Login Modal */}
-          {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
 
-          <a href="/cart" className="relative">
-            <img src={cartLogo} alt="" />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
-                {cartCount}
-              </span>
+                {showAccountMenu && (
+                  <div
+                    ref={menuRef}
+                    className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-50"
+                  >
+                    <ul className="text-sm">
+                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        <Link
+                          to="myprofit/userinfo"
+                          onClick={() => setShowAccountMenu(false)}
+                        >
+                          Thông tin cá nhân
+                        </Link>
+                      </li>
+                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        <Link
+                          to="myprofit/inform"
+                          onClick={() => setShowAccountMenu(false)}
+                        >
+                          Thông báo của tôi
+                        </Link>
+                      </li>
+                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        <Link
+                          to="myprofit/order"
+                          onClick={() => setShowAccountMenu(false)}
+                        >
+                          Quản lý đơn hàng
+                        </Link>
+                      </li>
+                      <li
+                        className="px-4 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
+                        onClick={() => {
+                          handleLogout();
+                          setShowAccountMenu(false);
+                        }}
+                      >
+                        Đăng xuất
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             )}
-          </a>
+            {/* Login Modal */}
+            {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+
+            <a href="/cart" className="relative">
+              <img src={cartLogo} alt="" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </a>
+          </div>
+          <p className="text-sm text-gray-600 mt-2 flex items-center gap-1">
+            <MdLocationOn className="text-gray-600" />
+            Giao đến: <span className="underline font-bold">{user?.address}</span>
+          </p>
+
         </div>
       </div>
 
-    </div>
+    </div >
   );
 };
 
